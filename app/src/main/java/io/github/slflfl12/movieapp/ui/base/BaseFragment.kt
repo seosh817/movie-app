@@ -7,12 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.databinding.library.baseAdapters.BR
 
-abstract class BaseFragment<B: ViewDataBinding, VM: BaseViewModel>(private val layoutResId: Int) : Fragment() {
+abstract class BaseFragment<B: ViewDataBinding, VM: BaseViewModel>(@LayoutRes private val layoutResId: Int) : Fragment() {
 
     protected lateinit var binding: B
 

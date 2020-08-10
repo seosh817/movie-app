@@ -11,13 +11,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
+import androidx.annotation.LayoutRes
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.databinding.library.baseAdapters.BR
 import androidx.fragment.app.DialogFragment
 
-abstract class BaseDialogFragment<B : ViewDataBinding, VM : BaseViewModel>(private val layoutResId: Int)
+abstract class BaseDialogFragment<B : ViewDataBinding, VM : BaseViewModel>(@LayoutRes private val layoutResId: Int)
     : DialogFragment() {
 
     protected lateinit var binding: B
@@ -48,8 +49,6 @@ abstract class BaseDialogFragment<B : ViewDataBinding, VM : BaseViewModel>(priva
 
     override fun onResume() {
         super.onResume()
-
-
         val windowManager = context?.getSystemService(Context.WINDOW_SERVICE) as WindowManager
         val display = windowManager.defaultDisplay
         val metrics = DisplayMetrics()
