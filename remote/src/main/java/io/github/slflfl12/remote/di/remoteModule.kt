@@ -5,6 +5,8 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
 import io.github.slflfl12.data.remote.MovieRemoteDataSource
+import io.github.slflfl12.remote.BuildConfig
+import io.github.slflfl12.remote.interceptor.SHInterceptor
 import io.github.slflfl12.remote.source.MovieRemoteDataSourceImpl
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -19,7 +21,6 @@ import javax.inject.Singleton
 @InstallIn(ApplicationComponent::class)
 object remoteModule {
 
-    private const val BASE_URL = "https://api.themoviedb.org/"
     private const val CONNECT_TIMEOUT = 10L
     private const val WRITE_TIMEOUT = 1L
     private const val READ_TIMEOUT = 20L
@@ -34,6 +35,7 @@ object remoteModule {
             .addInterceptor(HttpLoggingInterceptor().apply {
                 level = HttpLoggingInterceptor.Level.BODY
             })
+            .addInterceptor(SHInterceptor())
             .build()
     }
 
@@ -42,7 +44,7 @@ object remoteModule {
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
             .client(okHttpClient)
-            .baseUrl(BASE_URL)
+            .baseUrl(BuildConfig.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build()

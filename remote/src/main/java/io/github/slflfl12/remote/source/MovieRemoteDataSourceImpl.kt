@@ -1,23 +1,27 @@
 package io.github.slflfl12.remote.source
 
+import io.github.slflfl12.data.model.KeywordData
+import io.github.slflfl12.data.model.ReviewData
+import io.github.slflfl12.data.model.VideoData
 import io.github.slflfl12.data.remote.MovieRemoteDataSource
-import io.github.slflfl12.remote.model.KeywordResponse
-import io.github.slflfl12.remote.model.ReviewResponse
-import io.github.slflfl12.remote.model.VideoResponse
+import io.github.slflfl12.remote.api.MovieApiService
+import io.github.slflfl12.remote.mapper.KeywordRemoteMapper
+import io.github.slflfl12.remote.mapper.ReviewRemoteMapper
+import io.github.slflfl12.remote.mapper.VideoRemoteMapper
 import io.reactivex.Single
 
-class MovieRemoteDataSourceImpl(private val movieApiService: io.github.slflfl12.remote.api.MovieApiService) :
+class MovieRemoteDataSourceImpl(private val movieApiService: MovieApiService) :
     MovieRemoteDataSource {
 
-    override fun getKeywords(id: Int): Single<KeywordResponse> {
-        return movieApiService.getKeywords(id)
+    override fun getKeywords(id: Int): Single<List<KeywordData>> {
+        return movieApiService.getKeywords(id).map { it.keywords.map(KeywordRemoteMapper::mapToData) }
     }
 
-    override fun getVideos(id: Int): Single<VideoResponse> {
-        return movieApiService.getVideos(id)
+    override fun getVideos(id: Int): Single<List<VideoData>> {
+        return movieApiService.getVideos(id).map { it.videos.map(VideoRemoteMapper::mapToData) }
     }
 
-    override fun getReviews(id: Int): Single<ReviewResponse> {
-        return movieApiService.getReviews(id)
+    override fun getReviews(id: Int): Single<List<ReviewData>> {
+        return movieApiService.getReviews(id).map { it.reviews.map(ReviewRemoteMapper::mapToData) }
     }
 }

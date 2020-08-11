@@ -4,6 +4,15 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'dagger.hilt.android.plugin'
 apply plugin: 'kotlin-kapt'
 
+def getProperty(String fileName, String propName) {
+    def propsFile = rootProject.file(fileName)
+    if(propsFile.exists()) {
+        def props = new Properties()
+        props.load(new FileInputStream(propsFile))
+        return props[propName]
+    }
+}
+
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.0"
@@ -16,6 +25,8 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
+        buildConfigField "String", "TMDB_API_KEY", getProperty("local.properties", "tmdb_api_key")
+        buildConfigField "String", "BASE_URL", getProperty("local.properties", "base_url")
     }
 
     buildTypes {

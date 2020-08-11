@@ -1,15 +1,15 @@
 package io.github.slflfl12.data.remote
 
-import io.github.slflfl12.remote.model.KeywordResponse
-import io.github.slflfl12.remote.model.ReviewResponse
-import io.github.slflfl12.remote.model.VideoResponse
+import io.github.slflfl12.data.model.KeywordData
+import io.github.slflfl12.data.model.ReviewData
+import io.github.slflfl12.data.model.VideoData
 import io.reactivex.Single
 
 interface MovieRemoteDataSource {
 
-    fun getKeywords(id: Int): Single<KeywordResponse>
+    fun getKeywords(id: Int): Single<List<KeywordData>>
 
-    fun getVideos(id: Int): Single<VideoResponse>
+    fun getVideos(id: Int): Single<List<VideoData>>
 
-    fun getReviews(id: Int): Single<ReviewResponse>
+    fun getReviews(id: Int): Single<List<ReviewData>>
 }
