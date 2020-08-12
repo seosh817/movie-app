@@ -11,7 +11,7 @@ class MovieRepositoryImpl(
     private val movieRemoteDataSource: MovieRemoteDataSource
 ) : MovieRepository {
 
-    override fun getMovies(id: Int): Single<List<KeywordData>> {
+/*    override fun getMovies(id: Int): Single<List<KeywordData>> {
         return movieRemoteDataSource.getKeywords(id)
     }
 
@@ -21,7 +21,7 @@ class MovieRepositoryImpl(
 
     override fun getReviews(id: Int): Single<List<ReviewData>> {
         return movieRemoteDataSource.getReviews(id)
-    }
+    }*/
 
 
 }

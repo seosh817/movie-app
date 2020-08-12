@@ -25,8 +25,8 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
-        buildConfigField "String", "TMDB_API_KEY", getProperty("local.properties", "tmdb_api_key")
-        buildConfigField "String", "BASE_URL", getProperty("local.properties", "base_url")
+        buildConfigField "String", "TMDB_API_KEY", "\"${getProperty("local.properties", "tmdb_api_key")}\""
+        buildConfigField "String", "BASE_URL", "\"${getProperty("local.properties", "base_url")}\""
     }
 
     buildTypes {

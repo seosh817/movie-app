@@ -4,9 +4,13 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
+import io.github.slflfl12.data.remote.DiscoverRemoteDataSource
 import io.github.slflfl12.data.remote.MovieRemoteDataSource
 import io.github.slflfl12.remote.BuildConfig
+import io.github.slflfl12.remote.api.DiscoverApiService
+import io.github.slflfl12.remote.api.MovieApiService
 import io.github.slflfl12.remote.interceptor.SHInterceptor
+import io.github.slflfl12.remote.source.DiscoverRemoteDataSourceImpl
 import io.github.slflfl12.remote.source.MovieRemoteDataSourceImpl
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -52,14 +56,26 @@ object remoteModule {
 
     @Provides
     @Singleton
-    fun provideMovieService(retrofit: Retrofit): io.github.slflfl12.remote.api.MovieApiService {
-        return retrofit.create(io.github.slflfl12.remote.api.MovieApiService::class.java)
+    fun provideMovieService(retrofit: Retrofit): MovieApiService {
+        return retrofit.create(MovieApiService::class.java)
     }
 
     @Provides
     @Singleton
-    fun provideMovieDataSource(movieApiService: io.github.slflfl12.remote.api.MovieApiService): MovieRemoteDataSource {
+    fun provideMovieDataSource(movieApiService: MovieApiService): MovieRemoteDataSource {
         return MovieRemoteDataSourceImpl(movieApiService)
+    }
+
+    @Provides
+    @Singleton
+    fun provideDiscoverService(retrofit: Retrofit): DiscoverApiService {
+        return retrofit.create(DiscoverApiService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideDiscoverDataSource(discoverApiService: DiscoverApiService): DiscoverRemoteDataSource {
+        return DiscoverRemoteDataSourceImpl(discoverApiService)
     }
 
 }

@@ -7,4 +7,4 @@ class VideoData(
     val site: String,
     val size: Int,
     val type: String
-): Data
+) : Data

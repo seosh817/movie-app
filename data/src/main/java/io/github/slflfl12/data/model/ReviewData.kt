@@ -5,4 +5,4 @@ class ReviewData(
     val content: String,
     val id: String,
     val url: String
-): Data
+) : Data

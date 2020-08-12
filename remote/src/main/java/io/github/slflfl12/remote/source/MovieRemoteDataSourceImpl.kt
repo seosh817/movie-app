@@ -1,5 +1,6 @@
 package io.github.slflfl12.remote.source
 
+import io.github.slflfl12.data.model.DiscoverMovieData
 import io.github.slflfl12.data.model.KeywordData
 import io.github.slflfl12.data.model.ReviewData
 import io.github.slflfl12.data.model.VideoData
@@ -24,4 +25,6 @@ class MovieRemoteDataSourceImpl(private val movieApiService: MovieApiService) :
     override fun getReviews(id: Int): Single<List<ReviewData>> {
         return movieApiService.getReviews(id).map { it.reviews.map(ReviewRemoteMapper::mapToData) }
     }
+
+
 }
