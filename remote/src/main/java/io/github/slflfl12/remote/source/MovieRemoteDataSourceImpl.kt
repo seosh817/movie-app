@@ -1,6 +1,5 @@
 package io.github.slflfl12.remote.source
 
-import io.github.slflfl12.data.model.DiscoverMovieData
 import io.github.slflfl12.data.model.KeywordData
 import io.github.slflfl12.data.model.ReviewData
 import io.github.slflfl12.data.model.VideoData

@@ -8,9 +8,11 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
+import io.github.slflfl12.data.local.MovieLocalDataSource
 import io.github.slflfl12.local.R
 import io.github.slflfl12.local.dao.MovieDao
 import io.github.slflfl12.local.database.AppDatabase
+import io.github.slflfl12.local.source.MovieLocalDataSourceImpl
 import javax.inject.Singleton
 
 
@@ -32,6 +34,14 @@ object LocalModule {
         appDatabase: AppDatabase
     ): MovieDao {
         return appDatabase.movieDao()
+    }
+
+    @Provides
+    @Singleton
+    fun provideMovieDataSource(
+        movieDao: MovieDao
+    ): MovieLocalDataSource {
+        return MovieLocalDataSourceImpl(movieDao)
     }
 
 }

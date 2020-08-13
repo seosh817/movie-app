@@ -9,8 +9,7 @@ import io.github.slflfl12.local.model.MovieEntity
 
 @Database(entities = [MovieEntity::class], version = 3, exportSchema = true)
 @TypeConverters(
-    value = [IntegerListConverter::class, KeywordListConverter::class, ReviewListConverter::class,
-        StringListConverter::class, VideoListConverter::class]
+    value = [IntegerListConverter::class, StringListConverter::class]
 )
 abstract class AppDatabase : RoomDatabase() {
 

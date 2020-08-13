@@ -12,9 +12,6 @@ object MovieLocalMapper: LocalMapper<MovieEntity, MovieData> {
     override fun mapToData(from: MovieEntity): MovieData {
         return MovieData(
             page = from.page,
-            keywords = from.keywords,
-            videos = from.videos,
-            reviews = from.reviews,
             adult = from.adult,
             backdrop_path = from.backdrop_path,
             genre_ids = from.genre_ids,
@@ -36,9 +33,6 @@ object MovieLocalMapper: LocalMapper<MovieEntity, MovieData> {
     override fun mapToLocal(from: MovieData): MovieEntity {
         return MovieEntity(
             page = from.page,
-            keywords = from.keywords,
-            videos = from.videos,
-            reviews = from.reviews,
             adult = from.adult,
             backdrop_path = from.backdrop_path,
             genre_ids = from.genre_ids,
