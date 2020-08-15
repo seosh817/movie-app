@@ -1,11 +1,12 @@
 package io.github.slflfl12.remote.mapper
 
-import io.github.slflfl12.data.model.DiscoverMovieData
+import io.github.slflfl12.data.model.MovieData
 import io.github.slflfl12.remote.model.DiscoverMovie
 
-object DiscoverMovieRemoteMapper:RemoteMapper<DiscoverMovie, DiscoverMovieData> {
-    override fun mapToData(from: DiscoverMovie): DiscoverMovieData {
-        return DiscoverMovieData(
+object MovieRemoteMapper {
+    fun mapToData(from: DiscoverMovie, page: Int): MovieData {
+        return MovieData(
+            page = page,
             adult = from.adult,
             backdropPath = from.backdropPath,
             genreIds = from.genreIds,
@@ -19,7 +20,8 @@ object DiscoverMovieRemoteMapper:RemoteMapper<DiscoverMovie, DiscoverMovieData> 
             title = from.title,
             video = from.video,
             voteAverage = from.voteAverage,
-            voteCount = from.voteCount
+            voteCount = from.voteCount,
+            favorite = false
         )
     }
 }

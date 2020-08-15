@@ -4,6 +4,7 @@ package io.github.slflfl12.remote.model
 import com.google.gson.annotations.SerializedName
 
 data class DiscoverMovie(
+    val page: Int,
     @SerializedName("adult")
     val adult: Boolean,
     @SerializedName("backdrop_path")

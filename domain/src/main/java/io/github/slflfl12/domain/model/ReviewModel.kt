@@ -5,4 +5,4 @@ data class ReviewModel(
     val content: String,
     val id: String,
     val url: String
-)
+): Model

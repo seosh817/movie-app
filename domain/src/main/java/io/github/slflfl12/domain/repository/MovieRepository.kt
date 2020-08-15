@@ -10,7 +10,7 @@ interface MovieRepository {
 
     fun updateMovie(movie: MovieModel): Completable
 
-    fun getMovie(id: Int): Single<MovieModel>
+    fun getLocalMovie(id: Int): Single<MovieModel>
 
     fun getLocalMovieList(page: Int): Single<List<MovieModel>>
 
