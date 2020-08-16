@@ -14,12 +14,15 @@ interface MovieDao {
     @Update
     fun updateMovie(movie: MovieEntity) : Completable
 
-    @Query("SELECT * FROM MovieEntity WHERE id = :id")
+    @Query("SELECT * FROM movie")
+    fun getAllMovies(): Single<MovieEntity>
+
+    @Query("SELECT * FROM movie WHERE id = :id")
     fun getMovie(id: Int): Single<MovieEntity>
 
-    @Query("SELECT * FROM MovieEntity WHERE page = :page")
+    @Query("SELECT * FROM movie WHERE page = :page")
     fun getMovieList(page: Int): Single<List<MovieEntity>>
 
-    @Query("SELECT * FROM MovieEntity WHERE favorite = '1'")
+    @Query("SELECT * FROM movie WHERE favorite = '1'")
     fun getFavoriteMovieList(): Single<List<MovieEntity>>
 }

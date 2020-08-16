@@ -1,10 +1,6 @@
 package io.github.slflfl12.local.mapper
 
-import io.github.slflfl12.data.model.Data
-import io.github.slflfl12.data.model.KeywordData
 import io.github.slflfl12.data.model.MovieData
-import io.github.slflfl12.data.model.VideoData
-import io.github.slflfl12.local.model.Entity
 import io.github.slflfl12.local.model.MovieEntity
 
 object MovieLocalMapper: LocalMapper<MovieEntity, MovieData> {

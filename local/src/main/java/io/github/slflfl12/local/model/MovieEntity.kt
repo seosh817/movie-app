@@ -1,13 +1,10 @@
 package io.github.slflfl12.local.model
 
 import androidx.room.PrimaryKey
-import com.google.gson.annotations.SerializedName
-import io.github.slflfl12.data.model.KeywordData
-import io.github.slflfl12.data.model.ReviewData
-import io.github.slflfl12.data.model.VideoData
+import androidx.room.Entity
 
 
-@androidx.room.Entity()
+@Entity(tableName = "movie")
 data class MovieEntity(
     var page: Int,
     val adult: Boolean,
@@ -26,4 +23,4 @@ data class MovieEntity(
     val vote_average: Double,
     val vote_count: Int,
     var favorite: Boolean = false
-) : Entity
+) : io.github.slflfl12.local.model.Entity

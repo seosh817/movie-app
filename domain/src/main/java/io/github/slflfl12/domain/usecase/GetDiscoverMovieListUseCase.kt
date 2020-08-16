@@ -1,5 +1,6 @@
 package io.github.slflfl12.domain.usecase
 
+import android.util.Log
 import io.github.slflfl12.domain.model.MovieModel
 import io.github.slflfl12.domain.repository.DiscoverRepository
 import io.github.slflfl12.domain.repository.MovieRepository
@@ -14,8 +15,10 @@ class GetDiscoverMovieListUseCase(
     override fun buildUseCaseSingle(params: Int): Single<List<MovieModel>> {
         return movieRepository.getLocalMovieList(params).flatMap { cached ->
             if (cached.isEmpty()) {
-                discoverRepository.getDiscoverMovies(params).doOnSuccess { movies ->
-                    movieRepository.insertMovieList(movies)
+                Log.d("cached", cached.size.toString())
+                discoverRepository.getDiscoverMovies(params).doAfterSuccess {
+                    movieRepository.insertMovieList(it)
+                    Log.d("success", it.size.toString())
                 }
             } else {
                 Single.just(cached)

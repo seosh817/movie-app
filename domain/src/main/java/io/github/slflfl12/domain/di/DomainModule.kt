@@ -9,10 +9,9 @@ import io.github.slflfl12.domain.repository.MovieRepository
 import io.github.slflfl12.domain.usecase.GetDiscoverMovieListUseCase
 import javax.inject.Singleton
 
-
 @Module
 @InstallIn(ApplicationComponent::class)
-object UseCaseModule {
+object DomainModule {
 
     @Provides
     @Singleton

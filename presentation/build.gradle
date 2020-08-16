@@ -43,11 +43,11 @@ dependencies {
     implementation deps.androidx.dagger
     kapt(deps.androidx.dagger_compiler)
 
-    implementation 'androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha02'
+    implementation 'androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha01'
     // When using Kotlin.
-    kapt 'androidx.hilt:hilt-compiler:1.0.0-alpha02'
+    kapt 'androidx.hilt:hilt-compiler:1.0.0-alpha01'
     // When using Java.
-    annotationProcessor 'androidx.hilt:hilt-compiler:1.0.0-alpha02'
+    annotationProcessor 'androidx.hilt:hilt-compiler:1.0.0-alpha01'
 
     implementation project(":domain")
 }

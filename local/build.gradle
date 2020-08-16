@@ -24,6 +24,13 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    testOptions {
+        unitTests {
+            includeAndroidResources = true // Mock
+            returnDefaultValues = true // Robolectric
+        }
+    }
 }
 
 dependencies {
@@ -35,12 +42,27 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
+    //mock
+    androidTestImplementation("org.mockito:mockito-android:2.24.5")
+    testImplementation 'org.mockito:mockito-inline:2.21.0'
+
+    //robo
+    testImplementation 'org.robolectric:robolectric:4.3'
+    testImplementation 'androidx.test:core:1.2.0'
+
+    androidTestImplementation 'androidx.test:runner:1.1.0'
+    androidTestImplementation 'androidx.test:rules:1.1.0'
+    // Optional -- Hamcrest library
+    androidTestImplementation 'org.hamcrest:hamcrest-library:1.3'
+    // Optional -- UI testing with UI Automator
+    androidTestImplementation 'androidx.test.uiautomator:uiautomator:2.2.0'
+
 
     implementation deps.library.rx.rx_java
 
     implementation deps.library.gson
 
-    implementation deps.library.room.room_runtime
+    api deps.library.room.room_runtime
     annotationProcessor deps.library.room.room_compiler
     implementation deps.library.room.room_ktx
     implementation deps.library.room.room_rxjava

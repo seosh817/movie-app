@@ -12,27 +12,28 @@ class DiscoverRemoteDataSourceImpl(
 
     override fun getDiscoverMovies(page: Int): Single<List<MovieData>> {
         return discoverApiService.getDiscoverMovie(page)
-            .map { it.discoverMovies.map {
-                MovieData(
-                    page = page,
-                    adult = it.adult,
-                    backdropPath = it.backdropPath,
-                    genreIds = it.genreIds,
-                    id = it.id,
-                    originalLanguage = it.originalLanguage,
-                    originalTitle = it.originalTitle,
-                    overview = it.overview,
-                    popularity = it.popularity,
-                    posterPath = it.posterPath,
-                    releaseDate = it.releaseDate,
-                    title = it.title,
-                    video = it.video,
-                    voteAverage = it.voteAverage,
-                    voteCount = it.voteCount,
-                    favorite = false
-                )
-            }
+            .map {
+                it.discoverMovies.map { from ->
+                    MovieData(
+                        page = from.page,
+                        adult = from.adult ?: false,
+                        backdropPath = from.backdropPath ?: "",
+                        genreIds = from.genreIds ?: listOf(),
+                        id = from.id,
+                        originalLanguage = from.originalLanguage ?: "",
+                        originalTitle = from.originalTitle ?: "",
+                        overview = from.overview ?: "",
+                        popularity = from.popularity ?: 0.0,
+                        posterPath = from.posterPath ?: "",
+                        releaseDate = from.releaseDate ?: "",
+                        title = from.title ?: "",
+                        video = from.video ?: false,
+                        voteAverage = from.voteAverage ?: 0.0,
+                        voteCount = from.voteCount ?: 0,
+                        favorite = false
+                    )
+                }
 
-             }
+            }
     }
 }

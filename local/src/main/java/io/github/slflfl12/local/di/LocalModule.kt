@@ -22,7 +22,7 @@ object LocalModule {
 
     @Provides
     @Singleton
-    fun provideDatabase(@ApplicationContext context: Context): AppDatabase {
+    fun provideAppDatabase(@ApplicationContext context: Context): AppDatabase {
         return Room.databaseBuilder(context, AppDatabase::class.java, context.getString(R.string.database))
             .allowMainThreadQueries()
             .build()
