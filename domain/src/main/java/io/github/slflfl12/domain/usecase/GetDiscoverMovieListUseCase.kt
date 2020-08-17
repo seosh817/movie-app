@@ -20,6 +20,7 @@ class GetDiscoverMovieListUseCase(
                     movieRepository.insertMovieList(it)
                 }
             } else {
+                Log.d("cached", cached.size.toString())
                 Single.just(cached)
             }
         }.subscribeOn(Schedulers.io())

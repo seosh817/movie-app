@@ -7,7 +7,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import io.github.slflfl12.movieapp.R
 import kotlinx.android.synthetic.main.activity_main.*
 
-
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
