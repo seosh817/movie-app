@@ -11,7 +11,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import io.github.slflfl12.data.local.MovieLocalDataSource
 import io.github.slflfl12.local.R
 import io.github.slflfl12.local.dao.MovieDao
-import io.github.slflfl12.local.database.AppDatabase
+import io.github.slflfl12.local.database.MovieDataBase
 import io.github.slflfl12.local.source.MovieLocalDataSourceImpl
 import javax.inject.Singleton
 
@@ -22,8 +22,8 @@ object LocalModule {
 
     @Provides
     @Singleton
-    fun provideAppDatabase(@ApplicationContext context: Context): AppDatabase {
-        return Room.databaseBuilder(context, AppDatabase::class.java, context.getString(R.string.database))
+    fun provideAppDatabase(@ApplicationContext context: Context): MovieDataBase {
+        return Room.databaseBuilder(context, MovieDataBase::class.java, context.getString(R.string.database))
             .allowMainThreadQueries()
             .build()
     }
@@ -31,7 +31,7 @@ object LocalModule {
     @Provides
     @Singleton
     fun provideMovieDao(
-        appDatabase: AppDatabase
+        appDatabase: MovieDataBase
     ): MovieDao {
         return appDatabase.movieDao()
     }
