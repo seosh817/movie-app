@@ -18,7 +18,6 @@ class GetDiscoverMovieListUseCase(
                 Log.d("cached", cached.size.toString())
                 discoverRepository.getDiscoverMovies(params).doAfterSuccess {
                     movieRepository.insertMovieList(it)
-                    Log.d("success", it.size.toString())
                 }
             } else {
                 Single.just(cached)

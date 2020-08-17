@@ -3,8 +3,10 @@ package io.github.slflfl12.movieapp.ui.main
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.viewpager.widget.ViewPager
+import dagger.hilt.android.AndroidEntryPoint
 import io.github.slflfl12.movieapp.R
 import kotlinx.android.synthetic.main.activity_main.*
+
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -1,8 +1,9 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-apply plugin: 'dagger.hilt.android.plugin'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'dagger.hilt.android.plugin'
+
 
 def getProperty(String fileName, String propName) {
     def propsFile = rootProject.file(fileName)
@@ -27,6 +28,12 @@ android {
         consumerProguardFiles "consumer-rules.pro"
         buildConfigField "String", "TMDB_API_KEY", "\"${getProperty("local.properties", "tmdb_api_key")}\""
         buildConfigField "String", "BASE_URL", "\"${getProperty("local.properties", "base_url")}\""
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments << ["dagger.gradle.incremental": "true"]
+            }
+        }
     }
 
     buildTypes {
@@ -34,6 +41,22 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+
+    }
+
+    compileOptions {
+        targetCompatibility = "1.8"
+        sourceCompatibility = "1.8"
+    }
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+
+    buildFeatures{
+        dataBinding = true
+    }
+    androidExtensions {
+        experimental = true
     }
 }
 
@@ -55,12 +78,11 @@ dependencies {
 
     implementation deps.androidx.dagger
     kapt(deps.androidx.dagger_compiler)
+    implementation "androidx.hilt:hilt-common:1.0.0-alpha02"
 
-    implementation 'androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha01'
+    implementation 'androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha02'
     // When using Kotlin.
-    kapt 'androidx.hilt:hilt-compiler:1.0.0-alpha01'
-    // When using Java.
-    annotationProcessor 'androidx.hilt:hilt-compiler:1.0.0-alpha01'
+    kapt 'androidx.hilt:hilt-compiler:1.0.0-alpha02'
 
     implementation project(":data")
 }

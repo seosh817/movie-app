@@ -3,6 +3,7 @@ package io.github.slflfl12.movieapp.ui.main
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
+import dagger.hilt.android.AndroidEntryPoint
 import io.github.slflfl12.movieapp.ui.movie.MovieFragment
 import io.github.slflfl12.movieapp.ui.tv.TvFragment
 

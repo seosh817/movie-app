@@ -5,6 +5,7 @@ import io.github.slflfl12.data.remote.DiscoverRemoteDataSource
 import io.github.slflfl12.remote.api.DiscoverApiService
 import io.github.slflfl12.remote.mapper.MovieRemoteMapper
 import io.reactivex.Single
+import io.reactivex.schedulers.Schedulers
 
 class DiscoverRemoteDataSourceImpl(
     private val discoverApiService: DiscoverApiService
@@ -15,7 +16,7 @@ class DiscoverRemoteDataSourceImpl(
             .map {
                 it.discoverMovies.map { from ->
                     MovieData(
-                        page = from.page,
+                        page = page,
                         adult = from.adult ?: false,
                         backdropPath = from.backdropPath ?: "",
                         genreIds = from.genreIds ?: listOf(),
@@ -34,6 +35,7 @@ class DiscoverRemoteDataSourceImpl(
                     )
                 }
 
-            }
+            }.subscribeOn(Schedulers.io())
+
     }
 }

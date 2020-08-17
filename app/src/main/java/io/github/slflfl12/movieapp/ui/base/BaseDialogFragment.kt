@@ -12,11 +12,11 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import androidx.annotation.LayoutRes
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.databinding.library.baseAdapters.BR
 import androidx.fragment.app.DialogFragment
+import io.github.slflfl12.presentation.base.BaseViewModel
 
 abstract class BaseDialogFragment<B : ViewDataBinding, VM : BaseViewModel>(@LayoutRes private val layoutResId: Int)
     : DialogFragment() {

@@ -6,12 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
 import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.databinding.library.baseAdapters.BR
+import io.github.slflfl12.presentation.base.BaseViewModel
 
 abstract class BaseFragment<B: ViewDataBinding, VM: BaseViewModel>(@LayoutRes private val layoutResId: Int) : Fragment() {
 

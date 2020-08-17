@@ -1,4 +1,4 @@
-package io.github.slflfl12.movieapp.ui.base
+package io.github.slflfl12.presentation.base
 
 import androidx.lifecycle.ViewModel
 import io.reactivex.disposables.CompositeDisposable

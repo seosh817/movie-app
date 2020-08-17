@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="database">MovieApp.db</string>
+    <string name="database">movie.db</string>
 </resources>

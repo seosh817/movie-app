@@ -1,8 +1,9 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-apply plugin: 'dagger.hilt.android.plugin'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'dagger.hilt.android.plugin'
+
 
 android {
     compileSdkVersion 30
@@ -16,6 +17,12 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments << ["dagger.gradle.incremental": "true"]
+            }
+        }
     }
 
     buildTypes {
@@ -23,6 +30,21 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+    }
+
+    compileOptions {
+        targetCompatibility = "1.8"
+        sourceCompatibility = "1.8"
+    }
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+
+    buildFeatures{
+        dataBinding = true
+    }
+    androidExtensions {
+        experimental = true
     }
 }
 
@@ -39,10 +61,9 @@ dependencies {
 
     implementation deps.androidx.dagger
     kapt(deps.androidx.dagger_compiler)
+    implementation "androidx.hilt:hilt-common:1.0.0-alpha02"
 
-    implementation 'androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha01'
+    implementation 'androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha02'
     // When using Kotlin.
-    kapt 'androidx.hilt:hilt-compiler:1.0.0-alpha01'
-    // When using Java.
-    annotationProcessor 'androidx.hilt:hilt-compiler:1.0.0-alpha01'
+    kapt 'androidx.hilt:hilt-compiler:1.0.0-alpha02'
 }

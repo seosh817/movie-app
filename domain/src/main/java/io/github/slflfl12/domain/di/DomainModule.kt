@@ -7,6 +7,7 @@ import dagger.hilt.android.components.ApplicationComponent
 import io.github.slflfl12.domain.repository.DiscoverRepository
 import io.github.slflfl12.domain.repository.MovieRepository
 import io.github.slflfl12.domain.usecase.GetDiscoverMovieListUseCase
+import io.github.slflfl12.domain.usecase.InsertMoviesUseCase
 import javax.inject.Singleton
 
 @Module
@@ -20,5 +21,13 @@ object DomainModule {
         discoverRepository: DiscoverRepository
     ): GetDiscoverMovieListUseCase {
         return GetDiscoverMovieListUseCase(movieRepository, discoverRepository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideInsertMoviesUseCase(
+        movieRepository: MovieRepository
+    ): InsertMoviesUseCase {
+        return InsertMoviesUseCase(movieRepository)
     }
 }
