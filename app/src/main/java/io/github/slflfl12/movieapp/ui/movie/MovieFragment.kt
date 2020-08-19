@@ -1,11 +1,9 @@
 package io.github.slflfl12.movieapp.ui.movie
 
+import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
@@ -16,6 +14,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import io.github.slflfl12.movieapp.R
 import io.github.slflfl12.movieapp.databinding.FragmentMovieBinding
 import io.github.slflfl12.movieapp.ui.base.BaseFragment
+import io.github.slflfl12.movieapp.ui.moviedetail.MovieDetailActivity
+import io.github.slflfl12.movieapp.util.EventObserver
 import io.github.slflfl12.presentation.model.MoviePresentationModel
 import io.github.slflfl12.presentation.movie.MovieViewModel
 
@@ -36,7 +36,6 @@ class MovieFragment: BaseFragment<FragmentMovieBinding, MovieViewModel>(R.layout
     }
 
     private fun initView() {
-
     }
 
     private fun initRecyclerView() {
@@ -60,7 +59,7 @@ class MovieFragment: BaseFragment<FragmentMovieBinding, MovieViewModel>(R.layout
                     if(dy > 0) {
                         if(mLayoutManager is LinearLayoutManager || mLayoutManager is GridLayoutManager)
                             if(lastVisibleItemPosition == recyclerView.adapter?.itemCount?.minus(1)) {
-                                vm.loadMore()
+                                vm.plusPage()
                             }
                     }
 
@@ -89,6 +88,22 @@ class MovieFragment: BaseFragment<FragmentMovieBinding, MovieViewModel>(R.layout
                 binding.pbLoading.visibility = View.GONE
             }
         })
+
+        vm.networkErrorResponse.observe(viewLifecycleOwner, Observer {
+            Toast.makeText(context, R.string.network_error_message, Toast.LENGTH_SHORT).show()
+        })
+
+        vm.toDetailEvent.observe(viewLifecycleOwner, EventObserver(
+            this@MovieFragment::onNavigateToDetail
+        ))
+    }
+
+    private fun onNavigateToDetail(moviePresentationModel: MoviePresentationModel) {
+        Intent(context, MovieDetailActivity::class.java).apply {
+            putExtra(MovieDetailActivity.KEY_MOVIE_ID, moviePresentationModel.id)
+        }.also {
+            startActivity(it)
+        }
     }
 
 }

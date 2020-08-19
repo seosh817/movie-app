@@ -25,7 +25,11 @@ class MovieAdapter(
             LayoutInflater.from(parent.context),
             R.layout.item_movie, parent, false
         )
-        return MovieViewHolder(binding)
+        val holder = MovieViewHolder(binding)
+        holder.itemView.setOnClickListener {
+            vm.navigateToDetail(items[holder.adapterPosition])
+        }
+        return holder
     }
 
     override fun getItemCount(): Int = items.size

@@ -3,4 +3,5 @@
     <string name="menu_tv">Tv</string>
     <string name="menu_movie">Movie</string>
     <string name="menu_star">Star</string>
+    <string name="network_error_message">통신에러 입니다.</string>
 </resources>
