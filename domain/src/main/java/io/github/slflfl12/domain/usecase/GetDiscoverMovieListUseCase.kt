@@ -16,8 +16,10 @@ class GetDiscoverMovieListUseCase(
         return movieRepository.getLocalMovieList(params).flatMap { cached ->
             if (cached.isEmpty()) {
                 Log.d("cached", cached.size.toString())
-                discoverRepository.getDiscoverMovies(params).doAfterSuccess {
-                    movieRepository.insertMovieList(it)
+                discoverRepository.getDiscoverMovies(params).flatMap { movies ->
+                    movieRepository.insertMovieList(movies).andThen(
+                        Single.just(movies)
+                    )
                 }
             } else {
                 Log.d("cached", cached.size.toString())
