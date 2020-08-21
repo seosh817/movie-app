@@ -10,6 +10,15 @@ class GetMovieVideoListUseCase(
 ): SingleUseCase<List<VideoModel>, Int>() {
 
     override fun buildUseCaseSingle(params: Int): Single<List<VideoModel>> =
-        movieRepository.getVideoList(params)
-            .subscribeOn(Schedulers.io())
+        movieRepository.getLocalMovie(params).flatMap {movie ->
+            if(movie.videos.isEmpty()) {
+                movieRepository.getVideoList(params).flatMapCompletable {
+                    movie.videos = it
+                    movieRepository.updateMovie(movie)
+                }.andThen(movieRepository.getVideoList(params))
+            }
+            else {
+                movieRepository.getVideoList(params)
+            }
+        }
 }

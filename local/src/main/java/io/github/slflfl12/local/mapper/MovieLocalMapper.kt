@@ -1,13 +1,38 @@
 package io.github.slflfl12.local.mapper
 
+import io.github.slflfl12.data.model.KeywordData
 import io.github.slflfl12.data.model.MovieData
+import io.github.slflfl12.data.model.ReviewData
+import io.github.slflfl12.data.model.VideoData
+import io.github.slflfl12.local.model.KeywordEntity
 import io.github.slflfl12.local.model.MovieEntity
+import io.github.slflfl12.local.model.ReviewEntity
+import io.github.slflfl12.local.model.VideoEntity
 
-object MovieLocalMapper: LocalMapper<MovieEntity, MovieData> {
+object MovieLocalMapper : LocalMapper<MovieEntity, MovieData> {
 
     override fun mapToData(from: MovieEntity): MovieData {
         return MovieData(
             page = from.page,
+            keywords = from.keywords.map { KeywordData(id = it.id, name = it.name) },
+            reviews = from.reviews.map {
+                ReviewData(
+                    id = it.id,
+                    author = it.author,
+                    content = it.content,
+                    url = it.url
+                )
+            },
+            videos = from.videos.map {
+                VideoData(
+                    id = it.id,
+                    key = it.key,
+                    name = it.name,
+                    site = it.site,
+                    size = it.size,
+                    type = it.type
+                )
+            },
             adult = from.adult,
             backdropPath = from.backdrop_path,
             genreIds = from.genre_ids,
@@ -29,6 +54,25 @@ object MovieLocalMapper: LocalMapper<MovieEntity, MovieData> {
     override fun mapToLocal(from: MovieData): MovieEntity {
         return MovieEntity(
             page = from.page,
+            keywords = from.keywords.map { KeywordEntity(id = it.id, name = it.name) },
+            reviews = from.reviews.map {
+                ReviewEntity(
+                    id = it.id,
+                    author = it.author,
+                    content = it.content,
+                    url = it.url
+                )
+            },
+            videos = from.videos.map {
+                VideoEntity(
+                    id = it.id,
+                    key = it.key,
+                    name = it.name,
+                    site = it.site,
+                    size = it.size,
+                    type = it.type
+                )
+            },
             adult = from.adult,
             backdrop_path = from.backdropPath,
             genre_ids = from.genreIds,

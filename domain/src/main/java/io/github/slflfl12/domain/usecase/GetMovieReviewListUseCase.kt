@@ -11,5 +11,15 @@ class GetMovieReviewListUseCase(
 ): SingleUseCase<List<ReviewModel>, Int>() {
 
     override fun buildUseCaseSingle(params: Int): Single<List<ReviewModel>> =
-        movieRepository.getReviewList(params).subscribeOn(Schedulers.io())
+        movieRepository.getLocalMovie(params).flatMap {movie ->
+            if(movie.reviews.isEmpty()) {
+                movieRepository.getReviewList(params).flatMapCompletable {
+                    movie.reviews = it
+                    movieRepository.updateMovie(movie)
+                }.andThen(movieRepository.getReviewList(params))
+            }
+            else {
+                movieRepository.getReviewList(params)
+            }
+        }
 }

@@ -4,7 +4,7 @@ import io.reactivex.Completable
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 
-abstract class CompletableCase<in Params> {
+abstract class CompletableUseCase<in Params> {
 
     protected abstract fun buildUseCaseCompletable(params: Params): Completable
 

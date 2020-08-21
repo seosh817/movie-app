@@ -1,7 +1,10 @@
 package io.github.slflfl12.domain.model
 
-class MovieModel(
+data class MovieModel(
     val page: Int,
+    var keywords: List<KeywordModel>,
+    var reviews: List<ReviewModel>,
+    var videos: List<VideoModel>,
     val adult: Boolean,
     val backdropPath: String,
     val genreIds: List<Int>,

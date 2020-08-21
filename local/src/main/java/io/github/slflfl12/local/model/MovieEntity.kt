@@ -2,11 +2,17 @@ package io.github.slflfl12.local.model
 
 import androidx.room.PrimaryKey
 import androidx.room.Entity
+import io.github.slflfl12.data.model.KeywordData
+import io.github.slflfl12.data.model.ReviewData
+import io.github.slflfl12.data.model.VideoData
 
 
 @Entity(tableName = "movie")
 data class MovieEntity(
     var page: Int,
+    var keywords: List<KeywordEntity>,
+    var videos: List<VideoEntity>,
+    var reviews: List<ReviewEntity>,
     val adult: Boolean,
     val backdrop_path: String,
     val genre_ids: List<Int>,

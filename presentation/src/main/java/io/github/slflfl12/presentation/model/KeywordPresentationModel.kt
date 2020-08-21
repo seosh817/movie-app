@@ -1,4 +1,6 @@
 package io.github.slflfl12.presentation.model
 
-class KeywordPresentationModel {
-}
+data class KeywordPresentationModel(
+    val id: Int,
+    val name:String
+): PresentationModel

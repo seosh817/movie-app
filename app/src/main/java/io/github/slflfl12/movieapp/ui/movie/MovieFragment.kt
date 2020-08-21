@@ -93,6 +93,10 @@ class MovieFragment: BaseFragment<FragmentMovieBinding, MovieViewModel>(R.layout
             Toast.makeText(context, R.string.network_error_message, Toast.LENGTH_SHORT).show()
         })
 
+        vm.lastPagingThrowable.observe(viewLifecycleOwner, Observer {
+            Toast.makeText(context, R.string.last_paging_message, Toast.LENGTH_SHORT).show()
+        })
+
         vm.toDetailEvent.observe(viewLifecycleOwner, EventObserver(
             this@MovieFragment::onNavigateToDetail
         ))

@@ -1,7 +1,10 @@
 package io.github.slflfl12.data.model
 
-class MovieData(
+data class MovieData(
     val page: Int,
+    val keywords: List<KeywordData> = ArrayList(),
+    val reviews: List<ReviewData> = ArrayList(),
+    val videos: List<VideoData> = ArrayList(),
     val adult: Boolean,
     val backdropPath: String,
     val genreIds: List<Int>,

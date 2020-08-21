@@ -9,6 +9,7 @@ import io.github.slflfl12.presentation.base.BaseViewModel
 import io.github.slflfl12.presentation.mapper.MoviePresentationMapper
 import io.github.slflfl12.presentation.model.MoviePresentationModel
 import io.github.slflfl12.presentation.util.Event
+import io.github.slflfl12.presentation.util.SingleLiveEvent
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.schedulers.Schedulers
@@ -39,6 +40,10 @@ class MovieViewModel @ViewModelInject constructor(
     private val _toDetailEvent = MutableLiveData<Event<MoviePresentationModel>>()
     val toDetailEvent: LiveData<Event<MoviePresentationModel>>
         get() = _toDetailEvent
+
+    private val _lastPagingThrowable = SingleLiveEvent<Unit>()
+    val lastPagingThrowable: LiveData<Unit>
+        get() = _lastPagingThrowable
 
     private val pageSubject:BehaviorSubject<Int> = BehaviorSubject.create()
 
@@ -73,7 +78,11 @@ class MovieViewModel @ViewModelInject constructor(
             .doOnSubscribe { showLoading() }
             .doAfterTerminate { hideLoading() }
             .subscribe({ movies ->
-                _movieList.value = movies
+                if(movies.isNotEmpty()){
+                    _movieList.value = movies
+                } else {
+
+                }
             }, {
                 Log.d("error", it.message!!)
                 _networkErrorResponse.value = it
@@ -92,6 +101,8 @@ class MovieViewModel @ViewModelInject constructor(
             .subscribe({ movies ->
                 if (movies.isNotEmpty()) {
                     _movieList.value = movies
+                } else {
+                    _lastPagingThrowable.call()
                 }
             }, {
                 Log.d("error", it.message.toString())

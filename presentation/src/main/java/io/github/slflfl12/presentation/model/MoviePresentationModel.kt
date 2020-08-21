@@ -2,6 +2,9 @@ package io.github.slflfl12.presentation.model
 
 data class MoviePresentationModel(
     val page: Int,
+    val keywords: List<KeywordPresentationModel>,
+    val reviews: List<ReviewPresentationModel>,
+    val videos: List<VideoPresentationModel>,
     val adult: Boolean,
     val backdropPath: String,
     val genreIds: List<Int>,

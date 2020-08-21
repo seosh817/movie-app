@@ -6,7 +6,7 @@ import io.reactivex.Completable
 
 class InsertMoviesUseCase(
     val movieRepository: MovieRepository
-) : CompletableCase<List<MovieModel>>() {
+) : CompletableUseCase<List<MovieModel>>() {
     override fun buildUseCaseCompletable(params: List<MovieModel>): Completable {
         return movieRepository.insertMovieList(params)
     }
