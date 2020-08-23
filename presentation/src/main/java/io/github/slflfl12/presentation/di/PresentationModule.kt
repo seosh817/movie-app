@@ -26,9 +26,10 @@ object PresentationModule {
     fun provideMovieDetialViewModel(
         getMovieKeywordListUseCase: GetMovieKeywordListUseCase,
         getMovieReviewListUseCase: GetMovieReviewListUseCase,
-        getMovieVideoListUseCase: GetMovieVideoListUseCase
+        getMovieVideoListUseCase: GetMovieVideoListUseCase,
+        getLocalMovieUseCase: GetLocalMovieUseCase
     ): MovieDetailViewModel  {
-        return MovieDetailViewModel(getMovieKeywordListUseCase, getMovieReviewListUseCase, getMovieVideoListUseCase)
+        return MovieDetailViewModel(getMovieKeywordListUseCase, getMovieReviewListUseCase, getMovieVideoListUseCase,getLocalMovieUseCase)
     }
 
 

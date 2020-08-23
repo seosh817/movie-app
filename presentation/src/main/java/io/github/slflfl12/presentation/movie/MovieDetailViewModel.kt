@@ -35,7 +35,6 @@ class MovieDetailViewModel @ViewModelInject constructor(
         get() = _movie
 
 
-
     private val _keywordList = MutableLiveData<List<KeywordPresentationModel>>()
     val keywordList: LiveData<List<KeywordPresentationModel>>
         get() = _keywordList
@@ -71,7 +70,7 @@ class MovieDetailViewModel @ViewModelInject constructor(
             .map(MoviePresentationMapper::mapToPresentation)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ movie ->
-                _keywordList.value= movie.keywords
+                _keywordList.value = movie.keywords
                 _reviewList.value = movie.reviews
                 _videoList.value = movie.videos
                 _movie.value = movie
@@ -79,8 +78,6 @@ class MovieDetailViewModel @ViewModelInject constructor(
 
             }).addTo(compositeDisposable)
     }
-
-
 
 
 }

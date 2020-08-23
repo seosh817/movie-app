@@ -10,6 +10,10 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import io.github.slflfl12.movieapp.R
 
+fun View.visible() {
+    visibility = View.VISIBLE
+}
+
 fun View.requestGlideListener(): RequestListener<Drawable> {
     return object : RequestListener<Drawable> {
         override fun onLoadFailed(

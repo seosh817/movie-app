@@ -8,7 +8,7 @@ fun AppCompatActivity.simpleToolbar(toolbar: Toolbar, _title: String = "") {
     setSupportActionBar(toolbar)
     supportActionBar?.run {
         setDisplayHomeAsUpEnabled(true)
-        setHomeAsUpIndicator(R.drawable.ic_arrow_back)
+        setHomeAsUpIndicator(R.drawable.ic_arrow_white)
         title= _title
     }
 }
