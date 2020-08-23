@@ -18,7 +18,7 @@ class GetMovieVideoListUseCase(
                 }.andThen(movieRepository.getVideoList(params))
             }
             else {
-                movieRepository.getVideoList(params)
+                Single.just(movie.videos)
             }
         }
 }

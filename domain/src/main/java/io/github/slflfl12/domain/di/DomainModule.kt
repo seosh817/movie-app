@@ -46,4 +46,12 @@ object DomainModule {
     ): GetMovieVideoListUseCase {
         return GetMovieVideoListUseCase(movieRepository)
     }
+
+    @Provides
+    @Singleton
+    fun getLocalMovieUseCase(
+        movieRepository: MovieRepository
+    ): GetLocalMovieUseCase {
+        return GetLocalMovieUseCase(movieRepository)
+    }
 }

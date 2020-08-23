@@ -17,7 +17,7 @@ class GetMovieKeywordListUseCase(
                 }.andThen(movieRepository.getKeywordList(params))
             }
             else {
-                movieRepository.getKeywordList(params)
+                Single.just(movie.keywords)
             }
         }
 

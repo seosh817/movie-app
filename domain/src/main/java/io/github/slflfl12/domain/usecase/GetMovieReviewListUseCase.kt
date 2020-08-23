@@ -19,7 +19,7 @@ class GetMovieReviewListUseCase(
                 }.andThen(movieRepository.getReviewList(params))
             }
             else {
-                movieRepository.getReviewList(params)
+                Single.just(movie.reviews)
             }
         }
 }
