@@ -1,4 +1,4 @@
-package io.github.slflfl12.movieapp.extension
+package io.github.slflfl12.movieapp.extensions
 
 import android.graphics.drawable.Drawable
 import android.view.View

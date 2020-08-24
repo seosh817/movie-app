@@ -1,7 +1,6 @@
 package io.github.slflfl12.movieapp.util
 
 import android.annotation.SuppressLint
-import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.RatingBar
@@ -13,16 +12,21 @@ import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.github.florent37.glidepalette.BitmapPalette
 import com.github.florent37.glidepalette.GlidePalette
+import com.google.android.material.chip.Chip
+import com.google.android.material.chip.ChipGroup
+import com.ms.square.android.expandabletextview.ExpandableTextView
 import io.github.slflfl12.movieapp.R
 import io.github.slflfl12.movieapp.di.GlideApp
-import io.github.slflfl12.movieapp.extension.requestGlideListener
-import io.github.slflfl12.movieapp.extension.simpleToolbar
-import io.github.slflfl12.movieapp.extension.visible
+import io.github.slflfl12.movieapp.extensions.requestGlideListener
+import io.github.slflfl12.movieapp.extensions.simpleToolbar
+import io.github.slflfl12.movieapp.extensions.visible
+import io.github.slflfl12.movieapp.ui.moviedetail.ReviewAdapter
 import io.github.slflfl12.movieapp.ui.moviedetail.VideoAdapter
+import io.github.slflfl12.presentation.model.KeywordPresentationModel
 import io.github.slflfl12.presentation.model.MoviePresentationModel
+import io.github.slflfl12.presentation.model.ReviewPresentationModel
 import io.github.slflfl12.presentation.model.VideoPresentationModel
 import io.github.slflfl12.presentation.movie.MovieDetailViewModel
-import io.github.slflfl12.remote.model.Video
 
 @BindingAdapter("bind:bindImage", "palette")
 fun ImageView.bindImage(path: String?, palette: View) {
@@ -99,11 +103,11 @@ fun bindVideo(imageView: ImageView, _path: String?, palette: View?) {
     }
 }
 
-@BindingAdapter("bindVideoList")
-fun bindVideoList(recyclerView: RecyclerView, videos: List<VideoPresentationModel>?) {
-    if (!videos.isNullOrEmpty()) {
-        val adapter = VideoAdapter()
-        adapter.setVideoList(videos)
+@BindingAdapter("bindVideoViewModel", "videos")
+fun bindAdapterVideoList(recyclerView: RecyclerView, vm: MovieDetailViewModel, videos: List<VideoPresentationModel>?) {
+    val adapter = VideoAdapter(vm)
+    videos.doIfNotNullOrEmpty {
+        adapter.setVideoList(it)
         recyclerView.adapter = adapter
         recyclerView.isNestedScrollingEnabled = false
         recyclerView.setHasFixedSize(true)
@@ -111,16 +115,51 @@ fun bindVideoList(recyclerView: RecyclerView, videos: List<VideoPresentationMode
     }
 }
 
+@BindingAdapter("bindReviewViewModel", "reviews")
+fun bindAdapterReviewList(recyclerView: RecyclerView, vm: MovieDetailViewModel, reviews: List<ReviewPresentationModel>?) {
+    val adapter = ReviewAdapter(vm)
+    reviews.doIfNotNullOrEmpty {
+        recyclerView.adapter = adapter
+        adapter.setReviewList(it)
+        recyclerView.isNestedScrollingEnabled = false
+        recyclerView.setHasFixedSize(true)
+        recyclerView.visible()
+    }
+}
+
+@BindingAdapter("bindExpandableText")
+fun bindExpandableText(expandableTextView: ExpandableTextView, content: String?) {
+    expandableTextView.text = content
+}
+
+
+@BindingAdapter("bindChipKeywords")
+fun bindChipKeywords(chipGroup: ChipGroup, keywords: List<KeywordPresentationModel>?) {
+    keywords.doIfNotNullOrEmpty {
+        chipGroup.visible()
+        for(keyword in it) {
+            val chip = Chip(chipGroup.context)
+            chip.text = keyword.name
+            chip.isCheckable = false
+            chip.setTextAppearanceResource(R.style.ChipTextStyle)
+            chip.setChipBackgroundColorResource(R.color.colorAccent)
+            chipGroup.addView(chip)
+        }
+    }
+}
+
+
+
 private fun bindBackDrop(view: ImageView, backDropPath: String, posertPath: String) {
     backDropPath.checkEmptyAct({
         GlideApp.with(view.context)
-            .load(PosterPath.getPosterPath(it))
+            .load(PosterPath.getBackdropPath(it))
             .error(ContextCompat.getDrawable(view.context, R.drawable.not_found))
             .listener(view.requestGlideListener())
             .into(view)
     }, {
         GlideApp.with(view.context)
-            .load(PosterPath.getBackdropPath(it))
+            .load(PosterPath.getPosterPath(posertPath))
             .error(ContextCompat.getDrawable(view.context, R.drawable.not_found))
             .listener(view.requestGlideListener())
             .into(view)

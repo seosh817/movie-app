@@ -13,6 +13,7 @@ import io.github.slflfl12.presentation.model.KeywordPresentationModel
 import io.github.slflfl12.presentation.model.MoviePresentationModel
 import io.github.slflfl12.presentation.model.ReviewPresentationModel
 import io.github.slflfl12.presentation.model.VideoPresentationModel
+import io.github.slflfl12.presentation.util.Event
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.functions.Function3
@@ -47,6 +48,12 @@ class MovieDetailViewModel @ViewModelInject constructor(
     val videoList: LiveData<List<VideoPresentationModel>>
         get() = _videoList
 
+    private val _videoItemClickEvent = MutableLiveData<Event<VideoPresentationModel>>()
+    val videoItemClickEvent: LiveData<Event<VideoPresentationModel>>
+        get() = _videoItemClickEvent
+
+
+
     init {
         idSubject.subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -77,6 +84,10 @@ class MovieDetailViewModel @ViewModelInject constructor(
             }, {
 
             }).addTo(compositeDisposable)
+    }
+
+    fun onVideoItemClick(videoPresentationModel: VideoPresentationModel) {
+        _videoItemClickEvent.value = Event(videoPresentationModel)
     }
 
 

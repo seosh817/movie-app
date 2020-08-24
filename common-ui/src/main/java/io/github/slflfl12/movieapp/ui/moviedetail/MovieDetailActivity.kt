@@ -1,6 +1,8 @@
 package io.github.slflfl12.movieapp.ui.moviedetail
 
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.AttributeSet
 import android.view.View
@@ -9,8 +11,10 @@ import androidx.lifecycle.Observer
 import dagger.hilt.android.AndroidEntryPoint
 import io.github.slflfl12.movieapp.R
 import io.github.slflfl12.movieapp.databinding.ActivityMovieDetailBinding
-import io.github.slflfl12.movieapp.databinding.LayoutMovieDetailBodyBinding
 import io.github.slflfl12.movieapp.ui.base.BaseActivity
+import io.github.slflfl12.movieapp.util.EventObserver
+import io.github.slflfl12.movieapp.util.PosterPath
+import io.github.slflfl12.presentation.model.VideoPresentationModel
 import io.github.slflfl12.presentation.movie.MovieDetailViewModel
 
 @AndroidEntryPoint
@@ -40,6 +44,16 @@ class MovieDetailActivity :
         vm.movie.observe(this, Observer {movie->
             binding.movie = movie
         })
+
+        vm.videoItemClickEvent.observe(this, EventObserver(
+            this@MovieDetailActivity::onVideoItemClick
+        ))
+    }
+
+    private fun onVideoItemClick(videoPresentationModel: VideoPresentationModel) {
+        Intent(Intent.ACTION_VIEW, Uri.parse(PosterPath.getYoutubeVideoPath(videoPresentationModel.key))).also {
+            startActivity(it)
+        }
     }
 
     companion object {

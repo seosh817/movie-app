@@ -25,10 +25,10 @@ inline fun <T> T.checkEmptyAct(
     isEmpty: (T) -> Unit,
     notEmpty: (T) -> Unit
 ) {
-    if (this!!.equals("")) {
-        isEmpty(this)
-    } else {
+    if (!this!!.equals("")) {
         notEmpty(this)
+    } else {
+        isEmpty(this)
     }
 }
 

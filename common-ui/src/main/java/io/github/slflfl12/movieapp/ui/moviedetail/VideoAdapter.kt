@@ -9,7 +9,7 @@ import io.github.slflfl12.movieapp.databinding.ItemVideoBinding
 import io.github.slflfl12.presentation.model.VideoPresentationModel
 import io.github.slflfl12.presentation.movie.MovieDetailViewModel
 
-class VideoAdapter: RecyclerView.Adapter<VideoViewHolder>() {
+class VideoAdapter(val vm: MovieDetailViewModel): RecyclerView.Adapter<VideoViewHolder>() {
 
     private val items = mutableListOf<VideoPresentationModel>()
 
@@ -22,7 +22,9 @@ class VideoAdapter: RecyclerView.Adapter<VideoViewHolder>() {
         )
 
         val holder = VideoViewHolder(binding)
-
+        holder.itemView.setOnClickListener {
+            vm.onVideoItemClick(items[holder.adapterPosition])
+        }
         return holder
     }
 
