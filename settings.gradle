@@ -3,5 +3,5 @@ include ':domain'
 include ':local'
 include ':remote'
 include ':data'
-include ':app'
+include ':common-ui'
 rootProject.name = "MovieApp"
