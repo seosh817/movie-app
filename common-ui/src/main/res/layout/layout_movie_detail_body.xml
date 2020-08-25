@@ -73,7 +73,7 @@
             android:layout_marginTop="15dp"
             android:padding="10dp"
             android:visibility="gone"
-            app:bindChipKeywords="@{movie.keywords}"
+            app:bindChipKeywords="@{vm.keywordList}"
             app:chipSpacingHorizontal="5dp"
             app:chipSpacingVertical="6dp"
             app:singleLine="false"

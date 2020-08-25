@@ -1,5 +1,9 @@
 package io.github.slflfl12.presentation.model
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
 data class VideoPresentationModel(
     val id:String,
     val key:String,
@@ -7,4 +11,4 @@ data class VideoPresentationModel(
     val site:String,
     val size:Int,
     val type:String
-): PresentationModel
+): PresentationModel, Parcelable

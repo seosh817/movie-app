@@ -3,6 +3,7 @@ package io.github.slflfl12.presentation.movie
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import io.github.slflfl12.domain.model.KeywordModel
 import io.github.slflfl12.domain.model.ReviewModel
 import io.github.slflfl12.domain.model.VideoModel
@@ -35,18 +36,21 @@ class MovieDetailViewModel @ViewModelInject constructor(
     val movie: LiveData<MoviePresentationModel>
         get() = _movie
 
+    val keywordList: LiveData<List<KeywordPresentationModel>> = Transformations.map(_movie) { movie ->
+        movie.keywords
+    }
 
-    private val _keywordList = MutableLiveData<List<KeywordPresentationModel>>()
-    val keywordList: LiveData<List<KeywordPresentationModel>>
-        get() = _keywordList
+    val reviewList: LiveData<List<ReviewPresentationModel>> = Transformations.map(_movie) { movie ->
+        movie.reviews
+    }
 
-    private val _reviewList = MutableLiveData<List<ReviewPresentationModel>>()
-    val reviewList: LiveData<List<ReviewPresentationModel>>
-        get() = _reviewList
+    val videoList: LiveData<List<VideoPresentationModel>> = Transformations.map(_movie) { movie ->
+        movie.videos
+    }
 
-    private val _videoList = MutableLiveData<List<VideoPresentationModel>>()
-    val videoList: LiveData<List<VideoPresentationModel>>
-        get() = _videoList
+    private lateinit var movieModel: MoviePresentationModel
+
+
 
     private val _videoItemClickEvent = MutableLiveData<Event<VideoPresentationModel>>()
     val videoItemClickEvent: LiveData<Event<VideoPresentationModel>>
@@ -77,10 +81,8 @@ class MovieDetailViewModel @ViewModelInject constructor(
             .map(MoviePresentationMapper::mapToPresentation)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ movie ->
-                _keywordList.value = movie.keywords
-                _reviewList.value = movie.reviews
-                _videoList.value = movie.videos
                 _movie.value = movie
+                movieModel = movie
             }, {
 
             }).addTo(compositeDisposable)
@@ -90,5 +92,6 @@ class MovieDetailViewModel @ViewModelInject constructor(
         _videoItemClickEvent.value = Event(videoPresentationModel)
     }
 
+    fun getMovie(): MoviePresentationModel = movieModel
 
 }
