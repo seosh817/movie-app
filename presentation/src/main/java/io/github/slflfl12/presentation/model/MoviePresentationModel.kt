@@ -1,5 +1,9 @@
 package io.github.slflfl12.presentation.model
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
 data class MoviePresentationModel(
     val page: Int,
     val keywords: List<KeywordPresentationModel>,
@@ -20,4 +24,4 @@ data class MoviePresentationModel(
     val voteAverage: Double,
     val voteCount: Int,
     val favorite: Boolean
-): PresentationModel
+): PresentationModel,Parcelable

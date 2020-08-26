@@ -1,23 +1,28 @@
 package io.github.slflfl12.movieapp.ui.movie
 
+import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.widget.AppCompatImageView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import androidx.transition.TransitionInflater
 import dagger.hilt.android.AndroidEntryPoint
 import io.github.slflfl12.movieapp.R
 import io.github.slflfl12.movieapp.databinding.FragmentMovieBinding
 import io.github.slflfl12.movieapp.ui.base.BaseFragment
+import io.github.slflfl12.movieapp.ui.main.MainActivity
 import io.github.slflfl12.movieapp.ui.moviedetail.MovieDetailActivity
 import io.github.slflfl12.movieapp.util.EventObserver
 import io.github.slflfl12.presentation.model.MoviePresentationModel
 import io.github.slflfl12.presentation.movie.MovieViewModel
+import java.util.concurrent.TimeUnit
 
 @AndroidEntryPoint
 class MovieFragment: BaseFragment<FragmentMovieBinding, MovieViewModel>(R.layout.fragment_movie) {
@@ -26,6 +31,11 @@ class MovieFragment: BaseFragment<FragmentMovieBinding, MovieViewModel>(R.layout
 
     private val movieAdapter: MovieAdapter by lazy {
         MovieAdapter(vm)
+    }
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -102,12 +112,20 @@ class MovieFragment: BaseFragment<FragmentMovieBinding, MovieViewModel>(R.layout
         ))
     }
 
-    private fun onNavigateToDetail(moviePresentationModel: MoviePresentationModel) {
+
+    private fun onNavigateToDetail(pair: Pair<MoviePresentationModel, View>) {
+        val movie = pair.first
+        val view = pair.second
         Intent(context, MovieDetailActivity::class.java).apply {
-            putExtra(MovieDetailActivity.KEY_MOVIE_ID, moviePresentationModel.id)
+            putExtra(MovieDetailActivity.KEY_MOVIE, movie)
         }.also {
-            startActivity(it)
+            val options = ActivityOptions.makeSceneTransitionAnimation(activity, view, movie.title)
+            startActivity(it, options.toBundle())
         }
     }
 
+    override fun onDestroy() {
+        vm.unBindPageDisposable()
+        super.onDestroy()
+    }
 }

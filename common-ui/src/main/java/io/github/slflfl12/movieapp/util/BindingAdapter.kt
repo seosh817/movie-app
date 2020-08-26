@@ -150,7 +150,7 @@ fun bindChipKeywords(chipGroup: ChipGroup, keywords: List<KeywordPresentationMod
 
 
 
-private fun bindBackDrop(view: ImageView, backDropPath: String, posertPath: String) {
+private fun bindBackDrop(view: ImageView, backDropPath: String, posterPath: String) {
     backDropPath.checkEmptyAct({
         GlideApp.with(view.context)
             .load(PosterPath.getBackdropPath(it))
@@ -159,7 +159,7 @@ private fun bindBackDrop(view: ImageView, backDropPath: String, posertPath: Stri
             .into(view)
     }, {
         GlideApp.with(view.context)
-            .load(PosterPath.getPosterPath(posertPath))
+            .load(PosterPath.getPosterPath(posterPath))
             .error(ContextCompat.getDrawable(view.context, R.drawable.not_found))
             .listener(view.requestGlideListener())
             .into(view)

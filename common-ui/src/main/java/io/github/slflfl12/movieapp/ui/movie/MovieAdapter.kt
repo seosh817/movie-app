@@ -1,11 +1,9 @@
 package io.github.slflfl12.movieapp.ui.movie
 
-import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import io.github.slflfl12.movieapp.R
 import io.github.slflfl12.movieapp.databinding.ItemMovieBinding
@@ -20,6 +18,7 @@ class MovieAdapter(
     private val items = mutableListOf<MoviePresentationModel>()
 
 
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         val binding = DataBindingUtil.inflate<ItemMovieBinding>(
             LayoutInflater.from(parent.context),
@@ -27,7 +26,7 @@ class MovieAdapter(
         )
         val holder = MovieViewHolder(binding)
         holder.itemView.setOnClickListener {
-            vm.navigateToDetail(items[holder.adapterPosition])
+            vm.navigateToDetail(items[holder.adapterPosition], binding.ivMoviePoster)
         }
         return holder
     }

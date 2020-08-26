@@ -1,6 +1,8 @@
 package io.github.slflfl12.presentation.movie
 
 import android.util.Log
+import android.view.View
+import androidx.appcompat.widget.AppCompatImageView
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -11,6 +13,7 @@ import io.github.slflfl12.presentation.model.MoviePresentationModel
 import io.github.slflfl12.presentation.util.Event
 import io.github.slflfl12.presentation.util.SingleLiveEvent
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.BehaviorSubject
@@ -37,18 +40,18 @@ class MovieViewModel @ViewModelInject constructor(
     val isLoading: LiveData<Boolean>
         get() = _isLoading
 
-    private val _toDetailEvent = MutableLiveData<Event<MoviePresentationModel>>()
-    val toDetailEvent: LiveData<Event<MoviePresentationModel>>
+    private val _toDetailEvent = MutableLiveData<Event<Pair<MoviePresentationModel, View>>>()
+    val toDetailEvent: LiveData<Event<Pair<MoviePresentationModel, View>>>
         get() = _toDetailEvent
 
     private val _lastPagingThrowable = SingleLiveEvent<Unit>()
     val lastPagingThrowable: LiveData<Unit>
         get() = _lastPagingThrowable
 
-    private val pageSubject:BehaviorSubject<Int> = BehaviorSubject.create()
+    private val pageSubject: BehaviorSubject<Int> = BehaviorSubject.create()
 
-
-    private var pageNum by Delegates.notNull<Int>()
+    private val pageDisposable = CompositeDisposable()
+    private val pageNum = MutableLiveData<Int>()
 
 
     init {
@@ -57,36 +60,38 @@ class MovieViewModel @ViewModelInject constructor(
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                if(it == 1) {
+                if (it == 1) {
                     refresh(it)
-                }
-                else {
+                } else {
                     loadMore()
                 }
             }, {
 
-            }).addTo(compositeDisposable)
+            }).addTo(pageDisposable)
 
     }
 
 
     private fun loadMore() {
-        getDiscoverMovieListUseCase(pageNum)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .map { it.map(MoviePresentationMapper::mapToPresentation) }
-            .doOnSubscribe { showLoading() }
-            .doAfterTerminate { hideLoading() }
-            .subscribe({ movies ->
-                if(movies.isNotEmpty()){
-                    _movieList.value = movies
-                } else {
+        pageNum.value?.let { pageNum ->
+            getDiscoverMovieListUseCase(pageNum)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .map { it.map(MoviePresentationMapper::mapToPresentation) }
+                .doOnSubscribe { showLoading() }
+                .doAfterTerminate { hideLoading() }
+                .subscribe({ movies ->
+                    if (movies.isNotEmpty()) {
+                        _movieList.value = movies
+                    } else {
+                        _lastPagingThrowable.call()
+                    }
+                }, {
+                    Log.d("error", it.message!!)
+                    _networkErrorResponse.value = it
+                }).addTo(compositeDisposable)
+        }
 
-                }
-            }, {
-                Log.d("error", it.message!!)
-                _networkErrorResponse.value = it
-            }).addTo(compositeDisposable)
     }
 
 
@@ -101,8 +106,6 @@ class MovieViewModel @ViewModelInject constructor(
             .subscribe({ movies ->
                 if (movies.isNotEmpty()) {
                     _movieList.value = movies
-                } else {
-                    _lastPagingThrowable.call()
                 }
             }, {
                 Log.d("error", it.message.toString())
@@ -111,17 +114,26 @@ class MovieViewModel @ViewModelInject constructor(
     }
 
 
-    fun navigateToDetail(moviePresentationModel: MoviePresentationModel) {
-        _toDetailEvent.value = Event(moviePresentationModel)
+    fun navigateToDetail(
+        moviePresentationModel: MoviePresentationModel,
+        ivMoviePoster: AppCompatImageView
+    ) {
+        _toDetailEvent.value = Event(Pair(moviePresentationModel, ivMoviePoster))
     }
 
     fun onResetPage() {
-        pageNum = 1
-        pageSubject.onNext(pageNum)
+        pageNum.value = 1
+        pageNum.value?.let {
+            pageSubject.onNext(it)
+        }
+
     }
 
     fun plusPage() {
-        pageSubject.onNext(++pageNum)
+        pageNum.value?.let {
+            pageNum.value = it + 1
+            pageSubject.onNext(it + 1)
+        }
     }
 
     private fun showLoading() {
@@ -140,5 +152,8 @@ class MovieViewModel @ViewModelInject constructor(
         _swipeLoading.value = false
     }
 
+    fun unBindPageDisposable() {
+        pageDisposable.clear()
+    }
 
 }

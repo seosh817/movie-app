@@ -10,7 +10,7 @@ class MovieViewHolder(private val binding: ItemMovieBinding): RecyclerView.ViewH
     fun bind(movie: MoviePresentationModel) {
         binding.movie = movie
         with(binding) {
-            ViewCompat.setTransitionName(layoutPosterTitle, movie.title)
+            ivMoviePoster.transitionName = movie.title
             palette = layoutPosterTitle
             executePendingBindings()
         }
