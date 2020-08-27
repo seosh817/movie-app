@@ -9,10 +9,13 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
 import io.github.slflfl12.data.local.MovieLocalDataSource
+import io.github.slflfl12.data.local.TvLocalDataSource
 import io.github.slflfl12.local.R
 import io.github.slflfl12.local.dao.MovieDao
-import io.github.slflfl12.local.database.MovieDataBase
+import io.github.slflfl12.local.dao.TvDao
+import io.github.slflfl12.local.database.AppDataBase
 import io.github.slflfl12.local.source.MovieLocalDataSourceImpl
+import io.github.slflfl12.local.source.TvLocalDataSourceImpl
 import javax.inject.Singleton
 
 
@@ -22,8 +25,8 @@ object LocalModule {
 
     @Provides
     @Singleton
-    fun provideAppDatabase(@ApplicationContext context: Context): MovieDataBase {
-        return Room.databaseBuilder(context, MovieDataBase::class.java, context.getString(R.string.database))
+    fun provideAppDatabase(@ApplicationContext context: Context): AppDataBase {
+        return Room.databaseBuilder(context, AppDataBase::class.java, context.getString(R.string.database))
             .allowMainThreadQueries()
             .build()
     }
@@ -31,7 +34,7 @@ object LocalModule {
     @Provides
     @Singleton
     fun provideMovieDao(
-        appDatabase: MovieDataBase
+        appDatabase: AppDataBase
     ): MovieDao {
         return appDatabase.movieDao()
     }
@@ -43,5 +46,23 @@ object LocalModule {
     ): MovieLocalDataSource {
         return MovieLocalDataSourceImpl(movieDao)
     }
+
+    @Provides
+    @Singleton
+    fun provideTvDao(
+        appDatabase: AppDataBase
+    ): TvDao {
+        return appDatabase.tvDao()
+    }
+
+    @Provides
+    @Singleton
+    fun provideTvDataSource(
+        tvDao: TvDao
+    ): TvLocalDataSource {
+        return TvLocalDataSourceImpl(tvDao)
+    }
+
+
 
 }

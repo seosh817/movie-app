@@ -6,12 +6,15 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
 import io.github.slflfl12.data.remote.DiscoverRemoteDataSource
 import io.github.slflfl12.data.remote.MovieRemoteDataSource
+import io.github.slflfl12.data.remote.TvRemoteDataSource
 import io.github.slflfl12.remote.BuildConfig
 import io.github.slflfl12.remote.api.DiscoverApiService
 import io.github.slflfl12.remote.api.MovieApiService
+import io.github.slflfl12.remote.api.TvApiService
 import io.github.slflfl12.remote.interceptor.SHInterceptor
 import io.github.slflfl12.remote.source.DiscoverRemoteDataSourceImpl
 import io.github.slflfl12.remote.source.MovieRemoteDataSourceImpl
+import io.github.slflfl12.remote.source.TvRemoteDataSourceImpl
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -56,7 +59,7 @@ object remoteModule {
 
     @Provides
     @Singleton
-    fun provideMovieService(retrofit: Retrofit): MovieApiService {
+    fun provideMovieApiService(retrofit: Retrofit): MovieApiService {
         return retrofit.create(MovieApiService::class.java)
     }
 
@@ -64,6 +67,18 @@ object remoteModule {
     @Singleton
     fun provideMovieDataSource(movieApiService: MovieApiService): MovieRemoteDataSource {
         return MovieRemoteDataSourceImpl(movieApiService)
+    }
+
+    @Provides
+    @Singleton
+    fun provideTvApiService(retrofit: Retrofit): TvApiService {
+        return retrofit.create(TvApiService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideTvDataSource(tvApiService: TvApiService): TvRemoteDataSource {
+        return TvRemoteDataSourceImpl(tvApiService)
     }
 
     @Provides

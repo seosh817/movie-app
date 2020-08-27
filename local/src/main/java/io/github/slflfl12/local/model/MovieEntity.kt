@@ -2,9 +2,6 @@ package io.github.slflfl12.local.model
 
 import androidx.room.PrimaryKey
 import androidx.room.Entity
-import io.github.slflfl12.data.model.KeywordData
-import io.github.slflfl12.data.model.ReviewData
-import io.github.slflfl12.data.model.VideoData
 
 
 @Entity(tableName = "movie")

@@ -6,6 +6,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
 import io.github.slflfl12.domain.repository.DiscoverRepository
 import io.github.slflfl12.domain.repository.MovieRepository
+import io.github.slflfl12.domain.repository.TvRepository
 import io.github.slflfl12.domain.usecase.*
 import javax.inject.Singleton
 
@@ -53,5 +54,14 @@ object DomainModule {
         movieRepository: MovieRepository
     ): GetLocalMovieUseCase {
         return GetLocalMovieUseCase(movieRepository)
+    }
+
+    @Provides
+    @Singleton
+    fun getTvListUseCase(
+        tvRepository: TvRepository,
+        discoverRepository: DiscoverRepository
+    ): GetDiscoverTvListUseCase {
+        return GetDiscoverTvListUseCase(tvRepository, discoverRepository)
     }
 }

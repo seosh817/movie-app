@@ -3,7 +3,9 @@ package io.github.slflfl12.movieapp.ui.movie
 import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.fragment.app.viewModels
@@ -25,7 +27,7 @@ import io.github.slflfl12.presentation.movie.MovieViewModel
 import java.util.concurrent.TimeUnit
 
 @AndroidEntryPoint
-class MovieFragment: BaseFragment<FragmentMovieBinding, MovieViewModel>(R.layout.fragment_movie) {
+class MovieFragment: BaseFragment<FragmentMovieBinding ,MovieViewModel>(R.layout.fragment_movie) {
 
     override val vm: MovieViewModel by viewModels()
 
@@ -33,10 +35,6 @@ class MovieFragment: BaseFragment<FragmentMovieBinding, MovieViewModel>(R.layout
         MovieAdapter(vm)
     }
 
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

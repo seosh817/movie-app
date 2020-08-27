@@ -7,6 +7,7 @@ import dagger.hilt.android.components.ApplicationComponent
 import io.github.slflfl12.domain.usecase.*
 import io.github.slflfl12.presentation.movie.MovieDetailViewModel
 import io.github.slflfl12.presentation.movie.MovieViewModel
+import io.github.slflfl12.presentation.tv.TvViewModel
 import javax.inject.Singleton
 
 @Module
@@ -30,6 +31,14 @@ object PresentationModule {
         getLocalMovieUseCase: GetLocalMovieUseCase
     ): MovieDetailViewModel  {
         return MovieDetailViewModel(getMovieKeywordListUseCase, getMovieReviewListUseCase, getMovieVideoListUseCase,getLocalMovieUseCase)
+    }
+
+    @Provides
+    @Singleton
+    fun provideTvViewModel(
+        getDiscoverTvListUseCase: GetDiscoverTvListUseCase
+    ): TvViewModel {
+        return TvViewModel(getDiscoverTvListUseCase)
     }
 
 

@@ -75,6 +75,7 @@ dependencies {
     implementation deps.library.squareup.retrofit_adapter_rxjava
     implementation deps.library.squareup.okhttp
     implementation deps.library.squareup.okhttp_logging_interceptor
+    testImplementation deps.library.squareup.okhttp_mock_webserver
 
     implementation deps.androidx.dagger
     kapt(deps.androidx.dagger_compiler)

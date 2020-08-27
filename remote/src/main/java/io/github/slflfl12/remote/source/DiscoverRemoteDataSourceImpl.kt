@@ -1,6 +1,7 @@
 package io.github.slflfl12.remote.source
 
 import io.github.slflfl12.data.model.MovieData
+import io.github.slflfl12.data.model.TvData
 import io.github.slflfl12.data.remote.DiscoverRemoteDataSource
 import io.github.slflfl12.remote.api.DiscoverApiService
 import io.github.slflfl12.remote.mapper.MovieRemoteMapper
@@ -34,8 +35,31 @@ class DiscoverRemoteDataSourceImpl(
                         favorite = false
                     )
                 }
-
             }.subscribeOn(Schedulers.io())
+    }
 
+    override fun getDiscoverTvs(page: Int): Single<List<TvData>> {
+        return discoverApiService.getDiscoverTv(page)
+            .map {
+                it.discoverTvs.map { from ->
+                    TvData(
+                        page = page,
+                        backdropPath = from.backdropPath,
+                        firstAirDate = from.firstAirDate,
+                        genreIds = from.genreIds,
+                        id = from.id,
+                        name= from.name,
+                        originCountry = from.originCountry,
+                        originalLanguage = from.originalLanguage,
+                        originalName = from.originalName,
+                        overview = from.overview,
+                        popularity = from.popularity,
+                        posterPath = from.posterPath,
+                        voteCount = from.voteCount,
+                        voteAverage = from.voteAverage,
+                        favorite = false
+                    )
+                }
+            }
     }
 }
