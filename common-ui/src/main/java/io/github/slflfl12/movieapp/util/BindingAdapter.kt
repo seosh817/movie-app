@@ -20,29 +20,15 @@ import io.github.slflfl12.movieapp.di.GlideApp
 import io.github.slflfl12.movieapp.extensions.requestGlideListener
 import io.github.slflfl12.movieapp.extensions.simpleToolbar
 import io.github.slflfl12.movieapp.extensions.visible
-import io.github.slflfl12.movieapp.ui.moviedetail.ReviewAdapter
-import io.github.slflfl12.movieapp.ui.moviedetail.VideoAdapter
+import io.github.slflfl12.movieapp.adapters.ReviewAdapter
+import io.github.slflfl12.movieapp.adapters.VideoAdapter
 import io.github.slflfl12.presentation.model.KeywordPresentationModel
 import io.github.slflfl12.presentation.model.MoviePresentationModel
 import io.github.slflfl12.presentation.model.ReviewPresentationModel
 import io.github.slflfl12.presentation.model.VideoPresentationModel
 import io.github.slflfl12.presentation.movie.MovieDetailViewModel
 
-@BindingAdapter("bind:bindImage", "palette")
-fun ImageView.bindImage(path: String?, palette: View) {
-    path?.let {
-        GlideApp.with(this.context)
-            .load(PosterPath.getPosterPath(it))
-            .error(ContextCompat.getDrawable(context, R.drawable.not_found))
-            .listener(
-                GlidePalette.with(PosterPath.getPosterPath(it))
-                    .use(BitmapPalette.Profile.VIBRANT)
-                    .intoBackground(palette)
-                    .crossfade(true)
-            )
-            .into(this)
-    }
-}
+
 
 @BindingAdapter("bind:bindBackDrop")
 fun ImageView.bindBackDrop(movie: MoviePresentationModel?) {

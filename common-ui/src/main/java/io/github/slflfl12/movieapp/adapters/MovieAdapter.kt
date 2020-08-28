@@ -1,12 +1,12 @@
-package io.github.slflfl12.movieapp.ui.movie
+package io.github.slflfl12.movieapp.adapters
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import io.github.slflfl12.movieapp.R
 import io.github.slflfl12.movieapp.databinding.ItemMovieBinding
+import io.github.slflfl12.movieapp.viewholders.MovieViewHolder
 import io.github.slflfl12.presentation.model.MoviePresentationModel
 import io.github.slflfl12.presentation.movie.MovieViewModel
 
@@ -24,7 +24,8 @@ class MovieAdapter(
             LayoutInflater.from(parent.context),
             R.layout.item_movie, parent, false
         )
-        val holder = MovieViewHolder(binding)
+        val holder =
+            MovieViewHolder(binding)
         holder.itemView.setOnClickListener {
             vm.navigateToDetail(items[holder.adapterPosition], binding.ivMoviePoster)
         }

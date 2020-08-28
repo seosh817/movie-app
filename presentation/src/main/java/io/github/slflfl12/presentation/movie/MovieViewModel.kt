@@ -87,7 +87,7 @@ class MovieViewModel @ViewModelInject constructor(
                         _lastPagingThrowable.call()
                     }
                 }, {
-                    Log.d("error", it.message!!)
+                    Log.e("error", it.message!!)
                     _networkErrorResponse.value = it
                 }).addTo(compositeDisposable)
         }
@@ -96,7 +96,6 @@ class MovieViewModel @ViewModelInject constructor(
 
 
     private fun refresh(pageNum: Int) {
-        Log.d("refresh", "refresh")
         getDiscoverMovieListUseCase(pageNum)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -108,7 +107,7 @@ class MovieViewModel @ViewModelInject constructor(
                     _movieList.value = movies
                 }
             }, {
-                Log.d("error", it.message.toString())
+                Log.e("error", it.message.toString())
                 _networkErrorResponse.value = it
             }).addTo(compositeDisposable)
     }

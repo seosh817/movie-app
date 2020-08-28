@@ -22,8 +22,7 @@ import io.github.slflfl12.presentation.movie.MovieDetailViewModel
 import kotlinx.android.synthetic.main.activity_movie_detail.*
 
 @AndroidEntryPoint
-class MovieDetailActivity :
-    BaseActivity<MovieDetailViewModel>() {
+class MovieDetailActivity : BaseActivity<MovieDetailViewModel>() {
 
 
     override val vm: MovieDetailViewModel by viewModels()

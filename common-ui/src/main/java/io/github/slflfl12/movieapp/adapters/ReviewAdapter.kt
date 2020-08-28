@@ -1,4 +1,4 @@
-package io.github.slflfl12.movieapp.ui.moviedetail
+package io.github.slflfl12.movieapp.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,6 +6,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import io.github.slflfl12.movieapp.R
 import io.github.slflfl12.movieapp.databinding.ItemReviewBinding
+import io.github.slflfl12.movieapp.viewholders.ReviewViewHolder
 import io.github.slflfl12.presentation.model.ReviewPresentationModel
 import io.github.slflfl12.presentation.movie.MovieDetailViewModel
 
@@ -20,7 +21,8 @@ class ReviewAdapter(val vm: MovieDetailViewModel): RecyclerView.Adapter<ReviewVi
             parent,
             false
         )
-        val holder = ReviewViewHolder(binding)
+        val holder =
+            ReviewViewHolder(binding)
         return holder
     }
 

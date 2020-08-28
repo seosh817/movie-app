@@ -2,9 +2,9 @@ package io.github.slflfl12.data.model
 
 data class TvData(
     val page: Int,
-    var keywords: List<KeywordData>?,
-    val reviews: List<ReviewData>?,
-    val videos: List<VideoData>?,
+    var keywords: List<KeywordData>? = ArrayList(),
+    val reviews: List<ReviewData>? = ArrayList(),
+    val videos: List<VideoData>? = ArrayList(),
     val backdropPath: String?,
     val firstAirDate: String?,
     val genreIds: List<Int>?,

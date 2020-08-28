@@ -3,28 +3,23 @@ package io.github.slflfl12.movieapp.ui.movie
 import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.widget.AppCompatImageView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import androidx.transition.TransitionInflater
 import dagger.hilt.android.AndroidEntryPoint
 import io.github.slflfl12.movieapp.R
+import io.github.slflfl12.movieapp.adapters.MovieAdapter
 import io.github.slflfl12.movieapp.databinding.FragmentMovieBinding
 import io.github.slflfl12.movieapp.ui.base.BaseFragment
-import io.github.slflfl12.movieapp.ui.main.MainActivity
 import io.github.slflfl12.movieapp.ui.moviedetail.MovieDetailActivity
 import io.github.slflfl12.movieapp.util.EventObserver
 import io.github.slflfl12.presentation.model.MoviePresentationModel
 import io.github.slflfl12.presentation.movie.MovieViewModel
-import java.util.concurrent.TimeUnit
 
 @AndroidEntryPoint
 class MovieFragment: BaseFragment<FragmentMovieBinding ,MovieViewModel>(R.layout.fragment_movie) {
@@ -39,12 +34,10 @@ class MovieFragment: BaseFragment<FragmentMovieBinding ,MovieViewModel>(R.layout
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initRecyclerView()
-        initView()
         initObserve()
     }
 
-    private fun initView() {
-    }
+
 
     private fun initRecyclerView() {
         binding.rvMovie.apply {

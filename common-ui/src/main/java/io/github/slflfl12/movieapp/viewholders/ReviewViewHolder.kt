@@ -1,4 +1,4 @@
-package io.github.slflfl12.movieapp.ui.moviedetail
+package io.github.slflfl12.movieapp.viewholders
 
 import androidx.recyclerview.widget.RecyclerView
 import io.github.slflfl12.movieapp.databinding.ItemReviewBinding
