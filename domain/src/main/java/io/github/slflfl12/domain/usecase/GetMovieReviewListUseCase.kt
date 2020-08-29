@@ -12,7 +12,7 @@ class GetMovieReviewListUseCase(
 
     override fun buildUseCaseSingle(params: Int): Single<List<ReviewModel>> =
         movieRepository.getLocalMovie(params).flatMap {movie ->
-            if(movie.reviews.isEmpty()) {
+            if(movie.reviews.isNullOrEmpty()) {
                 movieRepository.getReviewList(params).flatMapCompletable {
                     movie.reviews = it
                     movieRepository.updateMovie(movie)

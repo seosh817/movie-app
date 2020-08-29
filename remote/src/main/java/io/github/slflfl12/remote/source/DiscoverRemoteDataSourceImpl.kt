@@ -47,7 +47,7 @@ class DiscoverRemoteDataSourceImpl(
                         backdropPath = from.backdropPath,
                         firstAirDate = from.firstAirDate,
                         genreIds = from.genreIds,
-                        id = from.id,
+                        id = from.id ?: 1,
                         name= from.name,
                         originCountry = from.originCountry,
                         originalLanguage = from.originalLanguage,

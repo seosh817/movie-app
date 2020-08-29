@@ -1,4 +1,4 @@
-package io.github.slflfl12.presentation.movie
+package io.github.slflfl12.presentation.moviedetail
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
@@ -92,6 +92,5 @@ class MovieDetailViewModel @ViewModelInject constructor(
         _videoItemClickEvent.value = Event(videoPresentationModel)
     }
 
-    fun getMovie(): MoviePresentationModel = movieModel
 
 }

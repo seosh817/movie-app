@@ -8,7 +8,7 @@ class LoadMovieKeywordListUseCase(
 ): CompletableUseCase<Int>() {
     override fun buildUseCaseCompletable(params: Int): Completable =
         movieRepository.getLocalMovie(params).flatMapCompletable { movie ->
-            if(movie.keywords.isEmpty()) {
+            if(movie.keywords.isNullOrEmpty()) {
                 movieRepository.getKeywordList(params).flatMapCompletable {
                     movie.keywords = it
                     movieRepository.updateMovie(movie)

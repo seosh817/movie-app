@@ -11,7 +11,7 @@ class GetMovieVideoListUseCase(
 
     override fun buildUseCaseSingle(params: Int): Single<List<VideoModel>> =
         movieRepository.getLocalMovie(params).flatMap {movie ->
-            if(movie.videos.isEmpty()) {
+            if(movie.videos.isNullOrEmpty()) {
                 movieRepository.getVideoList(params).flatMapCompletable {
                     movie.videos = it
                     movieRepository.updateMovie(movie)

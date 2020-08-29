@@ -13,7 +13,7 @@ data class TvEntity(
     val firstAirDate: String?,
     val genreIds: List<Int>?,
     @PrimaryKey
-    val id: Int?,
+    val id: Int,
     val name: String,
     val originCountry: List<String>?,
     val originalLanguage: String?,

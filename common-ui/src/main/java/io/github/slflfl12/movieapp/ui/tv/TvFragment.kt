@@ -105,7 +105,7 @@ class TvFragment: BaseFragment<FragmentTvBinding, TvViewModel>(R.layout.fragment
     private fun onNavigateToDetail(pair: Pair<TvPresentationModel, View>) {
         val tv = pair.first
         val view = pair.second
-        Intent(context, MovieDetailActivity::class.java).apply {
+        Intent(context, TvDetailActivity::class.java).apply {
             putExtra(TvDetailActivity.KEY_TV, tv)
         }.also {
             val options = ActivityOptions.makeSceneTransitionAnimation(activity, view, tv.name)

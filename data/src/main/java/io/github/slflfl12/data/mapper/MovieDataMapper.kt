@@ -13,8 +13,8 @@ object MovieDataMapper : DataMapper<MovieData, MovieModel> {
     override fun mapToDomain(from: MovieData): MovieModel {
         return MovieModel(
             page = from.page,
-            keywords = from.keywords.map { KeywordModel(id = it.id, name = it.name) },
-            reviews = from.reviews.map {
+            keywords = from.keywords?.map { KeywordModel(id = it.id, name = it.name) },
+            reviews = from.reviews?.map {
                 ReviewModel(
                     id = it.id,
                     author = it.author,
@@ -22,7 +22,7 @@ object MovieDataMapper : DataMapper<MovieData, MovieModel> {
                     url = it.url
                 )
             },
-            videos = from.videos.map {
+            videos = from.videos?.map {
                 VideoModel(
                     id = it.id,
                     key = it.key,
@@ -53,8 +53,8 @@ object MovieDataMapper : DataMapper<MovieData, MovieModel> {
     override fun mapToData(from: MovieModel): MovieData {
         return MovieData(
             page = from.page,
-            keywords = from.keywords.map { KeywordData(id = it.id, name = it.name) },
-            reviews = from.reviews.map {
+            keywords = from.keywords?.map { KeywordData(id = it.id, name = it.name) },
+            reviews = from.reviews?.map {
                 ReviewData(
                     id = it.id,
                     author = it.author,
@@ -62,7 +62,7 @@ object MovieDataMapper : DataMapper<MovieData, MovieModel> {
                     url = it.url
                 )
             },
-            videos = from.videos.map {
+            videos = from.videos?.map {
                 VideoData(
                     id = it.id,
                     key = it.key,

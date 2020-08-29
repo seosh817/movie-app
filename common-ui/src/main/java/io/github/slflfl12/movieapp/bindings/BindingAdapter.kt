@@ -1,4 +1,4 @@
-package io.github.slflfl12.movieapp.util
+package io.github.slflfl12.movieapp.bindings
 
 import android.annotation.SuppressLint
 import android.view.View
@@ -15,32 +15,46 @@ import com.github.florent37.glidepalette.GlidePalette
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.ms.square.android.expandabletextview.ExpandableTextView
-import io.github.slflfl12.movieapp.R
 import io.github.slflfl12.movieapp.di.GlideApp
+import io.github.slflfl12.movieapp.R
 import io.github.slflfl12.movieapp.extensions.requestGlideListener
 import io.github.slflfl12.movieapp.extensions.simpleToolbar
 import io.github.slflfl12.movieapp.extensions.visible
 import io.github.slflfl12.movieapp.adapters.ReviewAdapter
 import io.github.slflfl12.movieapp.adapters.VideoAdapter
-import io.github.slflfl12.presentation.model.KeywordPresentationModel
-import io.github.slflfl12.presentation.model.MoviePresentationModel
-import io.github.slflfl12.presentation.model.ReviewPresentationModel
-import io.github.slflfl12.presentation.model.VideoPresentationModel
-import io.github.slflfl12.presentation.movie.MovieDetailViewModel
+import io.github.slflfl12.movieapp.util.*
+import io.github.slflfl12.presentation.model.*
+import io.github.slflfl12.presentation.moviedetail.MovieDetailViewModel
 
 
 
-@BindingAdapter("bind:bindBackDrop")
+@BindingAdapter("bindBackDrop")
 fun ImageView.bindBackDrop(movie: MoviePresentationModel?) {
-    movie?.chekNull({
+    movie?.checkNull({
         bindNullGlide(this)
     }, {
-        bindBackDrop(this, movie.backdropPath, movie.posterPath)
+        bindBackDrop(
+            this,
+            it.backdropPath,
+            it.posterPath
+        )
     })
-
 }
 
-@BindingAdapter("bind:bindActivity", "bind:bindTitle")
+@BindingAdapter("bindBackDrop")
+fun ImageView.bindBackDrop(tv: TvPresentationModel?) {
+    tv?.checkNull({
+        bindNullGlide(this)
+    }, {
+        bindBackDrop(
+            this,
+            it.backdropPath,
+            it.posterPath
+        )
+    })
+}
+
+@BindingAdapter("bindActivity", "bindTitle")
 fun bindToolbar(toolbar: Toolbar, activity: AppCompatActivity, _title: String?) {
     if (_title != null) {
         activity.simpleToolbar(toolbar, _title)
@@ -48,14 +62,14 @@ fun bindToolbar(toolbar: Toolbar, activity: AppCompatActivity, _title: String?) 
 }
 
 @SuppressLint("SetTextI18n")
-@BindingAdapter("bind:bindReleaseDate")
+@BindingAdapter("bindReleaseDate")
 fun TextView.bindReleaseDate(_releaseDate: String?) {
     if (_releaseDate != null) {
         text = context.getString(R.string.release_date_text, _releaseDate)
     }
 }
 
-@BindingAdapter("bind:bindRating")
+@BindingAdapter("bindRating")
 fun RatingBar.bindRating(_rating: Double?) {
     if (_rating != null) {
         rating = _rating.toFloat()
@@ -69,15 +83,23 @@ fun visibilityByModel(view: View, anyList: List<Any>?) {
     }
 }
 
-@BindingAdapter("bindVideo", "bind:palette")
+@BindingAdapter("bindVideo", "palette")
 fun bindVideo(imageView: ImageView, _path: String?, palette: View?) {
     _path?.let {
         if (!it.equals("")) {
             GlideApp.with(imageView.context)
-                .load(PosterPath.getYoutubeThumbnailPath(it))
+                .load(
+                    PosterPath.getYoutubeThumbnailPath(
+                        it
+                    )
+                )
                 .error(ContextCompat.getDrawable(imageView.context, R.drawable.not_found))
                 .listener(
-                    GlidePalette.with(PosterPath.getYoutubeThumbnailPath(it))
+                    GlidePalette.with(
+                        PosterPath.getYoutubeThumbnailPath(
+                            it
+                        )
+                    )
                         .use(BitmapPalette.Profile.VIBRANT)
                         .intoBackground(palette)
                         .crossfade(true)
@@ -136,8 +158,8 @@ fun bindChipKeywords(chipGroup: ChipGroup, keywords: List<KeywordPresentationMod
 
 
 
-private fun bindBackDrop(view: ImageView, backDropPath: String, posterPath: String) {
-    backDropPath.checkEmptyAct({
+private fun bindBackDrop(view: ImageView, backDropPath: String?, posterPath: String?) {
+    backDropPath.checkNull({
         GlideApp.with(view.context)
             .load(PosterPath.getBackdropPath(it))
             .error(ContextCompat.getDrawable(view.context, R.drawable.not_found))
@@ -145,7 +167,9 @@ private fun bindBackDrop(view: ImageView, backDropPath: String, posterPath: Stri
             .into(view)
     }, {
         GlideApp.with(view.context)
-            .load(PosterPath.getPosterPath(posterPath))
+            .load(
+                PosterPath.getPosterPath(posterPath)
+            )
             .error(ContextCompat.getDrawable(view.context, R.drawable.not_found))
             .listener(view.requestGlideListener())
             .into(view)

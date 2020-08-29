@@ -13,7 +13,7 @@ interface TvRepository {
 
     fun updateTv(tv: TvModel): Completable
 
-    fun getTv(id: Int): Single<TvModel>
+    fun getLocalTv(id: Int): Single<TvModel>
 
     fun getLocalTvList(page: Int): Single<List<TvModel>>
 

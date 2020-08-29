@@ -9,7 +9,7 @@ object PosterPath {
 
 
     /** gets the poster's path. */
-    fun getPosterPath(posterPath: String) = BASE_POSTER_PATH + posterPath
+    fun getPosterPath(posterPath: String?) = BASE_POSTER_PATH + posterPath
 
     /** gets the back drop's path. */
     fun getBackdropPath(backdropPath: String?) = BASE_BACKDROP_PATH + backdropPath

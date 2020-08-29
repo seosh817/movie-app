@@ -13,8 +13,8 @@ object MoviePresentationMapper: PresentationMapper<MoviePresentationModel, Movie
     override fun mapToDomain(from: MoviePresentationModel): MovieModel {
         return MovieModel(
             page = from.page,
-            keywords = from.keywords.map { KeywordModel(id = it.id, name = it.name) },
-            reviews = from.reviews.map {
+            keywords = from.keywords?.map { KeywordModel(id = it.id, name = it.name) },
+            reviews = from.reviews?.map {
                 ReviewModel(
                     id = it.id,
                     author = it.author,
@@ -22,7 +22,7 @@ object MoviePresentationMapper: PresentationMapper<MoviePresentationModel, Movie
                     url = it.url
                 )
             },
-            videos = from.videos.map {
+            videos = from.videos?.map {
                 VideoModel(
                     id = it.id,
                     key = it.key,
@@ -53,8 +53,8 @@ object MoviePresentationMapper: PresentationMapper<MoviePresentationModel, Movie
     override fun mapToPresentation(from: MovieModel): MoviePresentationModel {
         return MoviePresentationModel(
             page = from.page,
-            keywords = from.keywords.map { KeywordPresentationModel(id = it.id, name = it.name) },
-            reviews = from.reviews.map {
+            keywords = from.keywords?.map { KeywordPresentationModel(id = it.id, name = it.name) },
+            reviews = from.reviews?.map {
                 ReviewPresentationModel(
                     id = it.id,
                     author = it.author,
@@ -62,7 +62,7 @@ object MoviePresentationMapper: PresentationMapper<MoviePresentationModel, Movie
                     url = it.url
                 )
             },
-            videos = from.videos.map {
+            videos = from.videos?.map {
                 VideoPresentationModel(
                     id = it.id,
                     key = it.key,

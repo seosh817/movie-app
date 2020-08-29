@@ -11,7 +11,7 @@
 
         <variable
             name="vm"
-            type="io.github.slflfl12.presentation.movie.MovieDetailViewModel" />
+            type="io.github.slflfl12.presentation.moviedetail.MovieDetailViewModel" />
     </data>
 
     <LinearLayout

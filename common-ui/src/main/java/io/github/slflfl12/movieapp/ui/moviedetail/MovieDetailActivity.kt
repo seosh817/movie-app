@@ -4,11 +4,8 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
-import android.view.View
-import android.view.Window
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
-import androidx.transition.TransitionInflater
 import dagger.hilt.android.AndroidEntryPoint
 import io.github.slflfl12.movieapp.R
 import io.github.slflfl12.movieapp.databinding.ActivityMovieDetailBinding
@@ -18,8 +15,7 @@ import io.github.slflfl12.movieapp.util.EventObserver
 import io.github.slflfl12.movieapp.util.PosterPath
 import io.github.slflfl12.presentation.model.MoviePresentationModel
 import io.github.slflfl12.presentation.model.VideoPresentationModel
-import io.github.slflfl12.presentation.movie.MovieDetailViewModel
-import kotlinx.android.synthetic.main.activity_movie_detail.*
+import io.github.slflfl12.presentation.moviedetail.MovieDetailViewModel
 
 @AndroidEntryPoint
 class MovieDetailActivity : BaseActivity<MovieDetailViewModel>() {
@@ -44,17 +40,9 @@ class MovieDetailActivity : BaseActivity<MovieDetailViewModel>() {
             activity = this@MovieDetailActivity
             vm = this@MovieDetailActivity.vm
         }
-
-
-
-
-
-        initRecyclerView()
         initObserve()
     }
 
-    private fun initRecyclerView() {
-    }
 
     private fun initObserve() {
         vm.movie.observe(this, Observer { movie ->

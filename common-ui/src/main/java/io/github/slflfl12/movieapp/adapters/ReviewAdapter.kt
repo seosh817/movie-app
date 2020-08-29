@@ -8,7 +8,7 @@ import io.github.slflfl12.movieapp.R
 import io.github.slflfl12.movieapp.databinding.ItemReviewBinding
 import io.github.slflfl12.movieapp.viewholders.ReviewViewHolder
 import io.github.slflfl12.presentation.model.ReviewPresentationModel
-import io.github.slflfl12.presentation.movie.MovieDetailViewModel
+import io.github.slflfl12.presentation.moviedetail.MovieDetailViewModel
 
 class ReviewAdapter(val vm: MovieDetailViewModel): RecyclerView.Adapter<ReviewViewHolder>() {
 

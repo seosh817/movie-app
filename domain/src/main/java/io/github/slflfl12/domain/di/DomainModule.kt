@@ -64,4 +64,36 @@ object DomainModule {
     ): GetDiscoverTvListUseCase {
         return GetDiscoverTvListUseCase(tvRepository, discoverRepository)
     }
+
+    @Provides
+    @Singleton
+    fun getTvKeywordListUseCase(
+        tvRepository: TvRepository
+    ): GetTvKeywordListUseCase {
+        return GetTvKeywordListUseCase(tvRepository)
+    }
+
+    @Provides
+    @Singleton
+    fun getTvReviewListUseCase(
+        tvRepository: TvRepository
+    ): GetTvReviewListUseCase {
+        return GetTvReviewListUseCase(tvRepository)
+    }
+
+    @Provides
+    @Singleton
+    fun getTvVideoListUseCase(
+        tvRepository: TvRepository
+    ): GetTvVideoListUseCase {
+        return GetTvVideoListUseCase(tvRepository)
+    }
+
+    @Provides
+    @Singleton
+    fun getLocalTvUseCase(
+        tvRepository: TvRepository
+    ): GetLocalTvUseCase {
+        return GetLocalTvUseCase(tvRepository)
+    }
 }

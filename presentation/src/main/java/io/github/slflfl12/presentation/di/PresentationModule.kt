@@ -5,9 +5,9 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
 import io.github.slflfl12.domain.usecase.*
-import io.github.slflfl12.presentation.movie.MovieDetailViewModel
+import io.github.slflfl12.presentation.moviedetail.MovieDetailViewModel
 import io.github.slflfl12.presentation.movie.MovieViewModel
-import io.github.slflfl12.presentation.tv.TvDetailViewModel
+import io.github.slflfl12.presentation.tvdetail.TvDetailViewModel
 import io.github.slflfl12.presentation.tv.TvViewModel
 import javax.inject.Singleton
 
@@ -30,8 +30,13 @@ object PresentationModule {
         getMovieReviewListUseCase: GetMovieReviewListUseCase,
         getMovieVideoListUseCase: GetMovieVideoListUseCase,
         getLocalMovieUseCase: GetLocalMovieUseCase
-    ): MovieDetailViewModel  {
-        return MovieDetailViewModel(getMovieKeywordListUseCase, getMovieReviewListUseCase, getMovieVideoListUseCase,getLocalMovieUseCase)
+    ): MovieDetailViewModel {
+        return MovieDetailViewModel(
+            getMovieKeywordListUseCase,
+            getMovieReviewListUseCase,
+            getMovieVideoListUseCase,
+            getLocalMovieUseCase
+        )
     }
 
     @Provides
@@ -44,8 +49,18 @@ object PresentationModule {
 
     @Provides
     @Singleton
-    fun provideTvDetailViewModel(): TvDetailViewModel {
-        return TvDetailViewModel()
+    fun provideTvDetailViewModel(
+        getTvKeywordListUseCase: GetTvKeywordListUseCase,
+        getTvReviewListUseCase: GetTvReviewListUseCase,
+        getTvVideoListUseCase: GetTvVideoListUseCase,
+        getLocalTvUseCase: GetLocalTvUseCase
+    ): TvDetailViewModel {
+        return TvDetailViewModel(
+            getTvKeywordListUseCase,
+            getTvReviewListUseCase,
+            getTvVideoListUseCase,
+            getLocalTvUseCase
+        )
     }
 
 

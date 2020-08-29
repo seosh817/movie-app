@@ -10,7 +10,7 @@ class GetMovieKeywordListUseCase(
 
     override fun buildUseCaseSingle(params: Int): Single<List<KeywordModel>> =
         movieRepository.getLocalMovie(params).flatMap {movie ->
-            if(movie.keywords.isEmpty()) {
+            if(movie.keywords.isNullOrEmpty()) {
                 movieRepository.getKeywordList(params).flatMapCompletable {
                     movie.keywords = it
                     movieRepository.updateMovie(movie)

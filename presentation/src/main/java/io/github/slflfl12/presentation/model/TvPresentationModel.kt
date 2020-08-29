@@ -15,7 +15,7 @@ data class TvPresentationModel(
     val backdropPath: String?,
     val firstAirDate: String?,
     val genreIds: List<Int>?,
-    val id: Int?,
+    val id: Int,
     val name: String,
     val originCountry: List<String>?,
     val originalLanguage: String?,

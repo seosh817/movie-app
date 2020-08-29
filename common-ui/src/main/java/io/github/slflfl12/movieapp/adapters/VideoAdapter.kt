@@ -8,7 +8,7 @@ import io.github.slflfl12.movieapp.R
 import io.github.slflfl12.movieapp.databinding.ItemVideoBinding
 import io.github.slflfl12.movieapp.viewholders.VideoViewHolder
 import io.github.slflfl12.presentation.model.VideoPresentationModel
-import io.github.slflfl12.presentation.movie.MovieDetailViewModel
+import io.github.slflfl12.presentation.moviedetail.MovieDetailViewModel
 
 class VideoAdapter(val vm: MovieDetailViewModel): RecyclerView.Adapter<VideoViewHolder>() {
 

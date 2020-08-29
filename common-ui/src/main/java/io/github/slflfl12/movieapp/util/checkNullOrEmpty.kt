@@ -21,18 +21,8 @@ inline fun <T> List<T>?.doIfNotNullOrEmpty(
 }
 
 
-inline fun <T> T.checkEmptyAct(
-    notEmpty: (T) -> Unit,
-    isEmpty: (T) -> Unit
-) {
-    if (!this!!.equals("")) {
-        notEmpty(this)
-    } else {
-        isEmpty(this)
-    }
-}
 
-inline fun <T> T?.chekNull(
+inline fun <T> T?.checkNull(
     isNull: (T?) -> Unit,
     notNull: (T) -> Unit
 ) {
