@@ -23,8 +23,8 @@ inline fun <T> List<T>?.doIfNotNullOrEmpty(
 
 
 inline fun <T> T?.checkNull(
-    isNull: (T?) -> Unit,
-    notNull: (T) -> Unit
+    notNull: (T) -> Unit,
+    isNull: (T?) -> Unit
 ) {
     if (this != null) {
         notNull(this)

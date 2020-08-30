@@ -11,7 +11,7 @@ data class Tv(
     @SerializedName("genre_ids")
     val genreIds: List<Int>?,
     @SerializedName("id")
-    val id: Int?,
+    val id: Int,
     @SerializedName("name")
     val name: String,
     @SerializedName("origin_country")
@@ -27,7 +27,7 @@ data class Tv(
     @SerializedName("poster_path")
     val posterPath: String?,
     @SerializedName("vote_average")
-    val voteAverage: Double,
+    val voteAverage: Float?,
     @SerializedName("vote_count")
     val voteCount: Int
 ): Response

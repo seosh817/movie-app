@@ -21,7 +21,7 @@ data class TvEntity(
     val overview: String?,
     val popularity: Float,
     val posterPath: String?,
-    val voteAverage: Double,
+    val voteAverage: Float?,
     val voteCount: Int,
     val favorite: Boolean
 ): io.github.slflfl12.local.model.Entity

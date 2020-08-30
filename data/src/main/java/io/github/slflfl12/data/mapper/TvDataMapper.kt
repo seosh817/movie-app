@@ -14,25 +14,9 @@ object TvDataMapper : DataMapper<TvData, TvModel> {
     override fun mapToDomain(from: TvData): TvModel {
         return TvModel(
             page = from.page,
-            keywords = from.keywords?.map { KeywordModel(id = it.id, name = it.name) },
-            reviews = from.reviews?.map {
-                ReviewModel(
-                    id = it.id,
-                    author = it.author,
-                    content = it.content,
-                    url = it.url
-                )
-            },
-            videos = from.videos?.map {
-                VideoModel(
-                    id = it.id,
-                    key = it.key,
-                    name = it.name,
-                    site = it.site,
-                    size = it.size,
-                    type = it.type
-                )
-            },
+            keywords = from.keywords?.map(KeywordDataMapper::mapToDomain),
+            reviews = from.reviews?.map(ReviewDataMapper::mapToDomain),
+            videos = from.videos?.map(VideoDataMapper::mapToDomain),
             backdropPath = from.backdropPath,
             firstAirDate = from.firstAirDate,
             genreIds = from.genreIds,
@@ -53,25 +37,9 @@ object TvDataMapper : DataMapper<TvData, TvModel> {
     override fun mapToData(from: TvModel): TvData {
         return TvData(
             page = from.page,
-            keywords = from.keywords?.map { KeywordData(id = it.id, name = it.name) },
-            reviews = from.reviews?.map {
-                ReviewData(
-                    id = it.id,
-                    author = it.author,
-                    content = it.content,
-                    url = it.url
-                )
-            },
-            videos = from.videos?.map {
-                VideoData(
-                    id = it.id,
-                    key = it.key,
-                    name = it.name,
-                    site = it.site,
-                    size = it.size,
-                    type = it.type
-                )
-            },
+            keywords = from.keywords?.map(KeywordDataMapper::mapToData),
+            reviews = from.reviews?.map(ReviewDataMapper::mapToData),
+            videos = from.videos?.map(VideoDataMapper::mapToData),
             backdropPath = from.backdropPath,
             firstAirDate = from.firstAirDate,
             genreIds = from.genreIds,

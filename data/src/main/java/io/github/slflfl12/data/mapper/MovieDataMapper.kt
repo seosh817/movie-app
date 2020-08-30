@@ -13,25 +13,9 @@ object MovieDataMapper : DataMapper<MovieData, MovieModel> {
     override fun mapToDomain(from: MovieData): MovieModel {
         return MovieModel(
             page = from.page,
-            keywords = from.keywords?.map { KeywordModel(id = it.id, name = it.name) },
-            reviews = from.reviews?.map {
-                ReviewModel(
-                    id = it.id,
-                    author = it.author,
-                    content = it.content,
-                    url = it.url
-                )
-            },
-            videos = from.videos?.map {
-                VideoModel(
-                    id = it.id,
-                    key = it.key,
-                    name = it.name,
-                    site = it.site,
-                    size = it.size,
-                    type = it.type
-                )
-            },
+            keywords = from.keywords?.map(KeywordDataMapper::mapToDomain),
+            reviews = from.reviews?.map(ReviewDataMapper::mapToDomain),
+            videos = from.videos?.map(VideoDataMapper::mapToDomain),
             adult = from.adult,
             backdropPath = from.backdropPath,
             genreIds = from.genreIds,
@@ -53,25 +37,9 @@ object MovieDataMapper : DataMapper<MovieData, MovieModel> {
     override fun mapToData(from: MovieModel): MovieData {
         return MovieData(
             page = from.page,
-            keywords = from.keywords?.map { KeywordData(id = it.id, name = it.name) },
-            reviews = from.reviews?.map {
-                ReviewData(
-                    id = it.id,
-                    author = it.author,
-                    content = it.content,
-                    url = it.url
-                )
-            },
-            videos = from.videos?.map {
-                VideoData(
-                    id = it.id,
-                    key = it.key,
-                    name = it.name,
-                    site = it.site,
-                    size = it.size,
-                    type = it.type
-                )
-            },
+            keywords = from.keywords?.map(KeywordDataMapper::mapToData),
+            reviews = from.reviews?.map(ReviewDataMapper::mapToData),
+            videos = from.videos?.map(VideoDataMapper::mapToData),
             adult = from.adult,
             backdropPath = from.backdropPath,
             genreIds = from.genreIds,

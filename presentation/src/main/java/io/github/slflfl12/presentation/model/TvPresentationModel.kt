@@ -9,7 +9,7 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class TvPresentationModel(
     val page: Int,
-    var keywords: List<KeywordPresentationModel>?,
+    val keywords: List<KeywordPresentationModel>?,
     val reviews: List<ReviewPresentationModel>?,
     val videos: List<VideoPresentationModel>?,
     val backdropPath: String?,
@@ -23,7 +23,7 @@ data class TvPresentationModel(
     val overview: String?,
     val popularity: Float,
     val posterPath: String?,
-    val voteAverage: Double,
+    val voteAverage: Float?,
     val voteCount: Int,
     val favorite: Boolean
 ): PresentationModel, Parcelable

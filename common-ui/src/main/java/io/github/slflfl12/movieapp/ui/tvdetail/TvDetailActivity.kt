@@ -1,6 +1,8 @@
 package io.github.slflfl12.movieapp.ui.tvdetail
 
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import dagger.hilt.android.AndroidEntryPoint
@@ -19,7 +21,7 @@ class TvDetailActivity : BaseActivity<TvDetailViewModel>(){
     private val binding: ActivityTvDetailBinding by binding(R.layout.activity_tv_detail)
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        //applyMaterialTransform()
+        applyMaterialTransform()
         super.onCreate(savedInstanceState)
 
         intent?.getParcelableExtra<TvPresentationModel>(KEY_TV)?.let {
@@ -28,7 +30,7 @@ class TvDetailActivity : BaseActivity<TvDetailViewModel>(){
 
         with(binding) {
             lifecycleOwner = this@TvDetailActivity
-            //activity = this@TvDetailActivity
+            activity = this@TvDetailActivity
             vm = this@TvDetailActivity.vm
         }
         initObserve()
@@ -36,7 +38,11 @@ class TvDetailActivity : BaseActivity<TvDetailViewModel>(){
 
     private fun initObserve() {
         vm.tv.observe(this, Observer { tv ->
-            //binding.tv = tv
+            binding.tv = tv
+        })
+
+        vm.networkError.observe(this, Observer {
+            Toast.makeText(this, getString(R.string.network_error_message), Toast.LENGTH_SHORT).show()
         })
     }
 

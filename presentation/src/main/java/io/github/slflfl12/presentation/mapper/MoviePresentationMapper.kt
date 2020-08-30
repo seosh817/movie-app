@@ -13,25 +13,9 @@ object MoviePresentationMapper: PresentationMapper<MoviePresentationModel, Movie
     override fun mapToDomain(from: MoviePresentationModel): MovieModel {
         return MovieModel(
             page = from.page,
-            keywords = from.keywords?.map { KeywordModel(id = it.id, name = it.name) },
-            reviews = from.reviews?.map {
-                ReviewModel(
-                    id = it.id,
-                    author = it.author,
-                    content = it.content,
-                    url = it.url
-                )
-            },
-            videos = from.videos?.map {
-                VideoModel(
-                    id = it.id,
-                    key = it.key,
-                    name = it.name,
-                    site = it.site,
-                    size = it.size,
-                    type = it.type
-                )
-            },
+            keywords = from.keywords?.map(KeywordPresentationMapper::mapToDomain),
+            reviews = from.reviews?.map(ReviewPresentationMapper::mapToDomain),
+            videos = from.videos?.map(VideoPresentationMapper::mapToDomain),
             adult = from.adult,
             backdropPath = from.backdropPath,
             genreIds = from.genreIds,
@@ -53,25 +37,9 @@ object MoviePresentationMapper: PresentationMapper<MoviePresentationModel, Movie
     override fun mapToPresentation(from: MovieModel): MoviePresentationModel {
         return MoviePresentationModel(
             page = from.page,
-            keywords = from.keywords?.map { KeywordPresentationModel(id = it.id, name = it.name) },
-            reviews = from.reviews?.map {
-                ReviewPresentationModel(
-                    id = it.id,
-                    author = it.author,
-                    content = it.content,
-                    url = it.url
-                )
-            },
-            videos = from.videos?.map {
-                VideoPresentationModel(
-                    id = it.id,
-                    key = it.key,
-                    name = it.name,
-                    site = it.site,
-                    size = it.size,
-                    type = it.type
-                )
-            },
+            keywords = from.keywords?.map(KeywordPresentationMapper::mapToPresentation),
+            reviews = from.reviews?.map(ReviewPresentationMapper::mapToPresentation),
+            videos = from.videos?.map(VideoPresentationMapper::mapToPresentation),
             adult = from.adult,
             backdropPath = from.backdropPath,
             genreIds = from.genreIds,

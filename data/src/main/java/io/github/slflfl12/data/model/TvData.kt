@@ -2,7 +2,7 @@ package io.github.slflfl12.data.model
 
 data class TvData(
     val page: Int,
-    var keywords: List<KeywordData>? = ArrayList(),
+    val keywords: List<KeywordData>? = ArrayList(),
     val reviews: List<ReviewData>? = ArrayList(),
     val videos: List<VideoData>? = ArrayList(),
     val backdropPath: String?,
@@ -16,7 +16,7 @@ data class TvData(
     val overview: String?,
     val popularity: Float,
     val posterPath: String?,
-    val voteAverage: Double,
+    val voteAverage: Float?,
     val voteCount: Int,
     val favorite: Boolean
 ): Data

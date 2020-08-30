@@ -19,6 +19,8 @@ class TvAdapter(
 
     private val items = mutableListOf<TvPresentationModel>()
 
+
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TvViewHolder {
         val binding = DataBindingUtil.inflate<ItemTvBinding>(
             LayoutInflater.from(parent.context),
@@ -48,4 +50,6 @@ class TvAdapter(
         items.addAll(list)
         notifyItemRangeChanged(preItemSize, list.size)
     }
+
+
 }

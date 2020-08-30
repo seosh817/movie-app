@@ -23,10 +23,9 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
-
 @Module
 @InstallIn(ApplicationComponent::class)
-object remoteModule {
+object RemoteModule {
 
     private const val CONNECT_TIMEOUT = 10L
     private const val WRITE_TIMEOUT = 1L

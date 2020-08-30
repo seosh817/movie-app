@@ -13,25 +13,9 @@ object TvPresentationMapper: PresentationMapper<TvPresentationModel, TvModel> {
     override fun mapToDomain(from: TvPresentationModel): TvModel {
        return TvModel(
            page = from.page,
-           keywords = from.keywords?.map { KeywordModel(id = it.id, name = it.name) },
-           reviews = from.reviews?.map {
-               ReviewModel(
-                   id = it.id,
-                   author = it.author,
-                   content = it.content,
-                   url = it.url
-               )
-           },
-           videos = from.videos?.map {
-               VideoModel(
-                   id = it.id,
-                   key = it.key,
-                   name = it.name,
-                   site = it.site,
-                   size = it.size,
-                   type = it.type
-               )
-           },
+           keywords = from.keywords?.map(KeywordPresentationMapper::mapToDomain),
+           reviews = from.reviews?.map(ReviewPresentationMapper::mapToDomain),
+           videos = from.videos?.map(VideoPresentationMapper::mapToDomain),
            backdropPath = from.backdropPath,
            firstAirDate = from.firstAirDate,
            genreIds = from.genreIds,
@@ -52,25 +36,9 @@ object TvPresentationMapper: PresentationMapper<TvPresentationModel, TvModel> {
     override fun mapToPresentation(from: TvModel): TvPresentationModel {
         return TvPresentationModel(
             page = from.page,
-            keywords = from.keywords?.map { KeywordPresentationModel(id = it.id, name = it.name) },
-            reviews = from.reviews?.map {
-                ReviewPresentationModel(
-                    id = it.id,
-                    author = it.author,
-                    content = it.content,
-                    url = it.url
-                )
-            },
-            videos = from.videos?.map {
-                VideoPresentationModel(
-                    id = it.id,
-                    key = it.key,
-                    name = it.name,
-                    site = it.site,
-                    size = it.size,
-                    type = it.type
-                )
-            },
+            keywords = from.keywords?.map(KeywordPresentationMapper::mapToPresentation),
+            reviews = from.reviews?.map(ReviewPresentationMapper::mapToPresentation),
+            videos = from.videos?.map(VideoPresentationMapper::mapToPresentation),
             backdropPath = from.backdropPath,
             firstAirDate = from.firstAirDate,
             genreIds = from.genreIds,

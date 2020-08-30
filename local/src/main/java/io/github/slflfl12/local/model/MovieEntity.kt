@@ -23,7 +23,7 @@ data class MovieEntity(
     val release_date: String?,
     val title: String?,
     val video: Boolean?,
-    val vote_average: Double?,
+    val vote_average: Float?,
     val vote_count: Int?,
     var favorite: Boolean = false
 ) : io.github.slflfl12.local.model.Entity

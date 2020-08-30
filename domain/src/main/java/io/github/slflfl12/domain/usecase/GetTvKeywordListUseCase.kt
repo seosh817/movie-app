@@ -1,5 +1,6 @@
 package io.github.slflfl12.domain.usecase
 
+import android.util.Log
 import io.github.slflfl12.domain.model.KeywordModel
 import io.github.slflfl12.domain.repository.TvRepository
 import io.reactivex.Single
