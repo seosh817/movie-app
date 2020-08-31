@@ -10,7 +10,7 @@ import io.github.slflfl12.movieapp.viewholders.ReviewViewHolder
 import io.github.slflfl12.presentation.model.ReviewPresentationModel
 import io.github.slflfl12.presentation.moviedetail.MovieDetailViewModel
 
-class ReviewAdapter(val vm: MovieDetailViewModel): RecyclerView.Adapter<ReviewViewHolder>() {
+class ReviewAdapter: RecyclerView.Adapter<ReviewViewHolder>() {
 
     private val items = mutableListOf<ReviewPresentationModel>()
 
@@ -21,9 +21,8 @@ class ReviewAdapter(val vm: MovieDetailViewModel): RecyclerView.Adapter<ReviewVi
             parent,
             false
         )
-        val holder =
-            ReviewViewHolder(binding)
-        return holder
+
+        return ReviewViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ReviewViewHolder, position: Int) {

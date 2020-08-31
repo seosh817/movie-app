@@ -9,7 +9,7 @@ import androidx.lifecycle.Observer
 import dagger.hilt.android.AndroidEntryPoint
 import io.github.slflfl12.movieapp.R
 import io.github.slflfl12.movieapp.databinding.ActivityMovieDetailBinding
-import io.github.slflfl12.movieapp.extensions.applyMaterialTransform
+import io.github.slflfl12.movieapp.extensions.applyMovieMaterialTransform
 import io.github.slflfl12.movieapp.ui.base.BaseActivity
 import io.github.slflfl12.movieapp.util.EventObserver
 import io.github.slflfl12.movieapp.util.PosterPath
@@ -27,7 +27,7 @@ class MovieDetailActivity : BaseActivity<MovieDetailViewModel>() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        applyMaterialTransform()
+        applyMovieMaterialTransform()
         super.onCreate(savedInstanceState)
 
 

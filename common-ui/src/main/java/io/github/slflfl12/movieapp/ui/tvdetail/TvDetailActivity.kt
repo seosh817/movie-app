@@ -1,14 +1,13 @@
 package io.github.slflfl12.movieapp.ui.tvdetail
 
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import dagger.hilt.android.AndroidEntryPoint
 import io.github.slflfl12.movieapp.R
 import io.github.slflfl12.movieapp.databinding.ActivityTvDetailBinding
-import io.github.slflfl12.movieapp.extensions.applyMaterialTransform
+import io.github.slflfl12.movieapp.extensions.applyTvMaterialTransform
 import io.github.slflfl12.movieapp.ui.base.BaseActivity
 import io.github.slflfl12.presentation.model.TvPresentationModel
 import io.github.slflfl12.presentation.tvdetail.TvDetailViewModel
@@ -21,7 +20,7 @@ class TvDetailActivity : BaseActivity<TvDetailViewModel>(){
     private val binding: ActivityTvDetailBinding by binding(R.layout.activity_tv_detail)
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        applyMaterialTransform()
+        applyTvMaterialTransform()
         super.onCreate(savedInstanceState)
 
         intent?.getParcelableExtra<TvPresentationModel>(KEY_TV)?.let {

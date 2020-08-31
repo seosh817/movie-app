@@ -28,13 +28,12 @@ fun bindVideoAdapterList(recyclerView: RecyclerView, videos: List<VideoPresentat
     }
 }
 
-@BindingAdapter("bindReviewViewModel", "reviews")
+@BindingAdapter("bindReviewAdapterList")
 fun bindAdapterReviewList(
     recyclerView: RecyclerView,
-    vm: MovieDetailViewModel,
     reviews: List<ReviewPresentationModel>?
 ) {
-    val adapter = ReviewAdapter(vm)
+    val adapter = ReviewAdapter()
     reviews.doIfNotNullOrEmpty {
         recyclerView.adapter = adapter
         adapter.setReviewList(it)

@@ -41,10 +41,65 @@
             android:layout_marginTop="12dp"
             android:orientation="horizontal"
             android:visibility="gone"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:bindVideoAdapterList="@{vm.videoList}"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/item_video"
             tools:visibility="visible" />
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/summary"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/detail_body_summary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="@{tv.overview}"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            tools:text="Summary" />
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/cg_detail_keyword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16sp"
+            android:padding="12dp"
+            android:visibility="gone"
+            app:bindChipKeywords="@{vm.keywordList}"
+            app:chipSpacingHorizontal="4dp"
+            app:chipSpacingVertical="6dp"
+            app:singleLine="false"
+            tools:visibility="visible" />
+
+        <TextView
+            android:id="@+id/tv_detail_reviews"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/reviews"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:visibility="gone"
+            app:visibilityByModel="@{vm.reviewList}"
+            tools:visibility="visible" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_detail_body_reviews"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:orientation="vertical"
+            android:visibility="gone"
+            app:bindReviewAdapterList="@{vm.reviewList}"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:visibility="visible" />
     </LinearLayout>
 </layout>

@@ -92,9 +92,8 @@
             tools:visibility="visible" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_detail_reviews"
-            bindReviewViewModel="@{vm}"
-            reviews="@{movie.reviews}"
+            android:id="@+id/rv_detail_body_reviews"
+            app:bindReviewAdapterList="@{vm.reviewList}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
