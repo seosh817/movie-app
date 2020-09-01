@@ -20,6 +20,6 @@ import kotlin.jvm.Throws
 class MovieRepositoryTest {
 
     private lateinit var movieRepository: MovieRepository
-    private lateinit var service:
+
 
 }

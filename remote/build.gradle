@@ -70,14 +70,17 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
 
+
     implementation deps.library.squareup.retrofit
     implementation deps.library.squareup.retrofit_gson_converter
     implementation deps.library.squareup.retrofit_adapter_rxjava
     implementation deps.library.squareup.okhttp
     implementation deps.library.squareup.okhttp_logging_interceptor
 
-    androidTestImplementation("org.mockito:mockito-android:2.24.5")
-    testImplementation 'org.mockito:mockito-inline:2.21.0'
+    testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0" //Mockito-Kotlin
+    testImplementation 'org.mockito:mockito-inline:3.3.3'
+
+
 
     androidTestImplementation 'androidx.test:runner:1.1.0'
     androidTestImplementation 'androidx.test:rules:1.1.0'
