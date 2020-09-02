@@ -1,14 +1,12 @@
-package io.github.slflfl12.remote.datasourcetest
+package io.github.slflfl12.remote.datasource
 
 import com.nhaarman.mockitokotlin2.mock
 import io.github.slflfl12.data.remote.MovieRemoteDataSource
 import io.github.slflfl12.remote.api.MovieApiService
 import io.github.slflfl12.remote.source.MovieRemoteDataSourceImpl
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.InjectMocks
 import org.mockito.MockitoAnnotations
 import org.mockito.junit.MockitoJUnitRunner
 

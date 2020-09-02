@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
             when(it.itemId) {
                 R.id.action_movie -> view_pager.currentItem = 0
                 R.id.action_tv -> view_pager.currentItem = 1
-                R.id.action_star -> view_pager.currentItem = 2
+                R.id.action_celebrities -> view_pager.currentItem = 2
             }
             true
         }

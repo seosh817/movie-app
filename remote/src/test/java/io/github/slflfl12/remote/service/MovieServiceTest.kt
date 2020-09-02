@@ -1,4 +1,4 @@
-package io.github.slflfl12.remote.servicetest
+package io.github.slflfl12.remote.service
 
 import io.github.slflfl12.remote.TestClient
 import io.github.slflfl12.remote.api.MovieApiService

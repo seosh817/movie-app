@@ -10,4 +10,7 @@
     <string name="summary">Summary</string>
     <string name="reviews">Reviews</string>
     <string name="air_date_text">First Air Date : %s</string>
+    <string name="popular_text">Popular</string>
+    <string name="new_text">New!</string>
+    <string name="menu_celebrities">Celebrities</string>
 </resources>

@@ -1,10 +1,12 @@
 package io.github.slflfl12.movieapp.bindings
 
 import android.annotation.SuppressLint
+import android.os.Build
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import com.github.florent37.glidepalette.BitmapPalette
@@ -13,6 +15,7 @@ import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import io.github.slflfl12.movieapp.R
 import io.github.slflfl12.movieapp.di.GlideApp
+import io.github.slflfl12.movieapp.extensions.gone
 import io.github.slflfl12.movieapp.extensions.requestGlideListener
 import io.github.slflfl12.movieapp.extensions.visible
 import io.github.slflfl12.movieapp.util.PosterPath
@@ -21,6 +24,7 @@ import io.github.slflfl12.movieapp.util.doIfNotNullOrEmpty
 import io.github.slflfl12.presentation.model.KeywordPresentationModel
 import io.github.slflfl12.presentation.model.MoviePresentationModel
 import io.github.slflfl12.presentation.model.TvPresentationModel
+import java.time.LocalDate
 
 
 @BindingAdapter("visibilityByModel")
@@ -111,6 +115,8 @@ fun bindChipKeywords(chipGroup: ChipGroup, keywords: List<KeywordPresentationMod
         }
     }
 }
+
+
 
 
 private fun bindBackDrop(view: ImageView, backDropPath: String?, posterPath: String?) {

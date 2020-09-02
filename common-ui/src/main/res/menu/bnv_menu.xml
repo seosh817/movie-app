@@ -15,10 +15,10 @@
         android:title="@string/menu_tv"
         app:showAsAction="ifRoom" />
     <item
-        android:id="@+id/action_star"
+        android:id="@+id/action_celebrities"
         android:enabled="true"
         android:icon="@drawable/ic_star"
-        android:title="@string/menu_star"
+        android:title="@string/menu_celebrities"
         app:showAsAction="ifRoom" />
 
 
