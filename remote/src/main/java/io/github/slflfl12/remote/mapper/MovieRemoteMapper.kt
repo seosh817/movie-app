@@ -1,10 +1,10 @@
 package io.github.slflfl12.remote.mapper
 
 import io.github.slflfl12.data.model.MovieData
-import io.github.slflfl12.remote.model.DiscoverMovie
+import io.github.slflfl12.remote.model.Movie
 
 object MovieRemoteMapper {
-    fun mapToData(from: DiscoverMovie, page: Int): MovieData {
+    fun mapToData(from: Movie, page: Int): MovieData {
         return MovieData(
             page = from.page,
             adult = from.adult,

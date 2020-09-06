@@ -23,13 +23,4 @@ class GetMovieKeywordListUseCase(
         }
 
 }
-/*
 
-if(movie.keywords.isEmpty()) {
-    movieRepository.getKeywordList(params).flatMap {
-        var updateMovie = movie
-        updateMovie.keywords = it
-        movieRepository.updateMovie(updateMovie).andThen(
-            Single.just(it)
-        )
-    }*/

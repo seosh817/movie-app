@@ -3,7 +3,7 @@ package io.github.slflfl12.remote.model
 
 import com.google.gson.annotations.SerializedName
 
-data class DiscoverMovie(
+data class Movie(
     val page: Int,
     @SerializedName("adult")
     val adult: Boolean?,

@@ -6,14 +6,17 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
 import io.github.slflfl12.data.remote.DiscoverRemoteDataSource
 import io.github.slflfl12.data.remote.MovieRemoteDataSource
+import io.github.slflfl12.data.remote.PeopleRemoteDataSource
 import io.github.slflfl12.data.remote.TvRemoteDataSource
 import io.github.slflfl12.remote.BuildConfig
 import io.github.slflfl12.remote.api.DiscoverApiService
 import io.github.slflfl12.remote.api.MovieApiService
+import io.github.slflfl12.remote.api.PeopleApiService
 import io.github.slflfl12.remote.api.TvApiService
 import io.github.slflfl12.remote.interceptor.SHInterceptor
 import io.github.slflfl12.remote.source.DiscoverRemoteDataSourceImpl
 import io.github.slflfl12.remote.source.MovieRemoteDataSourceImpl
+import io.github.slflfl12.remote.source.PeopleRemoteDataSourceImpl
 import io.github.slflfl12.remote.source.TvRemoteDataSourceImpl
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -39,7 +42,9 @@ object RemoteModule {
             .writeTimeout(WRITE_TIMEOUT, TimeUnit.SECONDS)
             .readTimeout(READ_TIMEOUT, TimeUnit.SECONDS)
             .addInterceptor(HttpLoggingInterceptor().apply {
-                level = HttpLoggingInterceptor.Level.BODY
+                if(BuildConfig.DEBUG) {
+                    level = HttpLoggingInterceptor.Level.BODY
+                }
             })
             .addInterceptor(SHInterceptor())
             .build()
@@ -90,6 +95,18 @@ object RemoteModule {
     @Singleton
     fun provideDiscoverDataSource(discoverApiService: DiscoverApiService): DiscoverRemoteDataSource {
         return DiscoverRemoteDataSourceImpl(discoverApiService)
+    }
+
+    @Provides
+    @Singleton
+    fun providePeopleService(retrofit: Retrofit): PeopleApiService {
+        return retrofit.create(PeopleApiService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun providePeopleDataSource(peopleApiService: PeopleApiService): PeopleRemoteDataSource {
+        return PeopleRemoteDataSourceImpl(peopleApiService)
     }
 
 }
