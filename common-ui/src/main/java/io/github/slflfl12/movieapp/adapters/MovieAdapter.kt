@@ -47,7 +47,7 @@ class MovieAdapter(
     fun addItems(list: List<MoviePresentationModel>) {
         val preItemSize = items.size
         items.addAll(list)
-        notifyItemRangeChanged(preItemSize, list.size)
+        notifyItemRangeChanged(preItemSize, list.size-1)
     }
 
 

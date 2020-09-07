@@ -7,6 +7,7 @@ import android.widget.ImageView
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
+import com.bumptech.glide.request.RequestOptions
 import com.github.florent37.glidepalette.BitmapPalette
 import com.github.florent37.glidepalette.GlidePalette
 import com.google.android.material.chip.Chip
@@ -30,6 +31,17 @@ fun ImageView.bindImage(path: String?, palette: View) {
                     .crossfade(true)
             )
             .into(this)
+    }
+}
+
+@BindingAdapter("bindProfile")
+fun bindingPostUrl(imageView: ImageView, path: String?) {
+    path?.let {
+        GlideApp.with(imageView.context)
+            .load(PosterPath.getPosterPath(it))
+            .error(ContextCompat.getDrawable(imageView.context, R.drawable.not_found))
+            .apply(RequestOptions().circleCrop())
+            .into(imageView)
     }
 }
 

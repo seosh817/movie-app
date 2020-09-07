@@ -1,7 +1,5 @@
-package io.github.slflfl12.movieapp.ui.movie
+package io.github.slflfl12.movieapp.ui.people
 
-import android.app.ActivityOptions
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -13,21 +11,19 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import io.github.slflfl12.movieapp.R
-import io.github.slflfl12.movieapp.adapters.MovieAdapter
-import io.github.slflfl12.movieapp.databinding.FragmentMovieBinding
+import io.github.slflfl12.movieapp.adapters.PersonAdapter
+import io.github.slflfl12.movieapp.databinding.FragmentPeopleBinding
 import io.github.slflfl12.movieapp.ui.base.BaseFragment
-import io.github.slflfl12.movieapp.ui.moviedetail.MovieDetailActivity
 import io.github.slflfl12.movieapp.util.EventObserver
-import io.github.slflfl12.presentation.model.MoviePresentationModel
-import io.github.slflfl12.presentation.movie.MovieViewModel
+import io.github.slflfl12.presentation.people.PeopleViewModel
 
 @AndroidEntryPoint
-class MovieFragment : BaseFragment<FragmentMovieBinding, MovieViewModel>(R.layout.fragment_movie) {
+class PeopleFragment : BaseFragment<FragmentPeopleBinding, PeopleViewModel>(R.layout.fragment_people) {
 
-    override val vm: MovieViewModel by viewModels()
+    override val vm: PeopleViewModel by viewModels()
 
-    private val movieAdapter: MovieAdapter by lazy {
-        MovieAdapter(vm)
+    private val personAdapter: PersonAdapter by lazy {
+        PersonAdapter()
     }
 
 
@@ -39,8 +35,8 @@ class MovieFragment : BaseFragment<FragmentMovieBinding, MovieViewModel>(R.layou
 
 
     private fun initRecyclerView() {
-        binding.rvMovie.apply {
-            adapter = movieAdapter
+        binding.rvPeople.apply {
+            adapter = personAdapter
             addOnScrollListener(object : RecyclerView.OnScrollListener() {
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                     super.onScrolled(recyclerView, dx, dy)
@@ -71,14 +67,13 @@ class MovieFragment : BaseFragment<FragmentMovieBinding, MovieViewModel>(R.layou
         }
     }
 
-
     private fun initObserve() {
 
-        vm.movieList.observe(viewLifecycleOwner, Observer {
+        vm.peopleList.observe(viewLifecycleOwner, Observer {
             if (it[0].page == 1) {
-                movieAdapter.setItems(it)
+                personAdapter.setItems(it)
             } else {
-                movieAdapter.addItems(it)
+                personAdapter.addItems(it)
             }
 
         })
@@ -99,27 +94,8 @@ class MovieFragment : BaseFragment<FragmentMovieBinding, MovieViewModel>(R.layou
             Toast.makeText(context, R.string.last_paging_message, Toast.LENGTH_SHORT).show()
         })
 
-        vm.toDetailEvent.observe(
-            viewLifecycleOwner, EventObserver(
-                this@MovieFragment::onNavigateToDetail
-            )
-        )
     }
 
 
-    private fun onNavigateToDetail(pair: Pair<MoviePresentationModel, View>) {
-        val movie = pair.first
-        val view = pair.second
-        Intent(context, MovieDetailActivity::class.java).apply {
-            putExtra(MovieDetailActivity.KEY_MOVIE, movie)
-        }.also {
-            val options = ActivityOptions.makeSceneTransitionAnimation(activity, view, movie.title)
-            startActivity(it, options.toBundle())
-        }
-    }
 
-    override fun onDestroy() {
-        vm.unBindPageDisposable()
-        super.onDestroy()
-    }
 }
