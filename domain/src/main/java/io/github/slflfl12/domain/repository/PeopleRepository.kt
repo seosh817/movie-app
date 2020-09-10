@@ -11,7 +11,7 @@ interface PeopleRepository {
 
     fun updatePerson(person: PersonModel): Completable
 
-    fun getPerson(id: Int): Single<PersonModel>
+    fun getLocalPerson(id: Int): Single<PersonModel>
 
     fun getPopularPeople(page: Int): Single<List<PersonModel>>
 

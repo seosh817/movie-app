@@ -23,7 +23,7 @@ class PeopleRepositoryImpl(
         return peopleLocalDataSource.updatePerson(PersonDataMapper.mapToData(person))
     }
 
-    override fun getPerson(id: Int): Single<PersonModel> {
+    override fun getLocalPerson(id: Int): Single<PersonModel> {
         return peopleLocalDataSource.getPerson(id).map(PersonDataMapper::mapToDomain)
     }
 

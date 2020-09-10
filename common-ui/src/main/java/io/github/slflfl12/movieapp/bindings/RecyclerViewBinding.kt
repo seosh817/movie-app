@@ -1,5 +1,7 @@
 package io.github.slflfl12.movieapp.bindings
 
+import android.app.Activity
+import android.app.ActivityOptions
 import android.content.Intent
 import android.net.Uri
 import android.view.View
@@ -9,9 +11,12 @@ import androidx.recyclerview.widget.RecyclerView
 import io.github.slflfl12.movieapp.adapters.ReviewAdapter
 import io.github.slflfl12.movieapp.adapters.VideoAdapter
 import io.github.slflfl12.movieapp.extensions.visible
+import io.github.slflfl12.movieapp.ui.peopledetail.PeopleDetailActivity
+import io.github.slflfl12.movieapp.ui.tvdetail.TvDetailActivity
 import io.github.slflfl12.movieapp.util.PosterPath
 import io.github.slflfl12.movieapp.util.doIfNotNullOrEmpty
 import io.github.slflfl12.presentation.base.BaseViewModel
+import io.github.slflfl12.presentation.model.PersonPresentationModel
 import io.github.slflfl12.presentation.model.ReviewPresentationModel
 import io.github.slflfl12.presentation.model.VideoPresentationModel
 import io.github.slflfl12.presentation.moviedetail.MovieDetailViewModel
@@ -52,4 +57,19 @@ fun onVideoClick(view: View, videoPresentationModel: VideoPresentationModel) {
         )
         view.context.startActivity(playVideoIntent)
     }
+}
+
+@BindingAdapter("onPersonClick")
+fun onPersonClick(view: View, person: PersonPresentationModel) {
+    view.setOnClickListener {
+        val peopleDetailIntent = Intent(
+            it.context, PeopleDetailActivity::class.java
+        ).apply {
+            putExtra(PeopleDetailActivity.KEY_PERSON_ID, person.id)
+        }
+
+        view.context.startActivity(peopleDetailIntent)
+    }
+
+
 }

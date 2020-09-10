@@ -21,6 +21,7 @@
         </activity>
         <activity android:name=".ui.moviedetail.MovieDetailActivity"/>
         <activity android:name=".ui.tvdetail.TvDetailActivity"/>
+        <activity android:name=".ui.peopledetail.PeopleDetailActivity"/>
     </application>
 
 </manifest>

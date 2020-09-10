@@ -8,6 +8,7 @@ import io.github.slflfl12.domain.usecase.*
 import io.github.slflfl12.presentation.moviedetail.MovieDetailViewModel
 import io.github.slflfl12.presentation.movie.MovieViewModel
 import io.github.slflfl12.presentation.people.PeopleViewModel
+import io.github.slflfl12.presentation.peopledetail.PeopleDetailViewModel
 import io.github.slflfl12.presentation.tvdetail.TvDetailViewModel
 import io.github.slflfl12.presentation.tv.TvViewModel
 import javax.inject.Singleton
@@ -70,6 +71,13 @@ object PresentationModule {
         getPersonListUseCase: GetPeopleListUseCase
     ): PeopleViewModel {
         return PeopleViewModel(getPersonListUseCase)
+    }
+
+    @Provides
+    @Singleton
+    fun providePeopleDetailViewModel(
+    ): PeopleDetailViewModel {
+        return PeopleDetailViewModel()
     }
 
 

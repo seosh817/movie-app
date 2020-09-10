@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="person"
             type="io.github.slflfl12.presentation.model.PersonPresentationModel" />
@@ -14,13 +15,13 @@
         android:layout_height="180dp"
         android:layout_margin="4dp"
         android:foreground="?attr/selectableItemBackground"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:onPersonClick="@{person}">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/colorPrimary"
-            >
+            android:background="@color/colorPrimary">
 
 
             <ImageView
@@ -51,12 +52,11 @@
                     android:textColor="@color/white"
                     android:textSize="14sp"
                     android:textStyle="bold"
-                    app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    tools:text="Person"
-                    />
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Person" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

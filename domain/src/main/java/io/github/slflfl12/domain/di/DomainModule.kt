@@ -106,4 +106,12 @@ object DomainModule {
         return GetPeopleListUseCase(peopleRepository)
     }
 
+    @Provides
+    @Singleton
+    fun getPersonWithDetailUseCase(
+        peopleRepository: PeopleRepository
+    ): GetPersonWithDetailUseCase {
+        return GetPersonWithDetailUseCase(peopleRepository)
+    }
+
 }
