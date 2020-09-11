@@ -76,8 +76,15 @@ object PresentationModule {
     @Provides
     @Singleton
     fun providePeopleDetailViewModel(
+        getPersonWithDetailUseCase: GetPersonWithDetailUseCase,
+        getPersonMovieUseCase: GetPersonMovieUseCase,
+        getPersonTvUseCase: GetPersonTvUseCase
     ): PeopleDetailViewModel {
-        return PeopleDetailViewModel()
+        return PeopleDetailViewModel(
+            getPersonWithDetailUseCase,
+            getPersonMovieUseCase,
+            getPersonTvUseCase
+        )
     }
 
 

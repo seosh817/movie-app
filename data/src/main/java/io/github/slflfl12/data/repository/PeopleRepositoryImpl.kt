@@ -1,11 +1,15 @@
 package io.github.slflfl12.data.repository
 
 import io.github.slflfl12.data.local.PeopleLocalDataSource
+import io.github.slflfl12.data.mapper.MovieDataMapper
 import io.github.slflfl12.data.mapper.PersonDataMapper
 import io.github.slflfl12.data.mapper.PersonDetailDataMapper
+import io.github.slflfl12.data.mapper.TvDataMapper
 import io.github.slflfl12.data.remote.PeopleRemoteDataSource
+import io.github.slflfl12.domain.model.MovieModel
 import io.github.slflfl12.domain.model.PersonDetailModel
 import io.github.slflfl12.domain.model.PersonModel
+import io.github.slflfl12.domain.model.TvModel
 import io.github.slflfl12.domain.repository.PeopleRepository
 import io.reactivex.Completable
 import io.reactivex.Single
@@ -36,5 +40,16 @@ class PeopleRepositoryImpl(
         return peopleRemoteDataSource.getPersonDetail(id).map(PersonDetailDataMapper::mapToDomain)
     }
 
+    override fun getPersonMovie(id: Int): Single<List<MovieModel>> {
+        return peopleRemoteDataSource.getPersonMovie(id).map {
+            it.map(MovieDataMapper::mapToDomain)
+        }
+    }
+
+    override fun getPersonTv(id: Int): Single<List<TvModel>> {
+        return peopleRemoteDataSource.getPersonTv(id).map {
+            it.map(TvDataMapper::mapToDomain)
+        }
+    }
 
 }

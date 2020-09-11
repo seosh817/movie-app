@@ -2,11 +2,13 @@ package io.github.slflfl12.movieapp.ui.peopledetail
 
 import android.os.Bundle
 import androidx.activity.viewModels
+import dagger.hilt.android.AndroidEntryPoint
 import io.github.slflfl12.movieapp.R
 import io.github.slflfl12.movieapp.databinding.ActivityPeopleDetailBinding
 import io.github.slflfl12.movieapp.ui.base.BaseActivity
 import io.github.slflfl12.presentation.peopledetail.PeopleDetailViewModel
 
+@AndroidEntryPoint
 class PeopleDetailActivity: BaseActivity<PeopleDetailViewModel>() {
 
     override val vm: PeopleDetailViewModel by viewModels()
@@ -30,6 +32,10 @@ class PeopleDetailActivity: BaseActivity<PeopleDetailViewModel>() {
     }
 
     private fun initObserve() {
+        vm.person.observe(this@PeopleDetailActivity, {
+            binding.person = it
+        })
+
 
     }
 

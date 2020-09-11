@@ -1,7 +1,9 @@
 package io.github.slflfl12.domain.repository
 
+import io.github.slflfl12.domain.model.MovieModel
 import io.github.slflfl12.domain.model.PersonDetailModel
 import io.github.slflfl12.domain.model.PersonModel
+import io.github.slflfl12.domain.model.TvModel
 import io.reactivex.Completable
 import io.reactivex.Single
 
@@ -16,4 +18,8 @@ interface PeopleRepository {
     fun getPopularPeople(page: Int): Single<List<PersonModel>>
 
     fun getPersonDetail(id: Int): Single<PersonDetailModel>
+
+    fun getPersonMovie(id: Int): Single<List<MovieModel>>
+
+    fun getPersonTv(id: Int): Single<List<TvModel>>
 }

@@ -114,4 +114,20 @@ object DomainModule {
         return GetPersonWithDetailUseCase(peopleRepository)
     }
 
+    @Provides
+    @Singleton
+    fun getPersonMovieUseCase(
+        peopleRepository: PeopleRepository
+    ): GetPersonMovieUseCase {
+        return GetPersonMovieUseCase(peopleRepository)
+    }
+
+    @Provides
+    @Singleton
+    fun getPersonTvUseCase(
+        peopleRepository: PeopleRepository
+    ): GetPersonTvUseCase {
+        return GetPersonTvUseCase(peopleRepository)
+    }
+
 }

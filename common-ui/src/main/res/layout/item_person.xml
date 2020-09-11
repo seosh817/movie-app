@@ -8,6 +8,7 @@
         <variable
             name="person"
             type="io.github.slflfl12.presentation.model.PersonPresentationModel" />
+
     </data>
 
     <androidx.cardview.widget.CardView
