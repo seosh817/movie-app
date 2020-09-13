@@ -13,4 +13,7 @@
     <string name="popular_text">Popular</string>
     <string name="new_text">New!</string>
     <string name="menu_celebrities">Celebrities</string>
+    <string name="movies">Movies</string>
+    <string name="tv_program">Tv Program</string>
+    <string name="transition_profile">transition_profile</string>
 </resources>

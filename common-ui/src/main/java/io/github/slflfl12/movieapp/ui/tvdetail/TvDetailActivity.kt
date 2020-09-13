@@ -1,6 +1,7 @@
 package io.github.slflfl12.movieapp.ui.tvdetail
 
 import android.os.Bundle
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
@@ -33,6 +34,11 @@ class TvDetailActivity : BaseActivity<TvDetailViewModel>(){
             vm = this@TvDetailActivity.vm
         }
         initObserve()
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == android.R.id.home) onBackPressed()
+        return false
     }
 
     private fun initObserve() {

@@ -1,6 +1,7 @@
 package io.github.slflfl12.movieapp.adapters
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -13,6 +14,8 @@ class PersonAdapter : RecyclerView.Adapter<PersonViewHolder>() {
 
     private val items = mutableListOf<PersonPresentationModel>()
 
+    var delegates: Delegates? = null
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PersonViewHolder {
         val binding = DataBindingUtil.inflate<ItemPersonBinding>(
             LayoutInflater.from(parent.context),
@@ -20,8 +23,12 @@ class PersonAdapter : RecyclerView.Adapter<PersonViewHolder>() {
             parent,
             false
         )
+        val holder = PersonViewHolder(binding)
+        holder.itemView.setOnClickListener {
+            delegates?.onItemClick(binding.ivPerson, items[holder.adapterPosition])
+        }
 
-        return PersonViewHolder(binding)
+        return holder
     }
 
     override fun onBindViewHolder(holder: PersonViewHolder, position: Int) {
@@ -39,7 +46,11 @@ class PersonAdapter : RecyclerView.Adapter<PersonViewHolder>() {
     fun addItems(list: List<PersonPresentationModel>) {
         val preItemSize = items.size
         items.addAll(list)
-        notifyItemRangeChanged(preItemSize, list.size-1)
+        notifyItemRangeChanged(preItemSize, list.size - 1)
+    }
+
+    interface Delegates {
+        fun onItemClick(view: View, person: PersonPresentationModel)
     }
 
 

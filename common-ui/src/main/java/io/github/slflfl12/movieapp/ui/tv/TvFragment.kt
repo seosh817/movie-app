@@ -103,6 +103,8 @@ class TvFragment: BaseFragment<FragmentTvBinding, TvViewModel>(R.layout.fragment
         )
     }
 
+
+    //options의 activity 때문에 BindingAdapter에서 제외
     private fun onNavigateToDetail(pair: Pair<TvPresentationModel, View>) {
         val tv = pair.first
         val view = pair.second

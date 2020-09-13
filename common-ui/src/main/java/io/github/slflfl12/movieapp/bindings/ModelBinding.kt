@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
+import com.bumptech.glide.request.RequestOptions
 import com.github.florent37.glidepalette.BitmapPalette
 import com.github.florent37.glidepalette.GlidePalette
 import com.google.android.material.chip.Chip
@@ -23,6 +24,7 @@ import io.github.slflfl12.movieapp.util.checkNull
 import io.github.slflfl12.movieapp.util.doIfNotNullOrEmpty
 import io.github.slflfl12.presentation.model.KeywordPresentationModel
 import io.github.slflfl12.presentation.model.MoviePresentationModel
+import io.github.slflfl12.presentation.model.PersonPresentationModel
 import io.github.slflfl12.presentation.model.TvPresentationModel
 import java.time.LocalDate
 
@@ -58,6 +60,9 @@ fun bindVideo(imageView: ImageView, _path: String?, palette: View?) {
     }
 }
 
+
+
+
 @SuppressLint("SetTextI18n")
 @BindingAdapter("bindReleaseDate")
 fun TextView.bindReleaseDate(_releaseDate: String?) {
@@ -74,32 +79,8 @@ fun TextView.bindAirDate(_airDate: String?) {
     }
 }
 
-@BindingAdapter("bindBackDrop")
-fun ImageView.bindBackDrop(movie: MoviePresentationModel?) {
-    movie?.checkNull({
-        bindBackDrop(
-            this,
-            it.backdropPath,
-            it.posterPath
-        )
-    }, {
-        bindNullGlide(this)
-    })
-}
 
-@BindingAdapter("bindBackDrop")
-fun ImageView.bindBackDrop(tv: TvPresentationModel?) {
-    Log.d("tv", "Tvtvtvtv")
-    tv?.checkNull({
-        bindBackDrop(
-            this,
-            it.backdropPath,
-            it.posterPath
-        )
-    }, {
-        bindNullGlide(this)
-    })
-}
+
 
 @BindingAdapter("bindChipKeywords")
 fun bindChipKeywords(chipGroup: ChipGroup, keywords: List<KeywordPresentationModel>?) {
@@ -116,29 +97,20 @@ fun bindChipKeywords(chipGroup: ChipGroup, keywords: List<KeywordPresentationMod
     }
 }
 
-
-
-
-private fun bindBackDrop(view: ImageView, backDropPath: String?, posterPath: String?) {
-    backDropPath.checkNull({
-        GlideApp.with(view.context)
-            .load(PosterPath.getBackdropPath(it))
-            .error(ContextCompat.getDrawable(view.context, R.drawable.not_found))
-            .listener(view.requestGlideListener())
-            .into(view)
-    }, {
-        GlideApp.with(view.context)
-            .load(
-                PosterPath.getPosterPath(posterPath)
-            )
-            .error(ContextCompat.getDrawable(view.context, R.drawable.not_found))
-            .listener(view.requestGlideListener())
-            .into(view)
-    })
+@BindingAdapter("bindKnownAs")
+fun bindKnownAs(chipGroup: ChipGroup, knownList: List<String>?) {
+    knownList.doIfNotNullOrEmpty {
+        chipGroup.visible()
+        for (known in it) {
+            val chip = Chip(chipGroup.context)
+            chip.text = known
+            chip.isCheckable = false
+            chip.setTextAppearanceResource(R.style.ChipTextStyle)
+            chip.setChipBackgroundColorResource(R.color.colorAccent)
+            chipGroup.addView(chip)
+        }
+    }
 }
 
-private fun bindNullGlide(view: ImageView) {
-    GlideApp.with(view.context)
-        .load(R.drawable.not_found)
-        .into(view)
-}
+
+

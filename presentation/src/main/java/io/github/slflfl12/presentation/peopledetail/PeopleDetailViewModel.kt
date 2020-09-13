@@ -27,11 +27,7 @@ class PeopleDetailViewModel @ViewModelInject constructor(
 ) : BaseViewModel() {
 
 
-    var idSubject: BehaviorSubject<Int> = BehaviorSubject.create()
-
-    private val _person = MutableLiveData<PersonPresentationModel>()
-    val person: LiveData<PersonPresentationModel>
-        get() = _person
+    var personSubject: BehaviorSubject<PersonPresentationModel> = BehaviorSubject.create()
 
     private val _personDetail = MutableLiveData<PersonDetailPresentationModel>()
     val personDetail: LiveData<PersonDetailPresentationModel>
@@ -45,29 +41,32 @@ class PeopleDetailViewModel @ViewModelInject constructor(
     val personTvList: LiveData<List<TvPresentationModel>>
         get() = _personTvList
 
+    private val _networkError = MutableLiveData<Throwable>()
+    val networkError: LiveData<Throwable>
+        get() = _networkError
+
 
     init {
-        idSubject.subscribeOn(Schedulers.io())
+        personSubject.subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                getPerson(it)
-                getPersonMovie(it)
-                getPersonTv(it)
+                getPersonDetail(it)
+                getPersonMovie(it.id)
+                getPersonTv(it.id)
             }, {
 
             }).addTo(compositeDisposable)
     }
 
-    private fun getPerson(id: Int) {
-        getPersonWithDetailUseCase(id)
+    private fun getPersonDetail(person:PersonPresentationModel) {
+        getPersonWithDetailUseCase(PersonPresentationMapper.mapToDomain(person))
             .subscribeOn(Schedulers.io())
             .map(PersonPresentationMapper::mapToPresentation)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ person ->
-                _person.value = person
                 _personDetail.value = person.personDetailPresentationModel
             }, {
-
+                _networkError.value = it
             }).addTo(compositeDisposable)
     }
 
@@ -79,7 +78,7 @@ class PeopleDetailViewModel @ViewModelInject constructor(
             .subscribe({ movieList ->
                 _personMovieList.value = movieList
             }, {
-
+                _networkError.value = it
             }).addTo(compositeDisposable)
     }
 
@@ -92,7 +91,7 @@ class PeopleDetailViewModel @ViewModelInject constructor(
             .subscribe({ tvList ->
                 _personTvList.value = tvList
             }, {
-
+                _networkError.value = it
             }).addTo(compositeDisposable)
     }
 }

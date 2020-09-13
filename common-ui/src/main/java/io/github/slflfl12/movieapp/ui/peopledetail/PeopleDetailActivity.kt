@@ -1,11 +1,17 @@
 package io.github.slflfl12.movieapp.ui.peopledetail
 
 import android.os.Bundle
+import android.util.Log
+import android.view.MenuItem
+import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.lifecycle.Observer
 import dagger.hilt.android.AndroidEntryPoint
 import io.github.slflfl12.movieapp.R
 import io.github.slflfl12.movieapp.databinding.ActivityPeopleDetailBinding
+import io.github.slflfl12.movieapp.extensions.applyPeopleMaterialTransform
 import io.github.slflfl12.movieapp.ui.base.BaseActivity
+import io.github.slflfl12.presentation.model.PersonPresentationModel
 import io.github.slflfl12.presentation.peopledetail.PeopleDetailViewModel
 
 @AndroidEntryPoint
@@ -17,10 +23,11 @@ class PeopleDetailActivity: BaseActivity<PeopleDetailViewModel>() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        //applyPeopleMaterialTransform()
         super.onCreate(savedInstanceState)
-
-        intent?.getIntExtra(KEY_PERSON_ID, 1)?.let {
-            vm.idSubject.onNext(it)
+        intent?.getParcelableExtra<PersonPresentationModel>(KEY_PERSON)?.let {
+            vm.personSubject.onNext(it)
+            binding.person = it
         }
 
         with(binding) {
@@ -31,9 +38,16 @@ class PeopleDetailActivity: BaseActivity<PeopleDetailViewModel>() {
         initObserve()
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == android.R.id.home) onBackPressed()
+        return false
+    }
+
     private fun initObserve() {
-        vm.person.observe(this@PeopleDetailActivity, {
-            binding.person = it
+
+        vm.networkError.observe(this, Observer {
+            Toast.makeText(this, getString(R.string.network_error_message), Toast.LENGTH_SHORT).show()
+            Log.d("seunghwan", it.toString())
         })
 
 
@@ -41,7 +55,7 @@ class PeopleDetailActivity: BaseActivity<PeopleDetailViewModel>() {
 
 
     companion object {
-        const val KEY_PERSON_ID = "key_person_id"
+        const val KEY_PERSON = "key_person"
     }
 
 

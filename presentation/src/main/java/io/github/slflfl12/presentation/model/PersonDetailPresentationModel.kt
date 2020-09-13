@@ -1,6 +1,10 @@
 package io.github.slflfl12.presentation.model
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
 
+
+@Parcelize
 data class PersonDetailPresentationModel(
     val adult: Boolean,
     val alsoKnownAs: List<String>?,
@@ -16,4 +20,4 @@ data class PersonDetailPresentationModel(
     val placeOfBirth: String?,
     val popularity: Double,
     val profilePath: String?
-) : PresentationModel
+) : PresentationModel, Parcelable
