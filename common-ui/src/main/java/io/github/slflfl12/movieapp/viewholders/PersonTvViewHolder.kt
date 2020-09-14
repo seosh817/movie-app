@@ -10,7 +10,7 @@ class PersonTvViewHolder(private val binding: ItemPersonTvBinding) :
     fun bind(item: TvPresentationModel) {
         with(binding) {
             tv = item
-            palette = clTvTitle
+            palette = llPersonTvInfo
             executePendingBindings()
         }
 

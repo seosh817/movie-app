@@ -55,3 +55,14 @@ fun AppCompatActivity.applyTvMaterialTransform() {
     window.sharedElementEnterTransition = getArcTransition()
     window.sharedElementReturnTransition = getArcTransition()
 }
+
+fun AppCompatActivity.applyPeopleMaterialTransform() {
+    window.requestFeature(Window.FEATURE_ACTIVITY_TRANSITIONS)
+    window.sharedElementsUseOverlay = false
+
+    // set up shared element transition
+    setEnterSharedElementCallback(MaterialContainerTransformSharedElementCallback())
+    setEnterSharedElementCallback(MaterialContainerTransformSharedElementCallback())
+    window.sharedElementEnterTransition = getArcTransition()
+    window.sharedElementReturnTransition = getArcTransition()
+}

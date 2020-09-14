@@ -9,7 +9,7 @@ class PersonMovieViewHolder(private val binding: ItemPersonMovieBinding): Recycl
     fun bind(item: MoviePresentationModel) {
         with(binding) {
             movie = item
-            palette = clMovieTitle
+            palette = llPersonMovieInfo
             executePendingBindings()
         }
     }

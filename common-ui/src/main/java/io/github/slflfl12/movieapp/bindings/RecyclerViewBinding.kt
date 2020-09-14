@@ -37,9 +37,9 @@ fun bindPersonMovieAdapterList(
     movies: List<MoviePresentationModel>?
 ) {
     val adapter = PersonMovieAdapter()
-    movies.doIfNotNullOrEmpty {
+    movies.doIfNotNullOrEmpty { list ->
         recyclerView.adapter = adapter
-        adapter.setMovieList(it)
+        adapter.setMovieList(list.sortedByDescending { it.releaseDate })
         recyclerView.visible()
     }
 }
@@ -50,9 +50,9 @@ fun bindPersonTvAdapterList(
     tvs: List<TvPresentationModel>?
 ) {
     val adapter = PersonTvAdapter()
-    tvs.doIfNotNullOrEmpty {
+    tvs.doIfNotNullOrEmpty { list ->
         recyclerView.adapter = adapter
-        adapter.setTvList(it)
+        adapter.setTvList(list.sortedByDescending { it.firstAirDate })
         recyclerView.visible()
     }
 }
@@ -72,7 +72,6 @@ fun bindAdapterReviewList(
         recyclerView.visible()
     }
 }
-
 
 
 @BindingAdapter("onVideoClick")

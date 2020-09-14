@@ -6,68 +6,80 @@
     <data>
 
         <variable
-            name="video"
-            type="io.github.slflfl12.presentation.model.VideoPresentationModel" />
+            name="tv"
+            type="io.github.slflfl12.presentation.model.TvPresentationModel" />
 
         <variable
             name="palette"
             type="android.view.View" />
+
     </data>
 
     <androidx.cardview.widget.CardView
         android:layout_width="150dp"
-        android:layout_height="100dp"
+        android:layout_height="200dp"
         android:layout_margin="4dp"
         android:foreground="?attr/selectableItemBackground"
         app:cardCornerRadius="4dp"
-        app:cardElevation="4dp"
-        app:onVideoClick="@{video}">
+        app:cardElevation="4dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/iv_video_cover"
-                palette="@{palette}"
+                android:id="@+id/iv_person_tv_cover"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                app:bindVideo="@{video.key}" />
-
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="20dp"
                 android:scaleType="fitXY"
-                android:src="@drawable/icon_youtube"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:bindPersonTv="@{tv}"
+                app:palette="@{palette}"
+                tools:src="@drawable/ic_star_black"
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/layout_video_title"
+                />
+
+
+            <LinearLayout
+                android:id="@+id/ll_person_tv_info"
                 android:layout_width="match_parent"
-                android:layout_height="25dp"
+                android:layout_height="wrap_content"
                 android:alpha="0.7"
+                android:orientation="vertical"
                 app:layout_constraintBottom_toBottomOf="parent"
                 tools:background="@color/colorAccent">
 
                 <TextView
+                    android:id="@+id/tv_person_tv_title"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
                     android:gravity="center"
                     android:padding="4dp"
-                    android:text="@{video.name}"
+                    android:singleLine="true"
+                    android:text="@{tv.name}"
                     android:textColor="@color/white"
                     android:textSize="14sp"
                     android:textStyle="bold"
+                    app:layout_constraintTop_toTopOf="parent"
                     tools:text="title" />
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:gravity="center"
+                    android:padding="4dp"
+                    android:singleLine="true"
+                    android:text="@{tv.firstAirDate}"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    tools:text="2007-11-21" />
+            </LinearLayout>
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
 
     </androidx.cardview.widget.CardView>
 </layout>
