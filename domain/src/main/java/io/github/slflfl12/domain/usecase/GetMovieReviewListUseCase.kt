@@ -1,25 +1,32 @@
 package io.github.slflfl12.domain.usecase
 
-import io.github.slflfl12.domain.model.KeywordModel
+import io.github.slflfl12.domain.model.MovieModel
 import io.github.slflfl12.domain.model.ReviewModel
 import io.github.slflfl12.domain.repository.MovieRepository
 import io.reactivex.Single
-import io.reactivex.schedulers.Schedulers
 
 class GetMovieReviewListUseCase(
     private val movieRepository: MovieRepository
-): SingleUseCase<List<ReviewModel>, Int>() {
+) : SingleUseCase<List<ReviewModel>, MovieModel>() {
 
-    override fun buildUseCaseSingle(params: Int): Single<List<ReviewModel>> =
-        movieRepository.getLocalMovie(params).flatMap {movie ->
-            if(movie.reviews.isNullOrEmpty()) {
-                movieRepository.getReviewList(params).flatMapCompletable {
+    override fun buildUseCaseSingle(params: MovieModel): Single<List<ReviewModel>> =
+        movieRepository.getLocalMovie(params.id).flatMap { movie ->
+            if (movie.reviews.isNullOrEmpty()) {
+                movieRepository.getReviewList(params.id).flatMapCompletable {
                     movie.reviews = it
                     movieRepository.updateMovie(movie)
-                }.andThen(movieRepository.getReviewList(params))
+                }.andThen(movieRepository.getReviewList(params.id))
+            } else {
+                movieRepository.getReviewList(params.id)
             }
-            else {
-                Single.just(movie.reviews)
+        }.onErrorResumeNext {
+            movieRepository.insertMovie(params).andThen(
+                Single.just(params)
+            ).flatMap { movie ->
+                movieRepository.getReviewList(params.id).flatMapCompletable {
+                    movie.reviews = it
+                    movieRepository.updateMovie(movie)
+                }.andThen(movieRepository.getReviewList(params.id))
             }
         }
 }

@@ -8,6 +8,8 @@ interface MovieRepository {
 
     fun insertMovieList(movieDataList: List<MovieModel>): Completable
 
+    fun insertMovie(movie: MovieModel): Completable
+
     fun updateMovie(movie: MovieModel): Completable
 
     fun getLocalMovie(id: Int): Single<MovieModel>

@@ -1,26 +1,34 @@
 package io.github.slflfl12.domain.usecase
 
-import android.util.Log
 import io.github.slflfl12.domain.model.KeywordModel
+import io.github.slflfl12.domain.model.MovieModel
 import io.github.slflfl12.domain.repository.MovieRepository
 import io.reactivex.Single
 
 class GetMovieKeywordListUseCase(
     private val movieRepository: MovieRepository
-) : SingleUseCase<List<KeywordModel>, Int>() {
+) : SingleUseCase<List<KeywordModel>, MovieModel>() {
 
-    override fun buildUseCaseSingle(params: Int): Single<List<KeywordModel>> =
-        movieRepository.getLocalMovie(params).flatMap {movie ->
-            if(movie.keywords.isNullOrEmpty()) {
-                movieRepository.getKeywordList(params).flatMapCompletable {
+    override fun buildUseCaseSingle(params: MovieModel): Single<List<KeywordModel>> {
+        return movieRepository.getLocalMovie(params.id).flatMap { movie ->
+            if (movie.keywords.isNullOrEmpty()) {
+                movieRepository.getKeywordList(params.id).flatMapCompletable {
                     movie.keywords = it
                     movieRepository.updateMovie(movie)
-                }.andThen(movieRepository.getKeywordList(params))
+                }.andThen(movieRepository.getKeywordList(params.id))
+            } else {
+                movieRepository.getKeywordList(params.id)
             }
-            else {
-                Single.just(movie.keywords)
+        }.onErrorResumeNext {
+            movieRepository.insertMovie(params).andThen(
+                Single.just(params)
+            ).flatMap { movie ->
+                movieRepository.getKeywordList(params.id).flatMapCompletable {
+                    movie.keywords = it
+                    movieRepository.updateMovie(movie)
+                }.andThen(movieRepository.getKeywordList(params.id))
             }
         }
-
+    }
 }
 

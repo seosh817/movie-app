@@ -24,7 +24,10 @@ class MovieRepositoryImpl(
 ) : MovieRepository {
     override fun insertMovieList(movieDataList: List<MovieModel>): Completable {
         return movieLocalDataSource.insertMovieList(movieDataList.map(MovieDataMapper::mapToData))
+    }
 
+    override fun insertMovie(movie: MovieModel): Completable {
+        return movieLocalDataSource.insertMovie(MovieDataMapper.mapToData(movie))
     }
 
     override fun updateMovie(movie: MovieModel): Completable {

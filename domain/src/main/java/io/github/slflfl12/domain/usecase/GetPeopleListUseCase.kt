@@ -10,6 +10,5 @@ class GetPeopleListUseCase(
 
     override fun buildUseCaseSingle(params: Int): Single<List<PersonModel>> {
         return peopleRepository.getPopularPeople(params)
-
     }
 }

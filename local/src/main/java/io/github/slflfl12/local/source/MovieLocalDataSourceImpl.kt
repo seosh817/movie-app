@@ -16,8 +16,10 @@ class MovieLocalDataSourceImpl(
         movieDao.insertMovieList(movieDataList.map(MovieLocalMapper::mapToLocal))
             .subscribeOn(Schedulers.io())
 
+    override fun insertMovie(movie: MovieData): Completable =
+        movieDao.insertMovie(MovieLocalMapper.mapToLocal(movie))
 
-        override fun updateMovie(movie: MovieData): Completable =
+    override fun updateMovie(movie: MovieData): Completable =
         movieDao.updateMovie(MovieLocalMapper.mapToLocal(movie))
             .subscribeOn(Schedulers.io())
 

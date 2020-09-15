@@ -30,7 +30,7 @@ class MovieDetailViewModel @ViewModelInject constructor(
     private val getLocalMovieUseCase: GetLocalMovieUseCase
 ) : BaseViewModel() {
 
-    var idSubject: BehaviorSubject<Int> = BehaviorSubject.create()
+    var movieSubject: BehaviorSubject<MoviePresentationModel> = BehaviorSubject.create()
 
     private val _movie = MutableLiveData<MoviePresentationModel>()
     val movie: LiveData<MoviePresentationModel>
@@ -59,7 +59,7 @@ class MovieDetailViewModel @ViewModelInject constructor(
 
 
     init {
-        idSubject.subscribeOn(Schedulers.io())
+        movieSubject.subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 getMovie(it)
@@ -68,15 +68,15 @@ class MovieDetailViewModel @ViewModelInject constructor(
             }).addTo(compositeDisposable)
     }
 
-    private fun getMovie(id: Int) {
+    private fun getMovie(movie: MoviePresentationModel) {
         Single.zip(
-            getMovieKeywordListUseCase(id),
-            getMovieReviewListUseCase(id),
-            getMovieVideoListUseCase(id),
+            getMovieKeywordListUseCase(MoviePresentationMapper.mapToDomain(movie)),
+            getMovieReviewListUseCase(MoviePresentationMapper.mapToDomain(movie)),
+            getMovieVideoListUseCase(MoviePresentationMapper.mapToDomain(movie)),
             Function3<List<KeywordModel>, List<ReviewModel>, List<VideoModel>, Triple<List<KeywordModel>, List<ReviewModel>, List<VideoModel>>> { t1, t2, t3 ->
                 Triple(t1, t2, t3)
             }).flatMap {
-            getLocalMovieUseCase(id)
+            getLocalMovieUseCase(movie.id)
         }.subscribeOn(Schedulers.io())
             .map(MoviePresentationMapper::mapToPresentation)
             .observeOn(AndroidSchedulers.mainThread())

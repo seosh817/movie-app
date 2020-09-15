@@ -32,7 +32,7 @@ class MovieDetailActivity : BaseActivity<MovieDetailViewModel>() {
 
 
         intent?.getParcelableExtra<MoviePresentationModel>(KEY_MOVIE)?.let {
-            vm.idSubject.onNext(it.id)
+            vm.movieSubject.onNext(it)
         }
 
         with(binding) {

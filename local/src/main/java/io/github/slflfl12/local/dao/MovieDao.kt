@@ -11,6 +11,9 @@ interface MovieDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertMovieList(movies: List<MovieEntity>): Completable
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertMovie(movie: MovieEntity): Completable
+
     @Update
     fun updateMovie(movie: MovieEntity) : Completable
 
