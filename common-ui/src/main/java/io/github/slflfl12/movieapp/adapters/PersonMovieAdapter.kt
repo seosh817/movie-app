@@ -15,11 +15,14 @@ class PersonMovieAdapter: RecyclerView.Adapter<PersonMovieViewHolder>() {
 
     private val items = mutableListOf<MoviePresentationModel>()
 
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PersonMovieViewHolder {
         val binding = DataBindingUtil.inflate<ItemPersonMovieBinding>(
             LayoutInflater.from(parent.context),
             R.layout.item_person_movie, parent, false
         )
+
+
         return PersonMovieViewHolder(binding)
     }
 
@@ -34,4 +37,6 @@ class PersonMovieAdapter: RecyclerView.Adapter<PersonMovieViewHolder>() {
         items.addAll(list)
         notifyDataSetChanged()
     }
+
+
 }

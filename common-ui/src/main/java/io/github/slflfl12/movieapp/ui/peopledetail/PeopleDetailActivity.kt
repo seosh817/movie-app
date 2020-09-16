@@ -1,5 +1,7 @@
 package io.github.slflfl12.movieapp.ui.peopledetail
 
+import android.app.ActivityOptions
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
@@ -8,14 +10,20 @@ import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import dagger.hilt.android.AndroidEntryPoint
 import io.github.slflfl12.movieapp.R
+import io.github.slflfl12.movieapp.adapters.PersonMovieAdapter
+import io.github.slflfl12.movieapp.adapters.PersonTvAdapter
 import io.github.slflfl12.movieapp.databinding.ActivityPeopleDetailBinding
 import io.github.slflfl12.movieapp.extensions.applyPeopleMaterialTransform
 import io.github.slflfl12.movieapp.ui.base.BaseActivity
+import io.github.slflfl12.movieapp.ui.moviedetail.MovieDetailActivity
+import io.github.slflfl12.movieapp.ui.tvdetail.TvDetailActivity
+import io.github.slflfl12.presentation.model.MoviePresentationModel
 import io.github.slflfl12.presentation.model.PersonPresentationModel
+import io.github.slflfl12.presentation.model.TvPresentationModel
 import io.github.slflfl12.presentation.peopledetail.PeopleDetailViewModel
 
 @AndroidEntryPoint
-class PeopleDetailActivity: BaseActivity<PeopleDetailViewModel>() {
+class PeopleDetailActivity : BaseActivity<PeopleDetailViewModel>() {
 
     override val vm: PeopleDetailViewModel by viewModels()
 
@@ -23,7 +31,6 @@ class PeopleDetailActivity: BaseActivity<PeopleDetailViewModel>() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        //applyPeopleMaterialTransform()
         super.onCreate(savedInstanceState)
         intent?.getParcelableExtra<PersonPresentationModel>(KEY_PERSON)?.let {
             vm.personSubject.onNext(it)
@@ -46,12 +53,12 @@ class PeopleDetailActivity: BaseActivity<PeopleDetailViewModel>() {
     private fun initObserve() {
 
         vm.networkError.observe(this, Observer {
-            Toast.makeText(this, getString(R.string.network_error_message), Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.network_error_message), Toast.LENGTH_SHORT)
+                .show()
             Log.d("seunghwan", it.toString())
         })
-
-
     }
+
 
 
     companion object {

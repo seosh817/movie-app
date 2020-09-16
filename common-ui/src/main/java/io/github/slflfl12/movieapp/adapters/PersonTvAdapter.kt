@@ -8,6 +8,7 @@ import io.github.slflfl12.movieapp.R
 import io.github.slflfl12.movieapp.databinding.ItemPersonTvBinding
 import io.github.slflfl12.movieapp.databinding.ItemTvBinding
 import io.github.slflfl12.movieapp.viewholders.PersonTvViewHolder
+import io.github.slflfl12.presentation.model.MoviePresentationModel
 import io.github.slflfl12.presentation.model.TvPresentationModel
 import io.github.slflfl12.presentation.model.VideoPresentationModel
 
@@ -20,7 +21,6 @@ class PersonTvAdapter : RecyclerView.Adapter<PersonTvViewHolder>() {
             LayoutInflater.from(parent.context),
             R.layout.item_person_tv, parent, false
         )
-
         return PersonTvViewHolder(binding)
     }
 
@@ -35,4 +35,5 @@ class PersonTvAdapter : RecyclerView.Adapter<PersonTvViewHolder>() {
         items.addAll(list)
         notifyDataSetChanged()
     }
+
 }

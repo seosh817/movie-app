@@ -1,6 +1,7 @@
 package io.github.slflfl12.movieapp.ui.tvdetail
 
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -48,6 +49,7 @@ class TvDetailActivity : BaseActivity<TvDetailViewModel>(){
 
         vm.networkError.observe(this, Observer {
             Toast.makeText(this, getString(R.string.network_error_message), Toast.LENGTH_SHORT).show()
+            Log.d("seunghwan", it.toString())
         })
     }
 

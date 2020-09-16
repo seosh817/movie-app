@@ -13,6 +13,7 @@ import io.github.slflfl12.movieapp.adapters.PersonTvAdapter
 import io.github.slflfl12.movieapp.adapters.ReviewAdapter
 import io.github.slflfl12.movieapp.adapters.VideoAdapter
 import io.github.slflfl12.movieapp.extensions.visible
+import io.github.slflfl12.movieapp.ui.moviedetail.MovieDetailActivity
 import io.github.slflfl12.movieapp.ui.peopledetail.PeopleDetailActivity
 import io.github.slflfl12.movieapp.ui.tvdetail.TvDetailActivity
 import io.github.slflfl12.movieapp.util.PosterPath
@@ -93,9 +94,30 @@ fun onPersonClick(view: View, person: PersonPresentationModel) {
         ).apply {
             putExtra(PeopleDetailActivity.KEY_PERSON, person)
         }
-
         view.context.startActivity(peopleDetailIntent)
     }
+}
 
+@BindingAdapter("onMovieClick")
+fun onMovieClick(view: View, movie: MoviePresentationModel) {
+    view.setOnClickListener {
+        val movieDetailIntent = Intent(
+            it.context, MovieDetailActivity::class.java
+        ).apply {
+            putExtra(MovieDetailActivity.KEY_MOVIE, movie)
+        }
+        view.context.startActivity(movieDetailIntent)
+    }
+}
 
+@BindingAdapter("onTvClick")
+fun onTvClick(view: View, tv: TvPresentationModel) {
+    view.setOnClickListener {
+        val tvDetailIntent = Intent(
+            it.context, TvDetailActivity::class.java
+        ).apply {
+            putExtra(TvDetailActivity.KEY_TV, tv)
+        }
+        view.context.startActivity(tvDetailIntent)
+    }
 }

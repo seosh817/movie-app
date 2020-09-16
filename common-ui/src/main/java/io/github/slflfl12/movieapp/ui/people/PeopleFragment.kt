@@ -128,7 +128,6 @@ class PeopleFragment :
         }
     }
 
-    override fun onItemClick(view: View, person: PersonPresentationModel) =
-        onPersonClick(view, person)
+    override fun onItemClick(view: View, person: PersonPresentationModel) = onPersonClick(view, person)
 
 }
