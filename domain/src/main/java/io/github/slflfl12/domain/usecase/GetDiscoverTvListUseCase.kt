@@ -12,16 +12,12 @@ class GetDiscoverTvListUseCase(
 ) : SingleUseCase<List<TvModel>, Int>() {
 
     override fun buildUseCaseSingle(params: Int): Single<List<TvModel>> {
-        return tvRepository.getLocalTvList(params).flatMap { cached ->
-            if (cached.isEmpty()) {
-                discoverRepository.getDiscoverTvs(params).flatMap { tvs ->
-                    tvRepository.insertTvList(tvs).andThen(
-                        Single.just(tvs)
-                    )
-                }
-            } else {
-                Single.just(cached)
-            }
+        return discoverRepository.getDiscoverTvs(params).flatMap { remote ->
+            tvRepository.insertTvList(remote).andThen(
+                Single.just(remote)
+            )
+        }.onErrorResumeNext {
+            tvRepository.getLocalTvList(params)
         }.subscribeOn(Schedulers.io())
     }
 }
