@@ -8,6 +8,8 @@ interface TvLocalDataSource {
 
     fun insertTvList(tvDataList: List<TvData>): Completable
 
+    fun insertTv(tvData: TvData): Completable
+
     fun updateTv(tv: TvData): Completable
 
     fun getTv(id: Int): Single<TvData>

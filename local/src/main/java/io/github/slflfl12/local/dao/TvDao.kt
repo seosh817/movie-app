@@ -12,6 +12,9 @@ interface TvDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertTvList(tvs: List<TvEntity>?): Completable
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertTv(tv: TvEntity): Completable
+
     @Update
     fun updateTv(tv: TvEntity): Completable
 

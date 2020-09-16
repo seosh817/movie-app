@@ -9,7 +9,9 @@ import io.reactivex.Single
 
 interface TvRepository {
 
-    fun insertTvList(tvDataList: List<TvModel>): Completable
+    fun insertTvList(tvModelList: List<TvModel>): Completable
+
+    fun insertTv(tvModel: TvModel): Completable
 
     fun updateTv(tv: TvModel): Completable
 

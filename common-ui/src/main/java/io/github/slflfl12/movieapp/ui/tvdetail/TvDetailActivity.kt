@@ -26,7 +26,7 @@ class TvDetailActivity : BaseActivity<TvDetailViewModel>(){
         super.onCreate(savedInstanceState)
 
         intent?.getParcelableExtra<TvPresentationModel>(KEY_TV)?.let {
-            vm.idSubject.onNext(it.id)
+            vm.tvSubject.onNext(it)
         }
 
         with(binding) {

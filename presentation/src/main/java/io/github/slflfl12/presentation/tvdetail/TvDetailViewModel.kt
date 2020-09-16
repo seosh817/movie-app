@@ -26,7 +26,7 @@ class TvDetailViewModel @ViewModelInject constructor(
     private val getLocalTvUseCase: GetLocalTvUseCase
 ) : BaseViewModel() {
 
-    var idSubject: BehaviorSubject<Int> = BehaviorSubject.create()
+    var tvSubject: BehaviorSubject<TvPresentationModel> = BehaviorSubject.create()
 
     private val _tv = MutableLiveData<TvPresentationModel>()
     val tv: LiveData<TvPresentationModel>
@@ -51,7 +51,7 @@ class TvDetailViewModel @ViewModelInject constructor(
     private lateinit var tvModel: TvPresentationModel
 
     init {
-        idSubject.subscribeOn(Schedulers.io())
+        tvSubject.subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 getTv(it)
@@ -60,16 +60,16 @@ class TvDetailViewModel @ViewModelInject constructor(
             }).addTo(compositeDisposable)
     }
 
-    private fun getTv(id: Int) {
+    private fun getTv(tv: TvPresentationModel) {
         Single.zip(
-            getTvKeywordListUseCase(id),
-            getTvReviewListUseCase(id),
-            getTvVideoListUseCase(id),
+            getTvKeywordListUseCase(TvPresentationMapper.mapToDomain(tv)),
+            getTvReviewListUseCase(TvPresentationMapper.mapToDomain(tv)),
+            getTvVideoListUseCase(TvPresentationMapper.mapToDomain(tv)),
             Function3<List<KeywordModel>, List<ReviewModel>, List<VideoModel>, Triple<List<KeywordModel>, List<ReviewModel>, List<VideoModel>>> { t1, t2, t3 ->
                 Triple(t1, t2, t3)
             }
         ).flatMap {
-            getLocalTvUseCase(id)
+            getLocalTvUseCase(tv.id)
         }.subscribeOn(Schedulers.io())
             .map(TvPresentationMapper::mapToPresentation)
             .observeOn(AndroidSchedulers.mainThread())

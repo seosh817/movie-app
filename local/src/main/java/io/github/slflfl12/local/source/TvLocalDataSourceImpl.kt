@@ -16,6 +16,10 @@ class TvLocalDataSourceImpl(
             .subscribeOn(Schedulers.io())
     }
 
+    override fun insertTv(tvData: TvData): Completable {
+        return tvDao.insertTv(TvLocalMapper.mapToLocal(tvData))
+    }
+
     override fun updateTv(tv: TvData): Completable {
         return tvDao.updateTv(TvLocalMapper.mapToLocal(tv))
             .subscribeOn(Schedulers.io())

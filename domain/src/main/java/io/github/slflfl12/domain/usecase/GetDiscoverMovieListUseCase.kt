@@ -13,7 +13,12 @@ class GetDiscoverMovieListUseCase(
 ) : SingleUseCase<List<MovieModel>, Int>() {
 
     override fun buildUseCaseSingle(params: Int): Single<List<MovieModel>> {
-        return discoverRepository.getDiscoverMovies(params)
-            .subscribeOn(Schedulers.io())
+        return discoverRepository.getDiscoverMovies(params).flatMap { remote ->
+            movieRepository.insertMovieList(remote).andThen(
+                Single.just(remote)
+            )
+        }.onErrorResumeNext {
+            movieRepository.getLocalMovieList(params)
+        }.subscribeOn(Schedulers.io())
     }
 }
