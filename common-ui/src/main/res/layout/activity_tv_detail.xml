@@ -50,6 +50,17 @@
                         android:scaleType="centerCrop"
                         app:bindBackDrop="@{tv}"
                         app:layout_collapseMode="parallax" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="12dp"
+                        android:layout_marginBottom="12dp"
+                        android:onClick="@{()-> vm.onClickFavorite(tv)}"
+                        app:bindFavorite="@{vm.favorite}"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:tint="@color/colorAccent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.appcompat.widget.Toolbar

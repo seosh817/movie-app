@@ -1,10 +1,10 @@
 package io.github.slflfl12.movieapp.viewholders
 
 import androidx.recyclerview.widget.RecyclerView
-import io.github.slflfl12.movieapp.databinding.ItemPersonTvBinding
+import io.github.slflfl12.movieapp.databinding.ItemTvDetailBinding
 import io.github.slflfl12.presentation.model.TvPresentationModel
 
-class PersonTvViewHolder(private val binding: ItemPersonTvBinding) :
+class TvDetailViewHolder(private val binding: ItemTvDetailBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
     fun bind(item: TvPresentationModel) {

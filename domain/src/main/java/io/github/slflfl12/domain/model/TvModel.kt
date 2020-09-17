@@ -18,5 +18,5 @@ data class TvModel(
     val posterPath: String?,
     val voteAverage: Float?,
     val voteCount: Int,
-    val favorite: Boolean
+    var favorite: Boolean
 ): Model

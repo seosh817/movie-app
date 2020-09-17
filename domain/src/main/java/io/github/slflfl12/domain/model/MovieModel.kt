@@ -19,5 +19,5 @@ data class MovieModel(
     val video: Boolean?,
     val voteAverage: Float?,
     val voteCount: Int?,
-    val favorite: Boolean
+    var favorite: Boolean
 ): Model

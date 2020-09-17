@@ -1,15 +1,12 @@
 package io.github.slflfl12.movieapp.bindings
 
-import android.app.Activity
-import android.app.ActivityOptions
 import android.content.Intent
 import android.net.Uri
 import android.view.View
-import androidx.core.content.ContextCompat.startActivity
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
-import io.github.slflfl12.movieapp.adapters.PersonMovieAdapter
-import io.github.slflfl12.movieapp.adapters.PersonTvAdapter
+import io.github.slflfl12.movieapp.adapters.MovieDetailAdapter
+import io.github.slflfl12.movieapp.adapters.TvDetailAdapter
 import io.github.slflfl12.movieapp.adapters.ReviewAdapter
 import io.github.slflfl12.movieapp.adapters.VideoAdapter
 import io.github.slflfl12.movieapp.extensions.visible
@@ -18,9 +15,7 @@ import io.github.slflfl12.movieapp.ui.peopledetail.PeopleDetailActivity
 import io.github.slflfl12.movieapp.ui.tvdetail.TvDetailActivity
 import io.github.slflfl12.movieapp.util.PosterPath
 import io.github.slflfl12.movieapp.util.doIfNotNullOrEmpty
-import io.github.slflfl12.presentation.base.BaseViewModel
 import io.github.slflfl12.presentation.model.*
-import io.github.slflfl12.presentation.moviedetail.MovieDetailViewModel
 
 @BindingAdapter("bindVideoAdapterList")
 fun bindVideoAdapterList(recyclerView: RecyclerView, videos: List<VideoPresentationModel>?) {
@@ -32,12 +27,12 @@ fun bindVideoAdapterList(recyclerView: RecyclerView, videos: List<VideoPresentat
     }
 }
 
-@BindingAdapter("bindPersonMovieAdapterList")
-fun bindPersonMovieAdapterList(
+@BindingAdapter("bindMovieDetailAdapterList")
+fun bindMovieDetailAdapterList(
     recyclerView: RecyclerView,
     movies: List<MoviePresentationModel>?
 ) {
-    val adapter = PersonMovieAdapter()
+    val adapter = MovieDetailAdapter()
     movies.doIfNotNullOrEmpty { list ->
         recyclerView.adapter = adapter
         adapter.setMovieList(list.sortedByDescending { it.releaseDate })
@@ -45,12 +40,12 @@ fun bindPersonMovieAdapterList(
     }
 }
 
-@BindingAdapter("bindPersonTvAdapterList")
-fun bindPersonTvAdapterList(
+@BindingAdapter("bindTvDetailAdapterList")
+fun bindTvDetailAdapterList(
     recyclerView: RecyclerView,
     tvs: List<TvPresentationModel>?
 ) {
-    val adapter = PersonTvAdapter()
+    val adapter = TvDetailAdapter()
     tvs.doIfNotNullOrEmpty { list ->
         recyclerView.adapter = adapter
         adapter.setTvList(list.sortedByDescending { it.firstAirDate })

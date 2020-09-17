@@ -25,5 +25,5 @@ data class MovieEntity(
     val video: Boolean?,
     val vote_average: Float?,
     val vote_count: Int?,
-    var favorite: Boolean = false
+    var favorite: Boolean
 ) : io.github.slflfl12.local.model.Entity

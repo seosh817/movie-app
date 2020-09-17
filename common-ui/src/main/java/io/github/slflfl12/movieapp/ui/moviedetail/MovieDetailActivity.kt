@@ -3,7 +3,9 @@ package io.github.slflfl12.movieapp.ui.moviedetail
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import dagger.hilt.android.AndroidEntryPoint
@@ -54,6 +56,11 @@ class MovieDetailActivity : BaseActivity<MovieDetailViewModel>() {
                 this@MovieDetailActivity::onVideoItemClick
             )
         )
+
+        vm.networkError.observe(this, Observer {
+            Toast.makeText(this, getString(R.string.network_error_message), Toast.LENGTH_SHORT).show()
+            Log.d("seunghwan", it.toString())
+        })
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
