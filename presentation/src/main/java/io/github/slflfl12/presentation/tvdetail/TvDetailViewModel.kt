@@ -23,7 +23,8 @@ class TvDetailViewModel @ViewModelInject constructor(
     private val getTvKeywordListUseCase: GetTvKeywordListUseCase,
     private val getTvReviewListUseCase: GetTvReviewListUseCase,
     private val getTvVideoListUseCase: GetTvVideoListUseCase,
-    private val getLocalTvUseCase: GetLocalTvUseCase
+    private val getLocalTvUseCase: GetLocalTvUseCase,
+    private val getTvFavoriteUseCase: GetTvFavoriteUseCase
 ) : BaseViewModel() {
 
     var tvSubject: BehaviorSubject<TvPresentationModel> = BehaviorSubject.create()
@@ -44,11 +45,11 @@ class TvDetailViewModel @ViewModelInject constructor(
         tv.videos
     }
 
+    val favorite = MutableLiveData<Boolean>()
+
     private val _networkError = MutableLiveData<Throwable>()
     val networkError: LiveData<Throwable>
         get() = _networkError
-
-    private lateinit var tvModel: TvPresentationModel
 
     init {
         tvSubject.subscribeOn(Schedulers.io())
@@ -75,9 +76,19 @@ class TvDetailViewModel @ViewModelInject constructor(
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ tv ->
                 _tv.value = tv
-                tvModel = tv
+                favorite.value = tv.favorite
             }, {
                 _networkError.value = it
+            }).addTo(compositeDisposable)
+    }
+
+    fun onClickFavorite(tv: TvPresentationModel) {
+        getTvFavoriteUseCase(tv.id).subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({ movie ->
+                favorite.value = movie.favorite
+            }, {
+
             }).addTo(compositeDisposable)
     }
 

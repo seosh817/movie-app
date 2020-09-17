@@ -1,5 +1,6 @@
 package io.github.slflfl12.presentation.moviedetail
 
+import android.util.Log
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -27,7 +28,8 @@ class MovieDetailViewModel @ViewModelInject constructor(
     private val getMovieKeywordListUseCase: GetMovieKeywordListUseCase,
     private val getMovieReviewListUseCase: GetMovieReviewListUseCase,
     private val getMovieVideoListUseCase: GetMovieVideoListUseCase,
-    private val getLocalMovieUseCase: GetLocalMovieUseCase
+    private val getLocalMovieUseCase: GetLocalMovieUseCase,
+    private val getMovieFavoriteUseCase: GetMovieFavoriteUseCase
 ) : BaseViewModel() {
 
     var movieSubject: BehaviorSubject<MoviePresentationModel> = BehaviorSubject.create()
@@ -36,9 +38,10 @@ class MovieDetailViewModel @ViewModelInject constructor(
     val movie: LiveData<MoviePresentationModel>
         get() = _movie
 
-    val keywordList: LiveData<List<KeywordPresentationModel>> = Transformations.map(_movie) { movie ->
-        movie.keywords
-    }
+    val keywordList: LiveData<List<KeywordPresentationModel>> =
+        Transformations.map(_movie) { movie ->
+            movie.keywords
+        }
 
     val reviewList: LiveData<List<ReviewPresentationModel>> = Transformations.map(_movie) { movie ->
         movie.reviews
@@ -48,14 +51,16 @@ class MovieDetailViewModel @ViewModelInject constructor(
         movie.videos
     }
 
-    private lateinit var movieModel: MoviePresentationModel
+    val favorite = MutableLiveData<Boolean>()
 
+    private val _networkError = MutableLiveData<Throwable>()
+    val networkError: LiveData<Throwable>
+        get() = _networkError
 
 
     private val _videoItemClickEvent = MutableLiveData<Event<VideoPresentationModel>>()
     val videoItemClickEvent: LiveData<Event<VideoPresentationModel>>
         get() = _videoItemClickEvent
-
 
 
     init {
@@ -82,15 +87,22 @@ class MovieDetailViewModel @ViewModelInject constructor(
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ movie ->
                 _movie.value = movie
-                movieModel = movie
+                favorite.value = movie.favorite
+            }, {
+                _networkError.value = it
+            }).addTo(compositeDisposable)
+    }
+
+    fun onClickFavorite(movie: MoviePresentationModel) {
+        getMovieFavoriteUseCase(movie.id).subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({ movie ->
+                favorite.value = movie.favorite
             }, {
 
             }).addTo(compositeDisposable)
     }
 
-    fun onVideoItemClick(videoPresentationModel: VideoPresentationModel) {
-        _videoItemClickEvent.value = Event(videoPresentationModel)
-    }
 
 
 }

@@ -130,4 +130,36 @@ object DomainModule {
         return GetPersonTvUseCase(peopleRepository)
     }
 
+    @Provides
+    @Singleton
+    fun getMovieFavoriteUseCase(
+        movieRepository: MovieRepository
+    ): GetMovieFavoriteUseCase {
+        return GetMovieFavoriteUseCase(movieRepository)
+    }
+
+    @Provides
+    @Singleton
+    fun getTvFavoriteUseCase(
+        tvRepository: TvRepository
+    ): GetTvFavoriteUseCase {
+        return GetTvFavoriteUseCase(tvRepository)
+    }
+
+    @Provides
+    @Singleton
+    fun getFavoriteMovieListUseCase(
+        movieRepository: MovieRepository
+    ): GetFavoriteMovieListUseCase {
+        return GetFavoriteMovieListUseCase(movieRepository)
+    }
+
+    @Provides
+    @Singleton
+    fun getFavoriteTvListUseCase(
+        tvRepository: TvRepository
+    ): GetFavoriteTvListUseCase {
+        return GetFavoriteTvListUseCase(tvRepository)
+    }
+
 }

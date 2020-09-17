@@ -15,4 +15,6 @@ interface MovieLocalDataSource {
     fun getMovie(id: Int): Single<MovieData>
 
     fun getLocalMovieList(page: Int): Single<List<MovieData>>
+
+    fun getFavoriteMovieList(): Single<List<MovieData>>
 }

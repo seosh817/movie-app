@@ -31,4 +31,8 @@ class MovieLocalDataSourceImpl(
     override fun getLocalMovieList(page: Int): Single<List<MovieData>> =
         movieDao.getMovieList(page).map { it.map(MovieLocalMapper::mapToData) }
             .subscribeOn(Schedulers.io())
+
+    override fun getFavoriteMovieList(): Single<List<MovieData>> =
+        movieDao.getFavoriteMovieList().map { it.map(MovieLocalMapper::mapToData) }
+            .subscribeOn(Schedulers.io())
 }

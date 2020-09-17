@@ -5,6 +5,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
 import io.github.slflfl12.domain.usecase.*
+import io.github.slflfl12.presentation.favorite.FavoriteViewModel
 import io.github.slflfl12.presentation.moviedetail.MovieDetailViewModel
 import io.github.slflfl12.presentation.movie.MovieViewModel
 import io.github.slflfl12.presentation.people.PeopleViewModel
@@ -31,13 +32,15 @@ object PresentationModule {
         getMovieKeywordListUseCase: GetMovieKeywordListUseCase,
         getMovieReviewListUseCase: GetMovieReviewListUseCase,
         getMovieVideoListUseCase: GetMovieVideoListUseCase,
-        getLocalMovieUseCase: GetLocalMovieUseCase
+        getLocalMovieUseCase: GetLocalMovieUseCase,
+        getMovieFavoriteUseCase: GetMovieFavoriteUseCase
     ): MovieDetailViewModel {
         return MovieDetailViewModel(
             getMovieKeywordListUseCase,
             getMovieReviewListUseCase,
             getMovieVideoListUseCase,
-            getLocalMovieUseCase
+            getLocalMovieUseCase,
+            getMovieFavoriteUseCase
         )
     }
 
@@ -55,13 +58,15 @@ object PresentationModule {
         getTvKeywordListUseCase: GetTvKeywordListUseCase,
         getTvReviewListUseCase: GetTvReviewListUseCase,
         getTvVideoListUseCase: GetTvVideoListUseCase,
-        getLocalTvUseCase: GetLocalTvUseCase
+        getLocalTvUseCase: GetLocalTvUseCase,
+        getTvFavoriteUseCase: GetTvFavoriteUseCase
     ): TvDetailViewModel {
         return TvDetailViewModel(
             getTvKeywordListUseCase,
             getTvReviewListUseCase,
             getTvVideoListUseCase,
-            getLocalTvUseCase
+            getLocalTvUseCase,
+            getTvFavoriteUseCase
         )
     }
 
@@ -85,6 +90,15 @@ object PresentationModule {
             getPersonMovieUseCase,
             getPersonTvUseCase
         )
+    }
+
+    @Provides
+    @Singleton
+    fun provideFavoriteViewModel(
+        getFavoriteMovieListUseCase: GetFavoriteMovieListUseCase,
+        getFavoriteTvListUseCase: GetFavoriteTvListUseCase
+    ): FavoriteViewModel {
+        return FavoriteViewModel(getFavoriteMovieListUseCase, getFavoriteTvListUseCase)
     }
 
 

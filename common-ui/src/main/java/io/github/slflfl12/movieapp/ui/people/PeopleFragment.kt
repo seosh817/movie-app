@@ -1,9 +1,7 @@
 package io.github.slflfl12.movieapp.ui.people
 
-import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.core.app.ActivityOptionsCompat
@@ -21,7 +19,6 @@ import io.github.slflfl12.movieapp.databinding.FragmentPeopleBinding
 import io.github.slflfl12.movieapp.extensions.checkIsMaterialVersion
 import io.github.slflfl12.movieapp.ui.base.BaseFragment
 import io.github.slflfl12.movieapp.ui.peopledetail.PeopleDetailActivity
-import io.github.slflfl12.movieapp.util.EventObserver
 import io.github.slflfl12.presentation.model.PersonPresentationModel
 import io.github.slflfl12.presentation.people.PeopleViewModel
 

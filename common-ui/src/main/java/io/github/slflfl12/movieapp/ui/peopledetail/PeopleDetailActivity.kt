@@ -1,7 +1,5 @@
 package io.github.slflfl12.movieapp.ui.peopledetail
 
-import android.app.ActivityOptions
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
@@ -10,16 +8,9 @@ import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import dagger.hilt.android.AndroidEntryPoint
 import io.github.slflfl12.movieapp.R
-import io.github.slflfl12.movieapp.adapters.PersonMovieAdapter
-import io.github.slflfl12.movieapp.adapters.PersonTvAdapter
 import io.github.slflfl12.movieapp.databinding.ActivityPeopleDetailBinding
-import io.github.slflfl12.movieapp.extensions.applyPeopleMaterialTransform
 import io.github.slflfl12.movieapp.ui.base.BaseActivity
-import io.github.slflfl12.movieapp.ui.moviedetail.MovieDetailActivity
-import io.github.slflfl12.movieapp.ui.tvdetail.TvDetailActivity
-import io.github.slflfl12.presentation.model.MoviePresentationModel
 import io.github.slflfl12.presentation.model.PersonPresentationModel
-import io.github.slflfl12.presentation.model.TvPresentationModel
 import io.github.slflfl12.presentation.peopledetail.PeopleDetailViewModel
 
 @AndroidEntryPoint

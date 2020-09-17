@@ -61,8 +61,6 @@ fun bindVideo(imageView: ImageView, _path: String?, palette: View?) {
 }
 
 
-
-
 @SuppressLint("SetTextI18n")
 @BindingAdapter("bindReleaseDate")
 fun TextView.bindReleaseDate(_releaseDate: String?) {
@@ -78,8 +76,6 @@ fun TextView.bindAirDate(_airDate: String?) {
         text = context.getString(R.string.air_date_text, _airDate)
     }
 }
-
-
 
 
 @BindingAdapter("bindChipKeywords")
@@ -113,4 +109,22 @@ fun bindKnownAs(chipGroup: ChipGroup, knownList: List<String>?) {
 }
 
 
+@BindingAdapter("bindFavorite")
+fun bindFavorite(imageView: ImageView, favorite: Boolean) {
+    if (favorite) {
+        imageView.setImageDrawable(
+            ContextCompat.getDrawable(
+                imageView.context,
+                R.drawable.ic_heart
+            )
+        )
+    } else {
+        imageView.setImageDrawable(
+            ContextCompat.getDrawable(
+                imageView.context,
+                R.drawable.ic_heart_border
+            )
+        )
+    }
+}
 

@@ -1,5 +1,6 @@
 package io.github.slflfl12.movieapp.ui.main
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Window
@@ -7,7 +8,9 @@ import androidx.viewpager.widget.ViewPager
 import com.google.android.material.transition.MaterialContainerTransformSharedElementCallback
 import dagger.hilt.android.AndroidEntryPoint
 import io.github.slflfl12.movieapp.R
+import io.github.slflfl12.movieapp.ui.favorite.FavoriteActivity
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.tb_main.*
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -38,12 +41,16 @@ class MainActivity : AppCompatActivity() {
         }
 
         bnv_main.setOnNavigationItemSelectedListener {
-            when(it.itemId) {
+            when (it.itemId) {
                 R.id.action_movie -> view_pager.currentItem = 0
                 R.id.action_tv -> view_pager.currentItem = 1
                 R.id.action_celebrities -> view_pager.currentItem = 2
             }
             true
+        }
+        iv_main_favorite.setOnClickListener {
+            val favoriteIntent = Intent(this, FavoriteActivity::class.java)
+            startActivity(favoriteIntent)
         }
     }
 }

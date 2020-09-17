@@ -15,4 +15,6 @@ interface TvLocalDataSource {
     fun getTv(id: Int): Single<TvData>
 
     fun getLocalTvList(page: Int): Single<List<TvData>>
+
+    fun getFavoriteTvList(): Single<List<TvData>>
 }

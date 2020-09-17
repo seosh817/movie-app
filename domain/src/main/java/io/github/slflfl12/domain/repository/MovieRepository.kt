@@ -16,6 +16,7 @@ interface MovieRepository {
 
     fun getLocalMovieList(page: Int): Single<List<MovieModel>>
 
+    fun getFavoriteMovieList(): Single<List<MovieModel>>
 
     fun getKeywordList(id: Int): Single<List<KeywordModel>>
 

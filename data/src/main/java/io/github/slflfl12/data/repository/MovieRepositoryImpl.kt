@@ -43,6 +43,11 @@ class MovieRepositoryImpl(
             .map { it.map(MovieDataMapper::mapToDomain) }
     }
 
+    override fun getFavoriteMovieList(): Single<List<MovieModel>> {
+        return movieLocalDataSource.getFavoriteMovieList()
+            .map { it.map(MovieDataMapper::mapToDomain) }
+    }
+
     override fun getKeywordList(id: Int): Single<List<KeywordModel>> {
         return movieRemoteDataSource.getKeywords(id).map { it.map(KeywordDataMapper::mapToDomain) }
     }

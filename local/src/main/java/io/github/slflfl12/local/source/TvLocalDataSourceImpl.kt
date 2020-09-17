@@ -34,4 +34,9 @@ class TvLocalDataSourceImpl(
         return tvDao.getTvList(page).map { it.map(TvLocalMapper::mapToData)}
             .subscribeOn(Schedulers.io())
     }
+
+    override fun getFavoriteTvList(): Single<List<TvData>> {
+        return tvDao.getFavoriteTvList().map { it.map(TvLocalMapper::mapToData)}
+            .subscribeOn(Schedulers.io())
+    }
 }

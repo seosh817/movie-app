@@ -119,9 +119,9 @@
                     android:layout_marginTop="12dp"
                     android:orientation="horizontal"
                     android:visibility="gone"
-                    app:bindPersonMovieAdapterList="@{vm.personMovieList}"
+                    app:bindMovieDetailAdapterList="@{vm.personMovieList}"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    tools:listitem="@layout/item_person_movie"
+                    tools:listitem="@layout/item_movie_detail"
                     tools:visibility="visible" />
 
                 <TextView
@@ -141,9 +141,9 @@
                     android:layout_marginTop="12dp"
                     android:orientation="horizontal"
                     android:visibility="gone"
-                    app:bindPersonTvAdapterList="@{vm.personTvList}"
+                    app:bindTvDetailAdapterList="@{vm.personTvList}"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    tools:listitem="@layout/item_person_movie"
+                    tools:listitem="@layout/item_tv_detail"
                     tools:visibility="visible" />
 
 

@@ -19,6 +19,8 @@ interface TvRepository {
 
     fun getLocalTvList(page: Int): Single<List<TvModel>>
 
+    fun getFavoriteTvList(): Single<List<TvModel>>
+
     fun getKeywordList(id: Int): Single<List<KeywordModel>>
 
     fun getVideoList(id: Int): Single<List<VideoModel>>

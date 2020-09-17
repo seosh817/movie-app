@@ -32,6 +32,10 @@ class TvRepositoryImpl(
         return tvLocalDataSource.getLocalTvList(page).map { it.map(TvDataMapper::mapToDomain) }
     }
 
+    override fun getFavoriteTvList(): Single<List<TvModel>> {
+        return tvLocalDataSource.getFavoriteTvList().map { it.map(TvDataMapper::mapToDomain) }
+    }
+
     override fun getLocalTv(id: Int): Single<TvModel> {
         return tvLocalDataSource.getTv(id).map(TvDataMapper::mapToDomain)
     }
