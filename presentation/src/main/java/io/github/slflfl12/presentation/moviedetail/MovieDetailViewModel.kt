@@ -15,6 +15,7 @@ import io.github.slflfl12.presentation.model.KeywordPresentationModel
 import io.github.slflfl12.presentation.model.MoviePresentationModel
 import io.github.slflfl12.presentation.model.ReviewPresentationModel
 import io.github.slflfl12.presentation.model.VideoPresentationModel
+import io.github.slflfl12.presentation.rxbus.RxBus
 import io.github.slflfl12.presentation.util.Event
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -96,8 +97,10 @@ class MovieDetailViewModel @ViewModelInject constructor(
     fun onClickFavorite(movie: MoviePresentationModel) {
         getMovieFavoriteUseCase(movie.id).subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
+            .map(MoviePresentationMapper::mapToPresentation)
             .subscribe({ movie ->
                 favorite.value = movie.favorite
+                RxBus.movieOnNext(movie)
             }, {
 
             }).addTo(compositeDisposable)

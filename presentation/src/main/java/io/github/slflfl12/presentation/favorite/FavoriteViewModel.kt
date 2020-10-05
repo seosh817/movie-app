@@ -1,5 +1,6 @@
 package io.github.slflfl12.presentation.favorite
 
+import android.util.Log
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -12,6 +13,7 @@ import io.github.slflfl12.presentation.mapper.MoviePresentationMapper
 import io.github.slflfl12.presentation.mapper.TvPresentationMapper
 import io.github.slflfl12.presentation.model.MoviePresentationModel
 import io.github.slflfl12.presentation.model.TvPresentationModel
+import io.github.slflfl12.presentation.rxbus.RxBus
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.functions.BiFunction
@@ -32,6 +34,10 @@ class FavoriteViewModel @ViewModelInject constructor(
         get() = _tvList
 
     init {
+        initViewModel()
+    }
+
+    private fun initViewModel() {
         getFavoriteMovieAndTv()
     }
 
@@ -50,5 +56,7 @@ class FavoriteViewModel @ViewModelInject constructor(
 
             }).addTo(compositeDisposable)
     }
+
+
 
 }

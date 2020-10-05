@@ -1,5 +1,6 @@
 package io.github.slflfl12.movieapp.adapters
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -32,5 +33,21 @@ class TvDetailAdapter : RecyclerView.Adapter<TvDetailViewHolder>() {
         items.addAll(list)
         notifyDataSetChanged()
     }
+
+    fun addTv(tv: TvPresentationModel) {
+        items.add(items.size, tv)
+        notifyItemInserted(items.size - 1)
+    }
+
+    fun removeTv(tv: TvPresentationModel) {
+        for (i in items.indices) {
+            if (items[i].id == tv.id) {
+                items.remove(items[i])
+                notifyItemRemoved(i)
+            }
+        }
+
+    }
+
 
 }

@@ -12,6 +12,7 @@ import io.github.slflfl12.domain.usecase.*
 import io.github.slflfl12.presentation.base.BaseViewModel
 import io.github.slflfl12.presentation.mapper.TvPresentationMapper
 import io.github.slflfl12.presentation.model.*
+import io.github.slflfl12.presentation.rxbus.RxBus
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.functions.Function3
@@ -85,8 +86,10 @@ class TvDetailViewModel @ViewModelInject constructor(
     fun onClickFavorite(tv: TvPresentationModel) {
         getTvFavoriteUseCase(tv.id).subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({ movie ->
-                favorite.value = movie.favorite
+            .map(TvPresentationMapper::mapToPresentation)
+            .subscribe({ tv ->
+                favorite.value = tv.favorite
+                RxBus.tvOnNext(tv)
             }, {
 
             }).addTo(compositeDisposable)

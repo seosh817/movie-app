@@ -4,6 +4,7 @@ import android.os.Parcelable
 import io.github.slflfl12.domain.model.KeywordModel
 import io.github.slflfl12.domain.model.ReviewModel
 import io.github.slflfl12.domain.model.VideoModel
+import io.github.slflfl12.presentation.rxbus.RxBusEvent
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
@@ -26,4 +27,4 @@ data class TvPresentationModel(
     val voteAverage: Float?,
     val voteCount: Int,
     val favorite: Boolean
-): PresentationModel, Parcelable
+) : PresentationModel, Parcelable, RxBusEvent

@@ -30,9 +30,9 @@ abstract class BaseFragment<B: ViewDataBinding, VM: BaseViewModel>(@LayoutRes pr
         return binding.root
     }
 
-    override fun onPause() {
+    override fun onDestroy() {
         vm.unbindViewModel()
-        super.onPause()
+        super.onDestroy()
     }
 
 

@@ -18,10 +18,12 @@ abstract class BaseActivity<VM : BaseViewModel> : AppCompatActivity() {
     abstract val vm: VM
 
 
-    override fun onPause() {
+    override fun onDestroy() {
         vm.unbindViewModel()
-        super.onPause()
+        super.onDestroy()
     }
+
+
 
     protected inline fun <reified T : ViewDataBinding> binding(
         @LayoutRes resId: Int

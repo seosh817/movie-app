@@ -1,6 +1,7 @@
 package io.github.slflfl12.presentation.model
 
 import android.os.Parcelable
+import io.github.slflfl12.presentation.rxbus.RxBusEvent
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
@@ -24,4 +25,4 @@ data class MoviePresentationModel(
     val voteAverage: Float?,
     val voteCount: Int?,
     val favorite: Boolean
-): PresentationModel,Parcelable
+) : PresentationModel, Parcelable, RxBusEvent

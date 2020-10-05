@@ -13,12 +13,16 @@ class GetDiscoverMovieListUseCase(
 ) : SingleUseCase<List<MovieModel>, Int>() {
 
     override fun buildUseCaseSingle(params: Int): Single<List<MovieModel>> {
-        return discoverRepository.getDiscoverMovies(params).flatMap { remote ->
-            movieRepository.insertMovieList(remote).andThen(
-                Single.just(remote)
-            )
-        }.onErrorResumeNext {
-            movieRepository.getLocalMovieList(params)
-        }.subscribeOn(Schedulers.io())
+        return movieRepository.getLocalMovieList(params).flatMap { movies ->
+            if (movies.size < 20) {
+                discoverRepository.getDiscoverMovies(params).flatMap { remote ->
+                    movieRepository.insertMovieList(remote).andThen(
+                        Single.just(remote)
+                    )
+                }
+            } else {
+                Single.just(movies)
+            }
+        }
     }
 }

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MovieApp</string>
+    <string name="app_name">The Movies</string>
     <string name="menu_tv">Tv</string>
     <string name="menu_movie">Movie</string>
     <string name="menu_star">Star</string>

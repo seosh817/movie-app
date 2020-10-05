@@ -15,8 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="180dp"
         android:layout_margin="4dp"
-        android:foreground="?attr/selectableItemBackground"
-        app:layout_constraintTop_toTopOf="parent">
+        android:foreground="?attr/selectableItemBackground">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
