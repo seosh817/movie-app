@@ -5,10 +5,11 @@ import io.reactivex.disposables.CompositeDisposable
 
 abstract class BaseViewModel : ViewModel() {
 
-    protected val compositeDisposable: CompositeDisposable = CompositeDisposable()
+    val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
     fun unbindViewModel() {
         compositeDisposable.clear()
     }
+
 
 }

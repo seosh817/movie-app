@@ -89,7 +89,7 @@ class FavoriteActivity : BaseActivity<FavoriteViewModel>() {
             } else {
                 movieAdapter.removeMovie(movie)
             }
-        }.addTo(compositeDisposable)
+        }.addTo(vm.compositeDisposable)
 
         RxBus.tvSubscribe<TvPresentationModel> { tv ->
             if (tv.favorite) {
@@ -97,13 +97,9 @@ class FavoriteActivity : BaseActivity<FavoriteViewModel>() {
             } else {
                 tvAdapter.removeTv(tv)
             }
-        }.addTo(compositeDisposable)
+        }.addTo(vm.compositeDisposable)
     }
 
 
-    override fun onDestroy() {
-        compositeDisposable.clear()
-        super.onDestroy()
-    }
 
 }

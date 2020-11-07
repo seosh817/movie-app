@@ -10,6 +10,7 @@ import io.github.slflfl12.presentation.moviedetail.MovieDetailViewModel
 import io.github.slflfl12.presentation.movie.MovieViewModel
 import io.github.slflfl12.presentation.people.PeopleViewModel
 import io.github.slflfl12.presentation.peopledetail.PeopleDetailViewModel
+import io.github.slflfl12.presentation.search.SearchViewModel
 import io.github.slflfl12.presentation.tvdetail.TvDetailViewModel
 import io.github.slflfl12.presentation.tv.TvViewModel
 import javax.inject.Singleton
@@ -101,5 +102,10 @@ object PresentationModule {
         return FavoriteViewModel(getFavoriteMovieListUseCase, getFavoriteTvListUseCase)
     }
 
+    @Provides
+    @Singleton
+    fun provideSearchViewModel(): SearchViewModel {
+        return SearchViewModel()
+    }
 
 }
