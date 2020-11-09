@@ -16,4 +16,5 @@
     <string name="movies">Movies</string>
     <string name="tv_program">Tv Program</string>
     <string name="transition_profile">transition_profile</string>
+    <string name="search_movies">Search Movies</string>
 </resources>

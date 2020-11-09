@@ -9,6 +9,7 @@ import com.google.android.material.transition.MaterialContainerTransformSharedEl
 import dagger.hilt.android.AndroidEntryPoint
 import io.github.slflfl12.movieapp.R
 import io.github.slflfl12.movieapp.ui.favorite.FavoriteActivity
+import io.github.slflfl12.movieapp.ui.search.SearchActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.tb_main.*
 
@@ -51,6 +52,10 @@ class MainActivity : AppCompatActivity() {
         iv_main_favorite.setOnClickListener {
             val favoriteIntent = Intent(this, FavoriteActivity::class.java)
             startActivity(favoriteIntent)
+        }
+        iv_tb_search.setOnClickListener {
+            val searchIntent = Intent(this, SearchActivity::class.java)
+            startActivity(searchIntent)
         }
     }
 }
